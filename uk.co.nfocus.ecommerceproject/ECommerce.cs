@@ -41,7 +41,13 @@ namespace uk.co.nfocus.ecommerceproject
 
             Assert.That(StaticWaitForElement(driver, By.LinkText("[Remove]")).Displayed); //Check that the coupon takes off the discount
 
-            TakeScreenshot(driver, driver.FindElement(By.CssSelector(".cart_totals")), "Coupon-Discount-Price");
+            //Scroll page to see the action in a X-Browser friendly way.
+            IWebElement cartTotal = driver.FindElement(By.CssSelector(".cart_totals"));
+            IJavaScriptExecutor? jsdriver = driver as IJavaScriptExecutor; //Historically not all drivers could execute JS, so there is a need to cast a capable drievr to a type that can run JS.
+            jsdriver?.ExecuteScript("arguments[0].scrollIntoView()", cartTotal); //footer is the 0th argument passed in
+            
+            TakeScreenshot(driver, cartTotal, "Coupon-Discount-Price");
+
 
             //Get Subtotal price in decimal
             decimal price = StringToDecimal(driver, By.CssSelector("td:nth-child(2) > .woocommerce-Price-amount > bdi"));
