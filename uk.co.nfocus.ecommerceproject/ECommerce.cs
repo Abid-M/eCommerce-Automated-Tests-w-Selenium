@@ -39,6 +39,11 @@ namespace uk.co.nfocus.ecommerceproject
             nav.goToCart();
             Console.WriteLine("Navigated to the Cart Page");
 
+            CartPOM cart = new CartPOM(driver);
+            cart.EnterCoupon("edgewords").ApplyCoupon();
+            Assert.That(cart.ValidateCoupon(), "Coupon does not exist!");
+
+            TakeScreenshot(driver, By.CssSelector(".cart_totals"), "Coupon-Discount-Price");
 
 
         }
@@ -77,7 +82,7 @@ namespace uk.co.nfocus.ecommerceproject
             IJavaScriptExecutor? jsdriver = driver as IJavaScriptExecutor; //Historically not all drivers could execute JS, so there is a need to cast a capable drievr to a type that can run JS.
             jsdriver?.ExecuteScript("arguments[0].scrollIntoView()", cartTotal); //footer is the 0th argument passed in
             
-            TakeScreenshot(driver, cartTotal, "Coupon-Discount-Price");
+            TakeScreenshot(driver, By.CssSelector(".cart_totals"), "Coupon-Discount-Price");
 
 
             //Get Subtotal price in decimal
