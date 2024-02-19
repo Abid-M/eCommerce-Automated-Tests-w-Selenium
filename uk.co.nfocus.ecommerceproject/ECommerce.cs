@@ -7,11 +7,42 @@ using System.Text;
 using System.Threading.Tasks;
 using uk.co.nfocus.ecommerceproject.Utils;
 using static uk.co.nfocus.ecommerceproject.Utils.HelperLib;
+using uk.co.nfocus.ecommerceproject.POMClasses;
 
 namespace uk.co.nfocus.ecommerceproject
 {
     internal class ECommerce : BaseTest
     {
+
+        [Test]
+        public void TestCouponDiscountPOM()
+        {
+            //Move login to helper or setup
+            LoginPOM login = new LoginPOM(driver);
+
+            bool loggedIn = login.ValidLogin(Environment.GetEnvironmentVariable("USERNAME"), Environment.GetEnvironmentVariable("PASSWORD"));
+            Assert.That(loggedIn, "We did not login");
+
+            //Navigate to Shop Page via navbar
+            NavPOM nav = new NavPOM(driver);
+            nav.goToShop();
+            Console.WriteLine("Navigated to the Shop Page");
+
+            //Find Item and Add to Cart
+            //(Use does not need to search, just finding an item on the shop page) 
+            ShopPOM shop = new ShopPOM(driver);
+            string item = "sunglasses";
+
+            bool itemExist = shop.FindItem(item); //Find Item and Add to cart
+            Assert.That(itemExist, "Item does not exist");
+
+            nav.goToCart();
+            Console.WriteLine("Navigated to the Cart Page");
+
+
+
+        }
+
         [Test]
         public void TestCouponDiscount()
         {

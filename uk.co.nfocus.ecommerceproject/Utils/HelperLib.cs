@@ -36,6 +36,17 @@ namespace uk.co.nfocus.ecommerceproject.Utils
             //TestContext.AddTestAttachment(@$"C:\Users\AbidMiah\OneDrive - nFocus Limited\Documents\screenshots\{el}_{date}.png", $"{el} png");
         }
 
+        public static void DismissBanner(IWebDriver driver)
+        {
+            try
+            {
+                driver.FindElement(By.LinkText("Dismiss")).Click();
+            } catch (Exception e)
+            {
+                //No Blue Banner shown
+            }
+        }
+
         public static void Login(IWebDriver driver)
         {
             driver.FindElement(By.Id("username")).SendKeys(Environment.GetEnvironmentVariable("USERNAME"));

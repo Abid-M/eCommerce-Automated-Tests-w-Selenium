@@ -37,6 +37,7 @@ namespace uk.co.nfocus.ecommerceproject.Utils
 
             driver.Manage().Window.Maximize();
             driver.Url = TestContext.Parameters["WebAppURL"];
+            DismissBanner(driver); //Dismisses the blue dialog
         }
 
         [TearDown]
@@ -59,10 +60,18 @@ namespace uk.co.nfocus.ecommerceproject.Utils
             }
 
             //Logout
-            StaticWaitForElement(driver, By.LinkText("My account")).Click(); 
-            driver.FindElement(By.LinkText("Logout")).Click();
-            Console.WriteLine("Completed Logout Process");
+            try
+            {
+                StaticWaitForElement(driver, By.LinkText("My account")).Click();
+                driver.FindElement(By.LinkText("Logout")).Click();
+                Console.WriteLine("Sucessfully Logged out");
+            } catch (Exception)
+            {
+                driver.FindElement(By.LinkText("Logout")).Click();
+                Console.WriteLine("Sucessfully Logged out");
+            }
 
+            Thread.Sleep(2000);
             driver.Quit(); //Quits browser and DriverServer and disposes of objects (although NUnit Analyser does not know this without further config)
         }
     }
