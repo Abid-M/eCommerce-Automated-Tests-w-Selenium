@@ -18,8 +18,17 @@ namespace uk.co.nfocus.ecommerceproject.Utils
             return driver.FindElement(locator);
         }
 
-        public static void TakeScreenshot(IWebDriver driver, IWebElement element, string el)
+        public static void ScrollElIntoView (IWebDriver driver, IWebElement element)
         {
+            IJavaScriptExecutor? jsdriver = driver as IJavaScriptExecutor;
+            jsdriver?.ExecuteScript("argustments[0].scrollIntoView()", element);
+        }
+
+        public static void TakeScreenshot(IWebDriver driver, By locator, string el)
+        {
+            IWebElement element = driver.FindElement(locator);
+            ScrollElIntoView(driver, element);
+
             var ssElm = element as ITakesScreenshot;
             Screenshot screenshotElm = ssElm.GetScreenshot();
 
