@@ -18,7 +18,7 @@
 * Log out
 
 ## Pre-requisites
-Before running te tests, make sure to:
+Before running the tests, make sure to:
 * Manually register a new account on the [e-commerce site](https://www.edgewordstraining.co.uk/demo-site/my-account/).
 
 ## Website
