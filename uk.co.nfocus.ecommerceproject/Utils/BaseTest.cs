@@ -84,16 +84,22 @@ namespace uk.co.nfocus.ecommerceproject.Utils
             //Logout
             try
             {
-                new NavPOM(driver).GoToAccount();
-                new MyAccountPOM(driver).Logout();
+                if (driver.Url.Contains("my-account"))
+                {
+                    new MyAccountPOM(driver).Logout();
+                } 
+                else
+                {
+                    new NavPOM(driver).GoToAccount();
+                    new MyAccountPOM(driver).Logout();
+                }
 
                 Console.WriteLine("Successfully Logged Out");
 
             } 
-            catch (Exception)
+            catch (Exception e)
             {
-                new MyAccountPOM(driver).Logout();
-                Console.WriteLine("Successfully Logged Out");
+                Console.WriteLine($"Logout Failed {e.Message}");
             }
 
             driver.Close();
