@@ -62,7 +62,7 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
                 }
             }
 
-            Console.WriteLine("Cart Cleared");
+            Console.WriteLine("Check Cart Cleared");
         }
 
         // Checks if the specified item is in the cart.
@@ -116,7 +116,6 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
                 // Check if the notice text mentions that the coupon has already been applied
                 if (noticeText.Contains("has been applied", StringComparison.OrdinalIgnoreCase))
                 {
-                    Console.WriteLine($"Valid Coupon Applied: '{coupon}'");
                     return true;
                 }
 
@@ -126,7 +125,6 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
             catch
             {
                 // If an exception is thrown (e.g. if the notice element is not found), assume that the coupon was applied successfully
-                Console.WriteLine($"Valid Coupon Applied: '{coupon}'");
                 return true; //Coupon applied
             }
         }

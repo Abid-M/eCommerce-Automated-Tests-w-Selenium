@@ -28,6 +28,7 @@ namespace uk.co.nfocus.ecommerceproject
             //Apply coupon check
             cart.EnterCoupon(coupon).ApplyCoupon();
             Assert.That(cart.ValidateCoupon(coupon), "Coupon does not exist!");
+            Console.WriteLine($"Valid Coupon Applied: '{coupon}'..");
 
             //Reports discount percentage
             Console.WriteLine($"Applied a {cart.GetDiscountPercentage()}% discount"); 
@@ -49,6 +50,7 @@ namespace uk.co.nfocus.ecommerceproject
 
             //Navigate to Checkout Page
             new CartPOM(driver).GoToCheckout();
+            Console.WriteLine("Navigated to Checkout page");
 
             //Create customer object
             Customer testCustomer = new Customer("Abid", "Miah", "17 Sui Lane", "London", "SW19 2JY", "07365827365", "test.email@nfocus.co.uk");
@@ -56,10 +58,11 @@ namespace uk.co.nfocus.ecommerceproject
             //Fill in Billing Input Fields with testCustomer object
             CheckoutPOM checkout = new CheckoutPOM(driver);
             checkout.FillInBillingDetails(testCustomer);
+            Console.WriteLine("Billing Details Populated..");
 
             //Validate billing fields have been entered
             Assert.That(checkout.ValidateDetails(testCustomer), "Billing input fields not entered!");
-            Console.WriteLine("Billing Details filled in");
+            Console.WriteLine("Validated Billing Details have actually been populated");
 
             //Selecting Cheque payment and placing the order
             checkout.SelectChequePayment().PlaceOrder(); 
@@ -72,11 +75,12 @@ namespace uk.co.nfocus.ecommerceproject
             //Navigate to orders page from account
             new NavPOM(driver).GoToAccount(); 
             new MyAccountPOM(driver).GoToOrders();
+            Console.WriteLine("Navigated to All Orders on account page");
             string orderNoCheck = new AllOrdersPOM(driver).GetNewOrderNumber();
 
             //Verifying order numbers are the same from Checkout and in Account Orders
             Assert.That(orderNoCheck, Is.EqualTo(newOrderNumber), "Order numbers do not match!");
-            Console.WriteLine($"Verified that the order numbers match..");
+            Console.WriteLine($"Verified that the order numbers match from checkout page..");
             Console.WriteLine($"Expected order number: {orderNoCheck}, Actual order number: {newOrderNumber}");
 
             TakeScreenshot(driver, By.CssSelector(".woocommerce-orders-table"), "Orders"); //Screenshot report
