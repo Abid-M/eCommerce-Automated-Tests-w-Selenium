@@ -22,7 +22,7 @@ namespace uk.co.nfocus.ecommerceproject.Utils
         [SetUp] //Runs before each and every [Test] in this class
         public void Setup()
         {
-            string browser = Environment.GetEnvironmentVariable("BROWSER"); 
+            string? browser = Environment.GetEnvironmentVariable("BROWSER"); 
 
             //Instantiate a browser based on environment variable
             switch (browser)
@@ -34,7 +34,7 @@ namespace uk.co.nfocus.ecommerceproject.Utils
                     driver = new FirefoxDriver();
                     break;
                 default:
-                    driver = new ChromeDriver();
+                    driver = new EdgeDriver();
                     break;
             }
 
@@ -91,6 +91,7 @@ namespace uk.co.nfocus.ecommerceproject.Utils
                 Console.WriteLine("Successfully Logged Out");
             }
 
+            driver.Close();
             driver.Quit(); 
         }
     }

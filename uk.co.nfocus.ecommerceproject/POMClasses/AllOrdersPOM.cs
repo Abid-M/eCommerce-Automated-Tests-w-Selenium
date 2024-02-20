@@ -21,9 +21,10 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
 
         //Locators
         //Gets the first td in the table row (latest top order)
-        IWebElement _newOrderNumber =>  StaticWaitForElement(_driver, By.XPath("//tr/td[1]/a")); 
+        IWebElement _newOrderNumber =>  StaticWaitForElement(_driver, By.XPath("//tr/td[1]/a"));
 
 
+        // Gets the new order number from the order confirmation page.
         public string GetNewOrderNumber()
         {
             string newOrderNo = _newOrderNumber.Text;

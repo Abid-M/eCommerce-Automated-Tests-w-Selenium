@@ -10,18 +10,19 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
 {
     internal class OrderInfoPOM
     {
-        //Field that will hold a driver for Service Methods in this test to work with
+        // Field that will hold a driver for Service Methods in this test to work with
         private IWebDriver _driver;
 
-        //Constructor to get the driver from the test
+        // Constructor to get the driver from the test
         public OrderInfoPOM(IWebDriver driver)
         {
             this._driver = driver;
         }
 
-        //Locators
+        // Locators
         private IWebElement _orderNumber => StaticWaitForElement(_driver, By.CssSelector(".order strong"));
 
+        // Gets the order number from the order confirmation page.
         public string GetOrderNumber()
         {
             return _orderNumber.Text;

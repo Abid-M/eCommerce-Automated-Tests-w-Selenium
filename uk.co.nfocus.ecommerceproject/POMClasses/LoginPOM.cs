@@ -16,9 +16,6 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
         public LoginPOM(IWebDriver driver)
         {
             this._driver = driver;
-            //Assert.That(_driver.FindElement(By.TagName("h1")).Text, Does.Contain("Access and Authentication"), "Must be wrong page");
-            //Assert.That(_driver.Url, Does.Contain("whatever"));
-            //Assert.That(_driver.title, Is.EqualTo("whatever"));
         }
 
         //Locators
@@ -26,7 +23,7 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
         private IWebElement _passwordField => _driver.FindElement(By.Id("password"));
         private IWebElement _loginButton => _driver.FindElement(By.Name("login"));
 
-        //Service methods
+        // Clears and sets the value of the username field.
         public LoginPOM SetUsername(string username)
         {
             _usernameField.Clear();
@@ -34,6 +31,8 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
 
             return this;
         }
+
+        // Clears and sets the value of the password field.
         public LoginPOM SetPassword(string password)
         {
             _passwordField.Clear();
@@ -42,11 +41,14 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
             return this;
         }
 
+        // Clicks the login button.
         public void GoLogin()
         {
             _loginButton.Click();
         }
 
+
+        /* Attempts to log in with the specified username and password. */
         public bool ValidLogin(string username, string password)
         {
             SetUsername(username);
@@ -55,10 +57,11 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
 
             try
             {
+                // Checks if error banner is displayed, Login Failed
                 _driver.FindElement(By.ClassName("woocommerce-error"));
                 return false;
             }
-            catch (Exception e)
+            catch
             {
                 Console.WriteLine("Successfully Logged In");
                 return true; //Login success

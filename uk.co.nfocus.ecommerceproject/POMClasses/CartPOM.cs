@@ -33,11 +33,11 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
         private IWebElement _checkoutLink => StaticWaitForElement(_driver, By.ClassName("checkout-button"));
 
 
-        //Empty cart on initial load of test, loop 100 times in order to try and catch and hope it removes all items before 25 tries.
+        //Empty cart on initial load of test, loop max. 50 times.
         public void EmptyCart()
         {
             //NOT while loop, just in case it gets stuck in an infinite loop
-            for (int i = 0; i < 100; i++)
+            for (int i = 0; i < 50; i++)
             {
                 try
                 {
@@ -51,16 +51,12 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
                     }
                     catch
                     {
-                       //Need additional try catch so doesn't loop 100 times (false positives)
+                       //Need additional try catch so doesn't loop 50 times (false positives)
                     }
 
-                    // Check if the remove button is present before clicking it
-                    if (_removeItemButton.Displayed && _removeItemButton.Enabled)
-                    {
-                        _removeItemButton.Click();
-                    } 
+                    _removeItemButton.Click();
                 }
-                catch (Exception e)
+                catch
                 {
                     // Try again
                 }
@@ -68,18 +64,27 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
 
             Console.WriteLine("Cart Cleared");
         }
+
+        // Checks if the specified item is in the cart.
         public bool CheckItemInCart(string name)
         {
+            // Iterate through each item in the cart
             foreach (IWebElement item in _items)
             {
+                // Check if the item's text matches the specified name (case-insensitive)
                 if (item.Text.ToLower().Equals(name.ToLower()))
                 {
+                    // If a match is found, print a message to the console and return true
                     Console.WriteLine($"Verified that the '{name}' item is in the cart");
                     return true;
                 }
             }
+
+            // If no match is found, return false
             return false;
         }
+
+        // Clears and sets the value coupon from argument value.
         public CartPOM EnterCoupon(string coupon)
         {
             _couponCodeField.Clear();
@@ -88,72 +93,92 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
             return this;
         }
 
+        // Clicks apply coupon button
         public void ApplyCoupon()
         {
             _applyCouponButton.Click();
         }
 
+        // Validates that the specified coupon code can be applied to the cart.
         public bool ValidateCoupon(string coupon)
         {
             try
             {
+                // Get the notice text from the page
                 string noticeText = StaticWaitForElement(_driver, By.ClassName("woocommerce-error")).Text;
 
+                // Check if the notice text indicates that the coupon does not exist
                 if (noticeText.Contains("does not exist!"))
                 {
                     return false;
                 }
 
-                //notice text mentions coupon already applied
-                Console.WriteLine($"Valid Coupon Applied: '{coupon}'");
-                return true;
-                
+                // Check if the notice text mentions that the coupon has already been applied
+                if (noticeText.Contains("has been applied", StringComparison.OrdinalIgnoreCase))
+                {
+                    Console.WriteLine($"Valid Coupon Applied: '{coupon}'");
+                    return true;
+                }
+
+                // If the notice text does not indicate that the coupon is invalid or applied, return false
+                return false;
             }
-            catch (Exception e)
+            catch
             {
+                // If an exception is thrown (e.g. if the notice element is not found), assume that the coupon was applied successfully
                 Console.WriteLine($"Valid Coupon Applied: '{coupon}'");
                 return true; //Coupon applied
             }
         }
 
+        // Gets the subtotal price from the cart page.
         public decimal GetSubtotalPrice()
         {
             string strValue = _subtotalPrice.Text;
             return decimal.Parse(strValue, NumberStyles.Currency); //Removes pound symbol
         }
 
+        // Gets the shipping price from the cart page.
         public decimal GetShippingPrice()
         {
             string strValue = _shippingPrice.Text;
             return decimal.Parse(strValue, NumberStyles.Currency); //Removes pound symbol
         }
 
+        // Gets the grand total price from the cart page.
         public decimal GetGrandTotalPrice()
         {
             string strValue = _grandTotalPrice.Text;
             return decimal.Parse(strValue, NumberStyles.Currency); //Removes pound symbol
         }
 
+        // Gets the coupon discount from the cart page.
         public decimal GetCouponDiscount()
         {
             string strValue = _couponDiscount.Text;
             return decimal.Parse(strValue, NumberStyles.Currency); //Removes pound symbol
         }
 
+        // Gets the coupon discount percentage as an integer.
         public int GetDiscountPercentage()
         {
+            // Calculate the coupon discount percentage as a decimal
             decimal discountPercentageAsDecimal = GetCouponDiscount() / GetSubtotalPrice() * 100;
+
+            // Convert the decimal to an integer
             int discountPercentage = (int)discountPercentageAsDecimal;
-            
+
             return discountPercentage;
         }
 
+        // Validates that the calculated total matches the grand total price.
         public decimal ValidateTotal()
         {
             decimal checkTotal = GetSubtotalPrice() - GetCouponDiscount() + GetShippingPrice();
             return checkTotal;
         }
 
+        // Navigates to the checkout page.
         public void GoToCheckout()
         {
             _checkoutLink.Click();

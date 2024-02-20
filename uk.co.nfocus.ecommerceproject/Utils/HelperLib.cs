@@ -12,74 +12,123 @@ namespace uk.co.nfocus.ecommerceproject.Utils
 {
     internal class HelperLib
     {
+        /* Waits for an element to be displayed on the page. */ 
         public static IWebElement StaticWaitForElement(IWebDriver driver, By locator, int timeoutInSeconds = 5)
         {
+            // Create a new WebDriverWait instance with the specified timeout
             WebDriverWait myWait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeoutInSeconds));
+
+            // Wait for the element to be displayed
             myWait.Until(drv => drv.FindElement(locator).Displayed);
+
+            // Return the element
             return driver.FindElement(locator);
         }
 
-        public static void ScrollElIntoView (IWebDriver driver, IWebElement element)
+        // Scrolls the specified element into view.
+        public static void ScrollElIntoView(IWebDriver driver, IWebElement element)
         {
+            // Check if the driver supports JavaScript execution
             IJavaScriptExecutor? jsdriver = driver as IJavaScriptExecutor;
-            jsdriver?.ExecuteScript("arguments[0].scrollIntoView()", element);
+
+            // If the driver supports JavaScript execution, scroll the element into view
+            if (jsdriver != null)
+            {
+                // Use the JavaScript executor to scroll the element into view
+                jsdriver.ExecuteScript("arguments[0].scrollIntoView()", element);
+            }
         }
 
+        
+        /* Takes a screenshot of the specified element and saves it. */
         public static void TakeScreenshot(IWebDriver driver, By locator, string el)
         {
-            IWebElement element = driver.FindElement(locator);
-            ScrollElIntoView(driver, element);
+            try
+            {
+                // Find the element
+                IWebElement element = driver.FindElement(locator);
 
-            var ssElm = element as ITakesScreenshot;
-            Screenshot screenshotElm = ssElm.GetScreenshot();
+                // Scroll the element into view
+                ScrollElIntoView(driver, element);
 
-            string date = DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss");
+                // Check if the element supports taking screenshots
+                var ssElm = element as ITakesScreenshot;
 
-            //current dir: in bin->Debug>net6.0->screenshots. From net6.0 back to project files
-            Directory.CreateDirectory(Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..\screenshots\"));
-            string filePath = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..\screenshots\", $"{el}_{date}.png");
+                // If the element supports taking screenshots, take a screenshot
+                if (ssElm != null)
+                {
+                    // Take the screenshot
+                    Screenshot screenshotElm = ssElm.GetScreenshot();
 
-            //screenshotElm.SaveAsFile(@$"C:\Users\AbidMiah\OneDrive - nFocus Limited\Documents\screenshots\{el}_{date}.png");
-            screenshotElm.SaveAsFile(filePath);
-            TestContext.WriteLine($"Attaching '{el}' screenshot to report");
-            TestContext.AddTestAttachment(filePath, $"{el} png");
-            //TestContext.AddTestAttachment(@$"C:\Users\AbidMiah\OneDrive - nFocus Limited\Documents\screenshots\{el}_{date}.png", $"{el} png");
+                    // Get the current date and time
+                    string date = DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss");
+
+                    // Create the directory for the screenshots if it doesn't exist
+                    //current dir: in bin->Debug>net6.0->screenshots. From net6.0 back to project files
+                    Directory.CreateDirectory(Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..\screenshots\"));
+
+                    // Create the file path for the screenshot
+                    string filePath = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..\screenshots\", $"{el}_{date}.png");
+
+                    // Save the screenshot to the file
+                    screenshotElm.SaveAsFile(filePath);
+
+                    // Write a message to the test output
+                    TestContext.WriteLine($"Attaching '{el}' screenshot to report");
+
+                    // Add the screenshot as a test attachment
+                    TestContext.AddTestAttachment(filePath, $"{el} png");
+                }
+            }
+            catch (Exception e)
+            {
+                // Write an error message to the console
+                Console.WriteLine($"Screenshot Failed {e.Message}");
+            }
         }
 
+        /* Navigates to the shop page, finds the specified item, 
+         * adds it to the cart, 
+         * checks that it is present in the cart. */
         public static void AddItemToCart(IWebDriver driver)
         {
-            //Navigate to Shop Page via navbar
+            // Navigate to the shop page via the navigation bar
             NavPOM nav = new NavPOM(driver);
             nav.GoToShop();
             Console.WriteLine("Navigated to the Shop Page");
 
-            //Find Item and Add to Cart
-            //(User does not need to search, finding the item directly on the shop page) 
+            // Find the specified item and add it to the cart
+            // (Assumes the item can be found directly on the shop page)
             ShopPOM shop = new ShopPOM(driver);
             string item = "beanie";
 
-            //Find Item and Add to cart
+            // Find the item and assert that item exists
             bool itemExist = shop.FindItem(item);
             Assert.That(itemExist, "Item does not exist");
 
+            // Navigate to the cart page
             shop.GoToCart();
             Console.WriteLine("Navigated to the Cart Page");
 
+            // Check that the item is present in the cart
             CartPOM cart = new CartPOM(driver);
-            Assert.That(cart.CheckItemInCart(item), "Item added, not in cart!"); //Check added item is in the cart page
+            Assert.That(cart.CheckItemInCart(item), "Item added, not in cart!");
         }
 
+
+        /* Clicks the "Dismiss" link in the blue banner, if it is present. */
         public static void DismissBanner(IWebDriver driver)
         {
             try
             {
+                // Try to find the "Dismiss" link and click it
                 driver.FindElement(By.LinkText("Dismiss")).Click();
-            } catch (Exception e)
+            }
+            catch
             {
-                //No Blue Banner shown
+                // If the "Dismiss" link is not found, do nothing
+                // (No Blue Banner shown)
             }
         }
-
-
     }
 }

@@ -12,14 +12,14 @@ using OpenQA.Selenium.DevTools.V119.FedCm;
 
 namespace uk.co.nfocus.ecommerceproject
 {
-    internal class ECommerce : BaseTest
+    internal class eCommerce : BaseTest
     {
 
         [Test]
         public void TestCouponDiscount()
         {
             //Calls helper method as common to both test cases.
-            //Navigates to Shop, add and check Item in Cart
+            //Navigates to shop, Add and Checks item is in the cart
             AddItemToCart(driver);
 
             CartPOM cart = new CartPOM(driver);
@@ -27,12 +27,14 @@ namespace uk.co.nfocus.ecommerceproject
 
             //Apply coupon check
             cart.EnterCoupon(coupon).ApplyCoupon();
-            Assert.That(cart.ValidateCoupon(coupon), "Coupon does not exist!"); 
+            Assert.That(cart.ValidateCoupon(coupon), "Coupon does not exist!");
 
-            Console.WriteLine($"Applied a {cart.GetDiscountPercentage()}% discount"); //Reports discount percentage
+            //Reports discount percentage
+            Console.WriteLine($"Applied a {cart.GetDiscountPercentage()}% discount"); 
 
-            Assert.That(cart.GetGrandTotalPrice(), Is.EqualTo(cart.ValidateTotal()), "Discount not applied correctly"); //Verify discount check
-            Console.WriteLine($"Verified that the discount was correctly applied to the cart");
+            //Verify discount check
+            Assert.That(cart.GetGrandTotalPrice(), Is.EqualTo(cart.ValidateTotal()), "Discount not applied correctly"); 
+            Console.WriteLine($"Verified that the discount was correctly applied to the cart..");
             Console.WriteLine($"Expected total value: £{cart.GetGrandTotalPrice()}, Actual total value: £{cart.ValidateTotal()}");
 
             TakeScreenshot(driver, By.CssSelector(".cart_totals"), "Coupon-Discount-Price"); //Screenshot report
@@ -42,7 +44,7 @@ namespace uk.co.nfocus.ecommerceproject
         public void TestCheckoutOrder()
         {
             //Calls helper method as common to both test cases.
-            //Navigates to Shop, add and check Item in Cart
+            //Navigates to shop, Add and Checks item is in the cart
             AddItemToCart(driver);
 
             //Navigate to Checkout Page
@@ -51,12 +53,14 @@ namespace uk.co.nfocus.ecommerceproject
             //Create customer object
             Customer testCustomer = new Customer("Abid", "Miah", "17 Sui Lane", "London", "SW19 2JY", "07365827365", "test.email@nfocus.co.uk");
             
+            //Fill in Billing Input Fields with testCustomer object
             CheckoutPOM checkout = new CheckoutPOM(driver);
             checkout.FillInBillingDetails(testCustomer);
             Console.WriteLine("Billing Details filled in");
 
-            checkout.SelectChequePayment().PlaceOrder(); //Selecting Cheque payment and placing the order
-            Console.WriteLine("Cheque Payment Selected\nOrder Placed");
+            //Selecting Cheque payment and placing the order
+            checkout.SelectChequePayment().PlaceOrder(); 
+            Console.WriteLine("Cheque Payment Selected\nOrder Placed..");
 
             string newOrderNumber = new OrderInfoPOM(driver).GetOrderNumber(); //fetch order number on page
             Console.WriteLine($"New Order Number: {newOrderNumber}");
@@ -67,10 +71,12 @@ namespace uk.co.nfocus.ecommerceproject
             new MyAccountPOM(driver).GoToOrders();
             string orderNoCheck = new AllOrdersPOM(driver).GetNewOrderNumber();
 
+            //Verifying order numbers are the same from Checkout and in Account Orders
             Assert.That(orderNoCheck, Is.EqualTo(newOrderNumber), "Order numbers do not match!");
-            Console.WriteLine($"Verified that the order numbers match");
+            Console.WriteLine($"Verified that the order numbers match..");
             Console.WriteLine($"Expected order number: {orderNoCheck}, Actual order number: {newOrderNumber}");
-            TakeScreenshot(driver, By.CssSelector(".woocommerce-orders-table"), "Orders");
+
+            TakeScreenshot(driver, By.CssSelector(".woocommerce-orders-table"), "Orders"); //Screenshot report
         }
     }
 }

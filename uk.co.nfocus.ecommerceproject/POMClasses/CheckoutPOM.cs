@@ -31,7 +31,7 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
         private IWebElement _chequePaymentButton => StaticWaitForElement(_driver, By.CssSelector("li.wc_payment_method.payment_method_cheque > label"), 1);
         private IWebElement _placeOrderButton => StaticWaitForElement(_driver, By.Id("place_order"), 1);
 
-
+        // Clears and sets the value of the fields.
         private void SetFirstName(string firstName)
         {
             _fNameField.Clear();
@@ -92,7 +92,7 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
                     _chequePaymentButton.Click();
                     break;
                 }
-                catch (Exception e)
+                catch
                 {
                     //Try again
                 }
@@ -114,7 +114,7 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
                     new WebDriverWait(_driver, TimeSpan.FromSeconds(3)).Until(drv => drv.Url.Contains("order"));
                     break;
                 }
-                catch (Exception e)
+                catch
                 {
                     //Try again
                 }

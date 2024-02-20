@@ -10,10 +10,10 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
 {
     internal class ShopPOM
     {
-        //Field that will hold a driver for Service Methods in this test to work with
+        // Field that will hold a driver for Service Methods in this test to work with
         private IWebDriver _driver;
 
-        //Constructor to get the driver from the test
+        // Constructor to get the driver from the test
         public ShopPOM(IWebDriver driver)
         {
             this._driver = driver;
@@ -52,12 +52,13 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
 
         public void AddToCart(IWebElement item, string name)
         {
-            //Parent element of h2 text, then following 'a' element clicked
+            // Parent element of h2 text, then following 'a' element clicked
             item.FindElement(By.XPath("../following-sibling::a")).Click(); //Not locator as needs reference to item name
             
             Console.WriteLine($"Added the '{name}' item to the cart");
         }
 
+        // Navigates to the cart page.
         public void GoToCart()
         {
             _viewCartButton.Click();

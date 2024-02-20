@@ -16,32 +16,35 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
             this._driver = driver;
         }
 
-        //Locators
-        private IWebElement _homeLink => _driver.FindElement(By.LinkText("Home"));
-        private IWebElement _shopLink => _driver.FindElement(By.LinkText("Shop"));
-        private IWebElement _cartLink => _driver.FindElement(By.LinkText("Cart"));
-        private IWebElement _checkoutLink => _driver.FindElement(By.LinkText("Checkout"));
-        private IWebElement _myAccountLink => _driver.FindElement(By.LinkText("My account"));
+        // Locators
+        private IWebElement HomeLink => _driver.FindElement(By.LinkText("Home"));
+        private IWebElement ShopLink => _driver.FindElement(By.LinkText("Shop"));
+        private IWebElement CartLink => _driver.FindElement(By.LinkText("Cart"));
+        private IWebElement CheckoutLink => _driver.FindElement(By.LinkText("Checkout"));
+        private IWebElement MyAccountLink => _driver.FindElement(By.LinkText("My account"));
 
-
+        // Navigates to the shop page.
         public void GoToShop()
         {
-            _shopLink.Click();
+            ShopLink.Click();
         }
 
+        // Navigates to the cart page.
         public void GoToCart()
         {
-            _cartLink.Click();
+            CartLink.Click();
         }
 
+        // Navigates to the checkout page.
         public void GoToCheckout()
         {
-            _checkoutLink.Click();
+            CheckoutLink.Click();
         }
 
+        // Navigates to the my account page.
         public void GoToAccount()
         {
-            _myAccountLink.Click();
+            MyAccountLink.Click();
         }
 
     }
