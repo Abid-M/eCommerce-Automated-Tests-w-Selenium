@@ -18,28 +18,16 @@ namespace uk.co.nfocus.ecommerceproject
         [Test]
         public void TestCouponDiscount()
         {
-            //Navigate to Shop Page via navbar
-            new NavPOM(driver).GoToShop();
-            Console.WriteLine("Navigated to the Shop Page");
-
-            //Find Item and Add to Cart
-            //(User does not need to search, finding the item directly on the shop page) 
-            ShopPOM shop = new ShopPOM(driver);
-            string item = "beanie";
-
-            //Find Item and Add to cart
-            bool itemExist = shop.FindItem(item); 
-            Assert.That(itemExist, "Item does not exist");
-
-            shop.GoToCart();
-            Console.WriteLine("Navigated to the Cart Page");
+            //Calls helper method as common to both test cases.
+            //Navigates to Shop, add and check Item in Cart
+            AddItemToCart(driver);
 
             CartPOM cart = new CartPOM(driver);
-            Assert.That(cart.CheckItemInCart(item), "Item added, not in cart!"); //Check added item is in the cart page
-
             string coupon = "edgewords";
+
+            //Apply coupon check
             cart.EnterCoupon(coupon).ApplyCoupon();
-            Assert.That(cart.ValidateCoupon(coupon), "Coupon does not exist!"); //Apply coupon check
+            Assert.That(cart.ValidateCoupon(coupon), "Coupon does not exist!"); 
 
             Console.WriteLine($"Applied a {cart.GetDiscountPercentage()}% discount"); //Reports discount percentage
 
@@ -51,111 +39,38 @@ namespace uk.co.nfocus.ecommerceproject
         }
 
         [Test]
-        public void TestCheckoutOrderPOM()
+        public void TestCheckoutOrder()
         {
-            //Navigate to Shop Page via navbar
-            NavPOM nav = new NavPOM(driver);
-            nav.GoToShop();
-            Console.WriteLine("Navigated to the Shop Page");
-
-            //Find Item and Add to Cart
-            //(User does not need to search, finding the item directly on the shop page) 
-            ShopPOM shop = new ShopPOM(driver);
-            string item = "beanie";
-
-            //Find Item and Add to cart
-            bool itemExist = shop.FindItem(item);
-            Assert.That(itemExist, "Item does not exist");
-
-            shop.GoToCart();
-            Console.WriteLine("Navigated to the Cart Page");
-
-            CartPOM cart = new CartPOM(driver);
-            Assert.That(cart.CheckItemInCart(item), "Item added, not in cart!"); //Check added item is in the cart page
+            //Calls helper method as common to both test cases.
+            //Navigates to Shop, add and check Item in Cart
+            AddItemToCart(driver);
 
             //Navigate to Checkout Page
-            cart.GoToCheckout();
+            new CartPOM(driver).GoToCheckout();
 
-
+            //Create customer object
             Customer testCustomer = new Customer("Abid", "Miah", "17 Sui Lane", "London", "SW19 2JY", "07365827365", "test.email@nfocus.co.uk");
+            
             CheckoutPOM checkout = new CheckoutPOM(driver);
+            checkout.FillInBillingDetails(testCustomer);
             Console.WriteLine("Billing Details filled in");
 
-            checkout.FillInBillingDetails(testCustomer);
-            checkout.SelectChequePayment().PlaceOrder();
-            Console.WriteLine("Cheque Payment Selected, Order Placed");
+            checkout.SelectChequePayment().PlaceOrder(); //Selecting Cheque payment and placing the order
+            Console.WriteLine("Cheque Payment Selected\nOrder Placed");
 
-            string newOrderNumber = new OrderInfoPOM(driver).GetOrderNumber();
+            string newOrderNumber = new OrderInfoPOM(driver).GetOrderNumber(); //fetch order number on page
             Console.WriteLine($"New Order Number: {newOrderNumber}");
             TakeScreenshot(driver, By.CssSelector("li.woocommerce-order-overview__order.order"), "New-Order-Number"); //Screenshot of newly placed order
 
             //Navigate to orders page from account
-            nav.GoToAccount(); 
+            new NavPOM(driver).GoToAccount(); 
             new MyAccountPOM(driver).GoToOrders();
             string orderNoCheck = new AllOrdersPOM(driver).GetNewOrderNumber();
 
             Assert.That(orderNoCheck, Is.EqualTo(newOrderNumber), "Order numbers do not match!");
             Console.WriteLine($"Verified that the order numbers match");
-            Console.WriteLine($"Expected order number: {orderNoCheck}, Actual total value: {newOrderNumber}");
-        }
-
-        [Test]
-        public void TestCheckoutOrder()
-        {
-            driver.Url = "https://www.edgewordstraining.co.uk/demo-site/my-account/";
-            //Login(driver);
-
-            driver.FindElement(By.LinkText("Shop")).Click(); //Visit Shop Page
-            driver.FindElement(By.CssSelector(".post-31 > .button")).Click(); //Add Hoodie with Logo to Cart
-            StaticWaitForElement(driver, By.CssSelector(".added_to_cart")).Click(); //Navigate to the Cart Page
-
-            driver.FindElement(By.LinkText("Proceed to checkout")).Click(); //Proceed to checkout page
-
-            //Get rid of any pre-filled in text
-            IList<IWebElement> inputFields = driver.FindElements(By.CssSelector(".woocommerce-input-wrapper input"));
-            foreach (IWebElement el in inputFields)
-            {
-                if (el.Displayed && el.Enabled && el.GetAttribute("id") != "billing_email") //Same email as account email pre-filled
-                {
-                    el.Clear();
-
-                }
-            }
-
-            //Fill in billing details
-            driver.FindElement(By.Id("billing_first_name")).SendKeys("Abid");
-            driver.FindElement(By.Id("billing_last_name")).SendKeys("Miah");
-            driver.FindElement(By.Id("billing_address_1")).SendKeys("123 Waterfall Lane");
-            driver.FindElement(By.Id("billing_city")).SendKeys("London");
-            driver.FindElement(By.Id("billing_postcode")).SendKeys("SW19 2JY");
-            driver.FindElement(By.Id("billing_phone")).SendKeys("07854632591");
-
-            try
-            {
-                var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(5));
-                wait.Until(driver => !driver.FindElement(By.CssSelector(".blockUI.blockOverlay")).Displayed);
-                //Wait until the block overlay is NOT displayed! OR timeout ends
-            }
-            catch (Exception)
-            {
-                //nothing
-            }
-
-
-            StaticWaitForElement(driver, By.CssSelector("li.wc_payment_method.payment_method_cheque > label")).Click(); //Payment method by check
-            StaticWaitForElement(driver, By.Id("place_order")).Click(); //Place the order
-
-            string orderNo = StaticWaitForElement(driver, By.CssSelector(".order strong")).Text; //Get Order number
-            Console.WriteLine($"Order number: {orderNo}");
-
-            //Navigate to orders page
-            driver.FindElement(By.LinkText("My account")).Click();
-            driver.FindElement(By.LinkText("Orders")).Click();
-
-            string orderNoCheck = driver.FindElement(By.XPath("//tr/td[1]/a")).Text;
-            orderNoCheck = orderNoCheck.Replace("#", ""); //Remove # from string, to only save order number
-
-            Assert.That(orderNoCheck, Is.EqualTo(orderNo), "Order numbers do not match!");
+            Console.WriteLine($"Expected order number: {orderNoCheck}, Actual order number: {newOrderNumber}");
+            TakeScreenshot(driver, By.CssSelector(".woocommerce-orders-table"), "Orders");
         }
     }
 }

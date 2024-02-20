@@ -82,13 +82,13 @@ namespace uk.co.nfocus.ecommerceproject.Utils
                 new NavPOM(driver).GoToAccount();
                 new MyAccountPOM(driver).Logout();
 
-                Console.WriteLine("Successfully Logged out");
+                Console.WriteLine("Successfully Logged Out");
 
             } 
             catch (Exception)
             {
                 new MyAccountPOM(driver).Logout();
-                Console.WriteLine("Successfully Logged out");
+                Console.WriteLine("Successfully Logged Out");
             }
 
             driver.Quit(); 

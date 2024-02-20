@@ -60,7 +60,7 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
             }
             catch (Exception e)
             {
-                Console.WriteLine("Successfully Logged In.");
+                Console.WriteLine("Successfully Logged In");
                 return true; //Login success
             }
         }
