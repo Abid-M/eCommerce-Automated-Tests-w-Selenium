@@ -30,15 +30,15 @@ The tests will be conducted on the following e-commerce site:
 
 2. Install the following packages:
 * NUnit (4.0.1)
-*  NUnit.Analyzers (4.0.1)
+* NUnit.Analyzers (4.0.1)
 * NUnit3TestAdapter (4.5.0)
 * Selenium.WebDriver (4.17.0)
 * Selenium.Support(4.17.0)
 
 3. Create environment variables:
-i. USERNAME
-ii. PASSWORD
-iii. BROWSER
+* USERNAME
+* PASSWORD
+* BROWSER
 
 4. Create test run parameters
 - name="WebAppURL" value="https://www.edgewordstraining.co.uk/demo-site/my-account/"
