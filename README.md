@@ -40,6 +40,9 @@ The tests will be conducted on the following e-commerce site:
 * PASSWORD
 * BROWSER
 
+######*USERNAME and PASSWORD must be the login details*
+######*Specify BROWSER as edge or firefox* (If none specified, default is edge)
+
 4. Create test run parameters
 - name="WebAppURL" value="https://www.edgewordstraining.co.uk/demo-site/my-account/"
 
