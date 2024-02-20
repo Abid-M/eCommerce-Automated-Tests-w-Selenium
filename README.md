@@ -29,11 +29,11 @@ The tests will be conducted on the following e-commerce site:
 1. Clone this repo to your local machine.
 
 2. Install the following packages:
-i. NUnit (4.0.1)
-ii.  NUnit.Analyzers (4.0.1)
-iii. NUnit3TestAdapter (4.5.0)
-iii. Selenium.WebDriver (4.17.0)
-iii. Selenium.Support(4.17.0)
+* NUnit (4.0.1)
+*  NUnit.Analyzers (4.0.1)
+* NUnit3TestAdapter (4.5.0)
+* Selenium.WebDriver (4.17.0)
+* Selenium.Support(4.17.0)
 
 3. Create environment variables:
 i. USERNAME
