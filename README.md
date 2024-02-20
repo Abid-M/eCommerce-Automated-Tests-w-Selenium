@@ -1,5 +1,5 @@
 # eCommerce Automated Tests
-### User end-to-end tests written in C#, with the use of .NET Core Framework, NUnit and SpecFlow WebDriver
+### User end-to-end tests written in C#, with the use of .NET Core Framework, NUnit and Selenium WebDriver
 ## Overview
 ###### This project aims to develop two end-to-end tests using WebDriver for an e-commerce website. The tests will simulate user interactions such as purchasing items, applying discounts, and verifying order details.
 
