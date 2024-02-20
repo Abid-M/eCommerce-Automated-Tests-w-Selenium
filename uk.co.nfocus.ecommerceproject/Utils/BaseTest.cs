@@ -27,6 +27,11 @@ namespace uk.co.nfocus.ecommerceproject.Utils
             //Instantiate a browser based on environment variable
             switch (browser)
             {
+                case "chrome":
+                    ChromeOptions options = new ChromeOptions();
+                    options.BrowserVersion = "canary";
+                    driver = new ChromeDriver(options);
+                    break;
                 case "edge":
                     driver = new EdgeDriver();
                     break;

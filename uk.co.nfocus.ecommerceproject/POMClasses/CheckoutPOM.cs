@@ -80,6 +80,26 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
 
         }
 
+        public bool ValidateDetails(Customer customer)
+        {
+            if (customer._fName == _fNameField.GetAttribute("value") &&
+                customer._lName == _lNameField.GetAttribute("value") &&
+                customer._address == _streetAddressField.GetAttribute("value") &&
+                customer._city == _cityField.GetAttribute("value") &&
+                customer._postcode == _postcodeField.GetAttribute("value") &&
+                customer._phone == _phoneField.GetAttribute("value") &&
+                customer._email == _emailField.GetAttribute("value")
+                )
+            {
+                return true;
+            }
+
+            else
+            {
+                return false; //Failed
+            }
+        }
+
         public CheckoutPOM SelectChequePayment()
         {
             //For loop with a maximum of 10 iterations to try clicking the cheque payment button.

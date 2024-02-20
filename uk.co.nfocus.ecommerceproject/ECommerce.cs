@@ -56,6 +56,9 @@ namespace uk.co.nfocus.ecommerceproject
             //Fill in Billing Input Fields with testCustomer object
             CheckoutPOM checkout = new CheckoutPOM(driver);
             checkout.FillInBillingDetails(testCustomer);
+
+            //Validate billing fields have been entered
+            Assert.That(checkout.ValidateDetails(testCustomer), "Billing input fields not entered!");
             Console.WriteLine("Billing Details filled in");
 
             //Selecting Cheque payment and placing the order
