@@ -12,7 +12,7 @@ using OpenQA.Selenium.DevTools.V119.FedCm;
 
 namespace uk.co.nfocus.ecommerceproject
 {
-    internal class eCommerce : BaseTest
+    internal class ECommerce : BaseTest
     {
 
         [Test]
