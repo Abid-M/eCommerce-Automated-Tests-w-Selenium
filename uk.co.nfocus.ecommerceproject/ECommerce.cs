@@ -1,14 +1,8 @@
-﻿using OpenQA.Selenium.Support.UI;
+﻿/* Author: Abid Miah */
 using OpenQA.Selenium;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using uk.co.nfocus.ecommerceproject.Utils;
 using static uk.co.nfocus.ecommerceproject.Utils.HelperLib;
 using uk.co.nfocus.ecommerceproject.POMClasses;
-using OpenQA.Selenium.DevTools.V119.FedCm;
 
 namespace uk.co.nfocus.ecommerceproject
 {

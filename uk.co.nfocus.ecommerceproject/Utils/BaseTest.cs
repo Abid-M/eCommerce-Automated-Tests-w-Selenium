@@ -1,16 +1,10 @@
-﻿using OpenQA.Selenium.Chrome;
+﻿/* Author: Abid Miah */
+using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Edge;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using static uk.co.nfocus.ecommerceproject.Utils.HelperLib;
 using uk.co.nfocus.ecommerceproject.POMClasses;
-using OpenQA.Selenium.Support.UI;
-using System.Linq.Expressions;
 
 namespace uk.co.nfocus.ecommerceproject.Utils
 {
@@ -44,7 +38,7 @@ namespace uk.co.nfocus.ecommerceproject.Utils
             }
 
             driver.Manage().Window.Maximize(); //Maximize window to full screen
-            driver.Url = TestContext.Parameters["WebAppURL"]; //Direct to URL in test parameters
+            driver.Url = TestContext.Parameters["WebAppURL"]; //Direct to URL in test parameters, not env variable as not a secret
             
             DismissBanner(driver); //Dismisses the blue dialog
 

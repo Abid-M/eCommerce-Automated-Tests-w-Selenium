@@ -1,10 +1,6 @@
-﻿using OpenQA.Selenium;
+﻿/* Author: Abid Miah */
+using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using uk.co.nfocus.ecommerceproject.Utils;
 using static uk.co.nfocus.ecommerceproject.Utils.HelperLib;
 
