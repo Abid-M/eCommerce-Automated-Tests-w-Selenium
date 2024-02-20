@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using uk.co.nfocus.ecommerceproject.Utils;
 using static uk.co.nfocus.ecommerceproject.Utils.HelperLib;
 using uk.co.nfocus.ecommerceproject.POMClasses;
+using OpenQA.Selenium.DevTools.V119.FedCm;
 
 namespace uk.co.nfocus.ecommerceproject
 {
@@ -53,7 +54,8 @@ namespace uk.co.nfocus.ecommerceproject
         public void TestCheckoutOrderPOM()
         {
             //Navigate to Shop Page via navbar
-            new NavPOM(driver).GoToShop();
+            NavPOM nav = new NavPOM(driver);
+            nav.GoToShop();
             Console.WriteLine("Navigated to the Shop Page");
 
             //Find Item and Add to Cart
@@ -71,8 +73,30 @@ namespace uk.co.nfocus.ecommerceproject
             CartPOM cart = new CartPOM(driver);
             Assert.That(cart.CheckItemInCart(item), "Item added, not in cart!"); //Check added item is in the cart page
 
+            //Navigate to Checkout Page
             cart.GoToCheckout();
-            Thread.Sleep(2000);
+
+
+            Customer testCustomer = new Customer("Abid", "Miah", "17 Sui Lane", "London", "SW19 2JY", "07365827365", "test.email@nfocus.co.uk");
+            CheckoutPOM checkout = new CheckoutPOM(driver);
+            Console.WriteLine("Billing Details filled in");
+
+            checkout.FillInBillingDetails(testCustomer);
+            checkout.SelectChequePayment().PlaceOrder();
+            Console.WriteLine("Cheque Payment Selected, Order Placed");
+
+            string newOrderNumber = new OrderInfoPOM(driver).GetOrderNumber();
+            Console.WriteLine($"New Order Number: {newOrderNumber}");
+            TakeScreenshot(driver, By.CssSelector("li.woocommerce-order-overview__order.order"), "New-Order-Number"); //Screenshot of newly placed order
+
+            //Navigate to orders page from account
+            nav.GoToAccount(); 
+            new MyAccountPOM(driver).GoToOrders();
+            string orderNoCheck = new AllOrdersPOM(driver).GetNewOrderNumber();
+
+            Assert.That(orderNoCheck, Is.EqualTo(newOrderNumber), "Order numbers do not match!");
+            Console.WriteLine($"Verified that the order numbers match");
+            Console.WriteLine($"Expected order number: {orderNoCheck}, Actual total value: {newOrderNumber}");
         }
 
         [Test]

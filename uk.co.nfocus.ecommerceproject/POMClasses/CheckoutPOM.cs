@@ -1,9 +1,11 @@
 ﻿using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using uk.co.nfocus.ecommerceproject.Utils;
 using static uk.co.nfocus.ecommerceproject.Utils.HelperLib;
 
 namespace uk.co.nfocus.ecommerceproject.POMClasses
@@ -26,7 +28,8 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
         private IWebElement _postcodeField => _driver.FindElement(By.Id("billing_postcode"));
         private IWebElement _phoneField => _driver.FindElement(By.Id("billing_phone"));
         private IWebElement _emailField => _driver.FindElement(By.Id("billing_email"));
-        private IWebElement _placeOrderButton => StaticWaitForElement(_driver, By.Id("place_order"));
+        private IWebElement _chequePaymentButton => StaticWaitForElement(_driver, By.CssSelector("li.wc_payment_method.payment_method_cheque > label"), 1);
+        private IWebElement _placeOrderButton => StaticWaitForElement(_driver, By.Id("place_order"), 1);
 
 
         private void SetFirstName(string firstName)
@@ -63,6 +66,59 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
         {
             _emailField.Clear();
             _emailField.SendKeys(email);
+        }
+
+        public void FillInBillingDetails(Customer customer)
+        {
+            SetFirstName(customer._fName);
+            SetLastName(customer._lName);
+            SetAddress(customer._address);
+            SetCity(customer._city);
+            SetPostcode(customer._postcode);
+            SetPhone(customer._phone);
+            SetEmail(customer._email);
+
+        }
+
+        public CheckoutPOM SelectChequePayment()
+        {
+            //For loop with a maximum of 10 iterations to try clicking the cheque payment button.
+            //Button might not be immediately available or might be stale, so we try a few times.
+            for (int i = 0; i < 25; i++)
+            {
+                try
+                {
+                    // If the button is found and clickable, this will succeed and exit the loop.
+                    _chequePaymentButton.Click();
+                    break;
+                }
+                catch (Exception e)
+                {
+                    //Try again
+                }
+            }
+
+            return this;
+        }
+
+        public void PlaceOrder()
+        {
+            //For loop with a maximum of 10 iterations to try clicking the cheque payment button.
+            //Button might not be immediately available or might be stale, so we try a few times.
+            for (int i = 0; i < 25; i++)
+            {
+                try
+                {
+                    // If the button is found and clickable with order url, this will succeed and exit the loop.
+                    _placeOrderButton.Click();
+                    new WebDriverWait(_driver, TimeSpan.FromSeconds(3)).Until(drv => drv.Url.Contains("order"));
+                    break;
+                }
+                catch (Exception e)
+                {
+                    //Try again
+                }
+            }
         }
     }
 }
