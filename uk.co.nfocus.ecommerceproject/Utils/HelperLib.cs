@@ -21,7 +21,7 @@ namespace uk.co.nfocus.ecommerceproject.Utils
         public static void ScrollElIntoView (IWebDriver driver, IWebElement element)
         {
             IJavaScriptExecutor? jsdriver = driver as IJavaScriptExecutor;
-            jsdriver?.ExecuteScript("argustments[0].scrollIntoView()", element);
+            jsdriver?.ExecuteScript("arguments[0].scrollIntoView()", element);
         }
 
         public static void TakeScreenshot(IWebDriver driver, By locator, string el)
@@ -45,6 +45,7 @@ namespace uk.co.nfocus.ecommerceproject.Utils
             //TestContext.AddTestAttachment(@$"C:\Users\AbidMiah\OneDrive - nFocus Limited\Documents\screenshots\{el}_{date}.png", $"{el} png");
         }
 
+
         public static void DismissBanner(IWebDriver driver)
         {
             try
@@ -56,21 +57,6 @@ namespace uk.co.nfocus.ecommerceproject.Utils
             }
         }
 
-        public static void Login(IWebDriver driver)
-        {
-            driver.FindElement(By.Id("username")).SendKeys(Environment.GetEnvironmentVariable("USERNAME"));
-            driver.FindElement(By.Id("password")).SendKeys(Environment.GetEnvironmentVariable("PASSWORD"));
-            driver.FindElement(By.Name("login")).Click();
 
-            driver.FindElement(By.LinkText("Dismiss")).Click(); //Dismisses the bottom blue banner
-
-            Console.WriteLine("Completed Login Process");
-        }
-
-        public static decimal StringToDecimal(IWebDriver driver, By locator)
-        {
-            string strValue = driver.FindElement(locator).Text;
-            return decimal.Parse(strValue, NumberStyles.Currency);
-        }
     }
 }

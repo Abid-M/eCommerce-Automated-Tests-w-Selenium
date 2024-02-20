@@ -17,11 +17,13 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
         }
 
         //Locators fields (finding elements on the page)
+        private IWebElement _logoutLink => _driver.FindElement(By.LinkText("Logout"));
 
 
         //Service method (doing things with elements on the page)
-        public void GoLogin()
+        public void Logout()
         {
+            _logoutLink.Click();
         }
     }
 }

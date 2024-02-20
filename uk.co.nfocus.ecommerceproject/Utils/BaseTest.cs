@@ -8,20 +8,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using static uk.co.nfocus.ecommerceproject.Utils.HelperLib;
+using uk.co.nfocus.ecommerceproject.POMClasses;
+using OpenQA.Selenium.Support.UI;
+using System.Linq.Expressions;
 
 namespace uk.co.nfocus.ecommerceproject.Utils
 {
     internal class BaseTest
     {
         //Field to hold a WebDriver that is in scope for all methods in this class
-        protected IWebDriver driver; //ChromeDrivers/EdgeDrivers/FirefoxDrivers are all IWebDrivers
+        protected IWebDriver driver; 
 
         [SetUp] //Runs before each and every [Test] in this class
         public void Setup()
         {
-            string browser = Environment.GetEnvironmentVariable("BROWSER"); //Change me to instantiate different browsers
+            string browser = Environment.GetEnvironmentVariable("BROWSER"); 
 
-            //Instantiate a browser based on variable
+            //Instantiate a browser based on environment variable
             switch (browser)
             {
                 case "edge":
@@ -35,9 +38,20 @@ namespace uk.co.nfocus.ecommerceproject.Utils
                     break;
             }
 
-            driver.Manage().Window.Maximize();
-            driver.Url = TestContext.Parameters["WebAppURL"];
+            driver.Manage().Window.Maximize(); //Maximize window to full screen
+            driver.Url = TestContext.Parameters["WebAppURL"]; //Direct to URL in test parameters
+            
             DismissBanner(driver); //Dismisses the blue dialog
+
+            //Initial Login
+            LoginPOM login = new LoginPOM(driver);
+
+            bool loggedIn = login.ValidLogin(Environment.GetEnvironmentVariable("USERNAME"), Environment.GetEnvironmentVariable("PASSWORD"));
+            Assert.That(loggedIn, "We did not login");
+
+            //Empty Cart for default state
+            new NavPOM(driver).GoToCart();
+            new CartPOM(driver).EmptyCart();
         }
 
         [TearDown]
@@ -45,10 +59,13 @@ namespace uk.co.nfocus.ecommerceproject.Utils
         {
             //Determining in teardown test result
             //https://docs.nunit.org/articles/nunit/writing-tests/TestContext.html#result
-            if (TestContext.CurrentContext.Result.Outcome.Status.ToString() == "Passed")
+            if (TestContext.CurrentContext.Result.Outcome.Status.ToString() == "Failed")
             {
-                Console.WriteLine("Test passed and Completed");
-                //Might be better to take a screenshot on fail
+                Console.WriteLine("Test Failed: " + TestContext.CurrentContext.Result.Message);
+            }
+            else
+            {
+                Console.WriteLine("Test Passed and Completed");
             }
 
             //Except for passing Assertions - results during execution are logged and can be read back in TearDown
@@ -62,17 +79,19 @@ namespace uk.co.nfocus.ecommerceproject.Utils
             //Logout
             try
             {
-                StaticWaitForElement(driver, By.LinkText("My account")).Click();
-                driver.FindElement(By.LinkText("Logout")).Click();
-                Console.WriteLine("Sucessfully Logged out");
-            } catch (Exception)
+                new NavPOM(driver).GoToAccount();
+                new MyAccountPOM(driver).Logout();
+
+                Console.WriteLine("Successfully Logged out");
+
+            } 
+            catch (Exception)
             {
-                driver.FindElement(By.LinkText("Logout")).Click();
-                Console.WriteLine("Sucessfully Logged out");
+                new MyAccountPOM(driver).Logout();
+                Console.WriteLine("Successfully Logged out");
             }
 
-            Thread.Sleep(2000);
-            driver.Quit(); //Quits browser and DriverServer and disposes of objects (although NUnit Analyser does not know this without further config)
+            driver.Quit(); 
         }
     }
 }

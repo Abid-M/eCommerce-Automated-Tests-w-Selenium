@@ -15,95 +15,71 @@ namespace uk.co.nfocus.ecommerceproject
     {
 
         [Test]
-        public void TestCouponDiscountPOM()
+        public void TestCouponDiscount()
         {
-            //Move login to helper or setup
-            LoginPOM login = new LoginPOM(driver);
-
-            bool loggedIn = login.ValidLogin(Environment.GetEnvironmentVariable("USERNAME"), Environment.GetEnvironmentVariable("PASSWORD"));
-            Assert.That(loggedIn, "We did not login");
-
             //Navigate to Shop Page via navbar
-            NavPOM nav = new NavPOM(driver);
-            nav.goToShop();
+            new NavPOM(driver).GoToShop();
             Console.WriteLine("Navigated to the Shop Page");
 
             //Find Item and Add to Cart
-            //(Use does not need to search, just finding an item on the shop page) 
+            //(User does not need to search, finding the item directly on the shop page) 
             ShopPOM shop = new ShopPOM(driver);
-            string item = "sunglasses";
+            string item = "beanie";
 
-            bool itemExist = shop.FindItem(item); //Find Item and Add to cart
+            //Find Item and Add to cart
+            bool itemExist = shop.FindItem(item); 
             Assert.That(itemExist, "Item does not exist");
 
-            nav.goToCart();
+            shop.GoToCart();
             Console.WriteLine("Navigated to the Cart Page");
 
             CartPOM cart = new CartPOM(driver);
-            cart.EnterCoupon("edgewords").ApplyCoupon();
-            Assert.That(cart.ValidateCoupon(), "Coupon does not exist!");
+            Assert.That(cart.CheckItemInCart(item), "Item added, not in cart!"); //Check added item is in the cart page
 
-            TakeScreenshot(driver, By.CssSelector(".cart_totals"), "Coupon-Discount-Price");
+            string coupon = "edgewords";
+            cart.EnterCoupon(coupon).ApplyCoupon();
+            Assert.That(cart.ValidateCoupon(coupon), "Coupon does not exist!"); //Apply coupon check
 
+            Console.WriteLine($"Applied a {cart.GetDiscountPercentage()}% discount"); //Reports discount percentage
 
+            Assert.That(cart.GetGrandTotalPrice(), Is.EqualTo(cart.ValidateTotal()), "Discount not applied correctly"); //Verify discount check
+            Console.WriteLine($"Verified that the discount was correctly applied to the cart");
+            Console.WriteLine($"Expected total value: £{cart.GetGrandTotalPrice()}, Actual total value: £{cart.ValidateTotal()}");
+
+            TakeScreenshot(driver, By.CssSelector(".cart_totals"), "Coupon-Discount-Price"); //Screenshot report
         }
 
         [Test]
-        public void TestCouponDiscount()
+        public void TestCheckoutOrderPOM()
         {
-            Login(driver);
+            //Navigate to Shop Page via navbar
+            new NavPOM(driver).GoToShop();
+            Console.WriteLine("Navigated to the Shop Page");
 
-            driver.FindElement(By.LinkText("Shop")).Click(); //Visit Shop Page
+            //Find Item and Add to Cart
+            //(User does not need to search, finding the item directly on the shop page) 
+            ShopPOM shop = new ShopPOM(driver);
+            string item = "beanie";
 
-            IList<IWebElement> allItems = driver.FindElements(By.CssSelector("li h2"));
+            //Find Item and Add to cart
+            bool itemExist = shop.FindItem(item);
+            Assert.That(itemExist, "Item does not exist");
 
-            string item = "sunglasses";
+            shop.GoToCart();
+            Console.WriteLine("Navigated to the Cart Page");
 
-            foreach (IWebElement el in allItems)
-            {
-                if(el.Text.ToLower().Equals((item).ToLower()))
-                {
-                    Console.WriteLine("win");
-                    el.FindElement(By.XPath("../following-sibling::a")).Click(); //Parent element of h2 text, then following a element clicked
-                    break;
-                }
-            }
+            CartPOM cart = new CartPOM(driver);
+            Assert.That(cart.CheckItemInCart(item), "Item added, not in cart!"); //Check added item is in the cart page
 
-            //driver.FindElement(By.CssSelector(".post-30 > .button")).Click(); //Add Sunglasses to Cart
-            StaticWaitForElement(driver, By.CssSelector(".added_to_cart")).Click(); //Navigate to the cart page
-
-            StaticWaitForElement(driver, By.Name("coupon_code")).SendKeys("edgewords"); //Wait check that coupon code input is displayed in order to SendKeys
-            driver.FindElement(By.Name("apply_coupon")).Click(); //Apply coupon
-
-            Assert.That(StaticWaitForElement(driver, By.LinkText("[Remove]")).Displayed); //Check that the coupon takes off the discount
-
-            //Scroll page to see the action in a X-Browser friendly way.
-            IWebElement cartTotal = driver.FindElement(By.CssSelector(".cart_totals"));
-            IJavaScriptExecutor? jsdriver = driver as IJavaScriptExecutor; //Historically not all drivers could execute JS, so there is a need to cast a capable drievr to a type that can run JS.
-            jsdriver?.ExecuteScript("arguments[0].scrollIntoView()", cartTotal); //footer is the 0th argument passed in
-            
-            TakeScreenshot(driver, By.CssSelector(".cart_totals"), "Coupon-Discount-Price");
-
-
-            //Get Subtotal price in decimal
-            decimal price = StringToDecimal(driver, By.CssSelector("td:nth-child(2) > .woocommerce-Price-amount > bdi"));
-
-            //Get Shipping price and convert to decimal
-            decimal shippingPrice = StringToDecimal(driver, By.CssSelector("#shipping_method > li > label > span > bdi"));
-
-            //Get Total price and convert to decimal
-            decimal total = StringToDecimal(driver, By.CssSelector(".order-total > td"));
-
-            //Check total calculated after coupon & shipping is correct
-            decimal checkTotal = (price - (price * (decimal)0.15)) + shippingPrice;
-            Assert.That(total, Is.EqualTo(checkTotal), "They are not equal");
+            cart.GoToCheckout();
+            Thread.Sleep(2000);
         }
 
         [Test]
         public void TestCheckoutOrder()
         {
             driver.Url = "https://www.edgewordstraining.co.uk/demo-site/my-account/";
-            Login(driver);
+            //Login(driver);
 
             driver.FindElement(By.LinkText("Shop")).Click(); //Visit Shop Page
             driver.FindElement(By.CssSelector(".post-31 > .button")).Click(); //Add Hoodie with Logo to Cart

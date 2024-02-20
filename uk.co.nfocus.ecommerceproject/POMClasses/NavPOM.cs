@@ -24,14 +24,24 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
         private IWebElement _myAccountLink => _driver.FindElement(By.LinkText("My account"));
 
 
-        public void goToShop()
+        public void GoToShop()
         {
             _shopLink.Click();
         }
 
-        public void goToCart()
+        public void GoToCart()
         {
             _cartLink.Click();
+        }
+
+        public void GoToCheckout()
+        {
+            _checkoutLink.Click();
+        }
+
+        public void GoToAccount()
+        {
+            _myAccountLink.Click();
         }
 
     }
