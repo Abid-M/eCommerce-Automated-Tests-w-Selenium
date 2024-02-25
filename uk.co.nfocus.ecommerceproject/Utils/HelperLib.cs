@@ -60,10 +60,10 @@ namespace uk.co.nfocus.ecommerceproject.Utils
 
                     // Create the directory for the screenshots if it doesn't exist
                     //current dir: in bin->Debug>net6.0->screenshots. From net6.0 back to project files
-                    Directory.CreateDirectory(Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..\screenshots\"));
+                    Directory.CreateDirectory(Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..\Screenshots\"));
 
                     // Create the file path for the screenshot
-                    string filePath = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..\screenshots\", $"{el}_{date}.png");
+                    string filePath = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..\Screenshots\", $"{el}_{date}.png");
 
                     // Save the screenshot to the file
                     screenshotElm.SaveAsFile(filePath);
