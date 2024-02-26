@@ -28,7 +28,7 @@ namespace uk.co.nfocus.ecommerceproject.StepDefinitions
         }
 
         [Given(@"I am logged in as a registered user")]
-        public void GivenIAmLoggedInAsARegisteredUse()t
+        public void GivenIAmLoggedInAsARegisteredUser()
         {
             LoginPOM login = new LoginPOM(_driver);
 
