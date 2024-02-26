@@ -1,7 +1,7 @@
 ﻿Feature: PlacingOrder
 
-A pre-registered user can access the ecommerce website via login, 
-select a clothing item, apply a coupon to receive a discount on the order before checkout.
+A pre-registered user can access the ecommerce website by logging in, 
+select a clothing item, apply a coupon to receive a discount, before checking out and placing the order.
 
 Background:
 	Given I am on the eCommerce Website
