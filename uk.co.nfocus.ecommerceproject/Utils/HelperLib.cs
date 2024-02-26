@@ -36,13 +36,10 @@ namespace uk.co.nfocus.ecommerceproject.Utils
 
         
         /* Takes a screenshot of the specified element and saves it. */
-        public static void TakeScreenshot(IWebDriver driver, By locator, string el)
+        public static void TakeScreenshot(IWebDriver driver, IWebElement element, string el)
         {
             try
             {
-                // Find the element
-                IWebElement element = driver.FindElement(locator);
-
                 // Scroll the element into view
                 ScrollElIntoView(driver, element);
 
@@ -60,10 +57,10 @@ namespace uk.co.nfocus.ecommerceproject.Utils
 
                     // Create the directory for the screenshots if it doesn't exist
                     //current dir: in bin->Debug>net6.0->screenshots. From net6.0 back to project files
-                    Directory.CreateDirectory(Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..\screenshots\"));
+                    Directory.CreateDirectory(Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..\Screenshots\"));
 
                     // Create the file path for the screenshot
-                    string filePath = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..\screenshots\", $"{el}_{date}.png");
+                    string filePath = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..\Screenshots\", $"{el}_{date}.png");
 
                     // Save the screenshot to the file
                     screenshotElm.SaveAsFile(filePath);
@@ -98,7 +95,7 @@ namespace uk.co.nfocus.ecommerceproject.Utils
             string item = "beanie";
 
             // Find the item and assert that item exists
-            bool itemExist = shop.FindItem(item);
+            bool itemExist = shop.FindAndAddItem(item);
             Assert.That(itemExist, "Item does not exist");
 
             // Navigate to the cart page
@@ -108,22 +105,6 @@ namespace uk.co.nfocus.ecommerceproject.Utils
             // Check that the item is present in the cart
             CartPOM cart = new CartPOM(driver);
             Assert.That(cart.CheckItemInCart(item), "Item added, not in cart!");
-        }
-
-
-        /* Clicks the "Dismiss" link in the blue banner, if it is present. */
-        public static void DismissBanner(IWebDriver driver)
-        {
-            try
-            {
-                // Try to find the "Dismiss" link and click it
-                driver.FindElement(By.LinkText("Dismiss")).Click();
-            }
-            catch
-            {
-                // If the "Dismiss" link is not found, do nothing
-                // (No Blue Banner shown)
-            }
         }
     }
 }

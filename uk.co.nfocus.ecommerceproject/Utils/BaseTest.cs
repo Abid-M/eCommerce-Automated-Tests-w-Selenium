@@ -11,14 +11,19 @@ namespace uk.co.nfocus.ecommerceproject.Utils
     internal class BaseTest
     {
         //Field to hold a WebDriver that is in scope for all methods in this class
-        protected IWebDriver driver; 
+        protected IWebDriver driver;
 
         [SetUp] //Runs before each and every [Test] in this class
         public void Setup()
         {
-            string? browser = Environment.GetEnvironmentVariable("BROWSER"); 
+            string? browser = Environment.GetEnvironmentVariable("BROWSER");
 
-            //Instantiate a browser based on environment variable
+            if (browser == null)
+            {
+                Console.WriteLine("BROWSER env not set: Setting to Edge..");
+                browser = "edge";
+            }
+
             switch (browser)
             {
                 case "chrome":
@@ -34,7 +39,7 @@ namespace uk.co.nfocus.ecommerceproject.Utils
                     break;
                 case "chromeheadless":
                     ChromeOptions chromeOptions = new ChromeOptions();
-                    chromeOptions.AddArgument("--headless"); 
+                    chromeOptions.AddArgument("--headless");
                     driver = new ChromeDriver(chromeOptions);
                     break;
                 case "firefoxheadless":
@@ -47,16 +52,17 @@ namespace uk.co.nfocus.ecommerceproject.Utils
                     break;
             }
 
+            //Instantiate a browser based on environment variable
             driver.Manage().Window.Maximize(); //Maximize window to full screen
             driver.Url = TestContext.Parameters["WebAppURL"]; //Direct to URL in test parameters, not env variable as not a secret
-            
-            DismissBanner(driver); //Dismisses the blue dialog
+
+            new NavPOM(driver).DismissBanner();
 
             //Initial Login
             LoginPOM login = new LoginPOM(driver);
 
             bool loggedIn = login.ValidLogin(Environment.GetEnvironmentVariable("USERNAME"), Environment.GetEnvironmentVariable("PASSWORD"));
-            Assert.That(loggedIn, "We did not login");
+            Assert.That(loggedIn, "Login Failed!");
 
             //Empty Cart for default state
             new NavPOM(driver).GoToCart();
@@ -66,32 +72,13 @@ namespace uk.co.nfocus.ecommerceproject.Utils
         [TearDown]
         public void Teardown()
         {
-            //Determining in teardown test result
-            //https://docs.nunit.org/articles/nunit/writing-tests/TestContext.html#result
-            if (TestContext.CurrentContext.Result.Outcome.Status.ToString() == "Failed")
-            {
-                Console.WriteLine("Test Failed: " + TestContext.CurrentContext.Result.Message);
-            }
-            else
-            {
-                Console.WriteLine("Test Passed and Completed");
-            }
-
-            //Except for passing Assertions - results during execution are logged and can be read back in TearDown
-            var assertionResults = TestContext.CurrentContext.Result.Assertions;
-            foreach (var assertionResult in assertionResults)
-            {
-                Console.WriteLine("Status: " + assertionResult.Status.ToString());
-                Console.WriteLine("Message: " + assertionResult.Message.ToString());
-            }
-
             //Logout
             try
             {
                 if (driver.Url.Contains("my-account"))
                 {
                     new MyAccountPOM(driver).Logout();
-                } 
+                }
                 else
                 {
                     new NavPOM(driver).GoToAccount();
@@ -100,14 +87,14 @@ namespace uk.co.nfocus.ecommerceproject.Utils
 
                 Console.WriteLine("Successfully Logged Out");
 
-            } 
+            }
             catch (Exception e)
             {
                 Console.WriteLine($"Logout Failed {e.Message}");
             }
 
             driver.Close();
-            driver.Quit(); 
+            driver.Quit();
         }
     }
 }

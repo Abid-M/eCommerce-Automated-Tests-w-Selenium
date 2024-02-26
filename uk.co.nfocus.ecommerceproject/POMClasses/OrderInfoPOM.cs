@@ -17,6 +17,7 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
 
         // Locators
         private IWebElement _orderNumber => StaticWaitForElement(_driver, By.CssSelector(".order strong"));
+        public IWebElement SsOrderNumber => _driver.FindElement(By.CssSelector("li.woocommerce-order-overview__order.order")); //public for screenshots
 
         // Gets the order number from the order confirmation page.
         public string GetOrderNumber()

@@ -1,6 +1,8 @@
 ﻿/* Author: Abid Miah */
 using OpenQA.Selenium;
+using OpenQA.Selenium.DevTools.V119.Debugger;
 using System.Globalization;
+using System.Xml.Linq;
 using static uk.co.nfocus.ecommerceproject.Utils.HelperLib;
 
 namespace uk.co.nfocus.ecommerceproject.POMClasses
@@ -15,7 +17,6 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
         }
 
         //Locators
-
         IList<IWebElement> _items => _driver.FindElements(By.CssSelector("td.product-name a")); //Collates all items in the cart (Tests for multiple items in cart)
         private IWebElement _couponCodeField => StaticWaitForElement(_driver, By.Name("coupon_code"));
         private IWebElement _applyCouponButton => _driver.FindElement(By.Name("apply_coupon"));
@@ -26,13 +27,13 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
         private IWebElement _removeItemButton => StaticWaitForElement(_driver, By.ClassName("remove"), 1);
         private IWebElement _cartEmptyDialog => StaticWaitForElement(_driver, By.ClassName("cart-empty"), 1);
         private IWebElement _checkoutLink => StaticWaitForElement(_driver, By.ClassName("checkout-button"));
-
+        private IWebElement _notice => StaticWaitForElement(_driver, By.ClassName("woocommerce-error"));
+        public IWebElement CartTotal => _driver.FindElement(By.CssSelector(".cart_totals")); // Set public to allow calls for screenshot
 
         //Empty cart on initial load of test, loop max. 50 times.
         public void EmptyCart()
         {
-            //NOT while loop, just in case it gets stuck in an infinite loop
-            for (int i = 0; i < 50; i++)
+            while (true)
             {
                 try
                 {
@@ -46,7 +47,7 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
                     }
                     catch
                     {
-                       //Need additional try catch so doesn't loop 50 times (false positives)
+                       //Need additional try catch so doesn't get stuck on finding element displayed
                     }
 
                     _removeItemButton.Click();
@@ -100,7 +101,7 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
             try
             {
                 // Get the notice text from the page
-                string noticeText = StaticWaitForElement(_driver, By.ClassName("woocommerce-error")).Text;
+                string noticeText = _notice.Text;
 
                 // Check if the notice text indicates that the coupon does not exist
                 if (noticeText.Contains("does not exist!"))

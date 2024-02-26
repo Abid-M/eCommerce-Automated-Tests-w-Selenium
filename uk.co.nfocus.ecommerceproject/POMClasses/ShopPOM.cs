@@ -23,7 +23,7 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
         /* This method checks if a shop item with a given name exists in the list of all items.
         If the item is found, it is added to the cart and the method returns true.
         If the item is not found, the method returns false. */
-        public bool FindItem(string name)
+        public bool FindAndAddItem(string name)
         {
             // Iterate through each item in the list of all items
             foreach (IWebElement item in _allItems)

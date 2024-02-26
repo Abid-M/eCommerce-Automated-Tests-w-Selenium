@@ -16,6 +16,7 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
         private IWebElement _usernameField => _driver.FindElement(By.Id("username"));
         private IWebElement _passwordField => _driver.FindElement(By.Id("password"));
         private IWebElement _loginButton => _driver.FindElement(By.Name("login"));
+        private IWebElement _errorBanner => _driver.FindElement(By.ClassName("woocommerce-error"));
 
         // Clears and sets the value of the username field.
         public LoginPOM SetUsername(string username)
@@ -51,14 +52,13 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
 
             try
             {
-                // Checks if error banner is displayed, Login Failed
-                _driver.FindElement(By.ClassName("woocommerce-error"));
+                bool displayed = _errorBanner.Displayed;
                 return false;
             }
             catch
             {
                 Console.WriteLine("Successfully Logged In");
-                return true; //Login success
+                return true;
             }
         }
     }

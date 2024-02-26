@@ -32,7 +32,7 @@ namespace uk.co.nfocus.ecommerceproject
             Console.WriteLine($"Verified that the discount was correctly applied to the cart..");
             Console.WriteLine($"Expected total value: £{cart.GetGrandTotalPrice()}, Actual total value: £{cart.ValidateTotal()}");
 
-            TakeScreenshot(driver, By.CssSelector(".cart_totals"), "Coupon-Discount-Price"); //Screenshot report
+            TakeScreenshot(driver, cart.CartTotal, "Coupon-Discount-Price"); //Screenshot report
         }
 
         [Test]
@@ -64,7 +64,7 @@ namespace uk.co.nfocus.ecommerceproject
 
             string newOrderNumber = new OrderInfoPOM(driver).GetOrderNumber(); //fetch order number on page
             Console.WriteLine($"New Order Number: {newOrderNumber}");
-            TakeScreenshot(driver, By.CssSelector("li.woocommerce-order-overview__order.order"), "New-Order-Number"); //Screenshot of newly placed order
+            TakeScreenshot(driver, new OrderInfoPOM(driver).SsOrderNumber, "New-Order-Number"); //Screenshot of newly placed order
 
             //Navigate to orders page from account
             new NavPOM(driver).GoToAccount(); 
@@ -77,7 +77,7 @@ namespace uk.co.nfocus.ecommerceproject
             Console.WriteLine($"Verified that the order numbers match from checkout page..");
             Console.WriteLine($"Expected order number: {orderNoCheck}, Actual order number: {newOrderNumber}");
 
-            TakeScreenshot(driver, By.CssSelector(".woocommerce-orders-table"), "Orders"); //Screenshot report
+            TakeScreenshot(driver, new AllOrdersPOM(driver).OrdersTable, "Orders"); //Screenshot report
         }
     }
 }

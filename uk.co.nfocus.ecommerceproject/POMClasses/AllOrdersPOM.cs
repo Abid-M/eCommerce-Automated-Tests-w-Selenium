@@ -17,7 +17,9 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
 
         //Locators
         //Gets the first td in the table row (latest top order)
-        IWebElement _newOrderNumber =>  StaticWaitForElement(_driver, By.XPath("//tr/td[1]/a"));
+        private IWebElement _newOrderNumber => StaticWaitForElement(_driver, By.CssSelector("td[data-title=\"Order\"] a"));
+        public IWebElement OrdersTable => _driver.FindElement(By.CssSelector(".woocommerce-orders-table")); //public for screenshot
+        
 
 
         // Gets the new order number from the order confirmation page.

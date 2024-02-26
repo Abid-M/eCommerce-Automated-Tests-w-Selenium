@@ -98,9 +98,8 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
 
         public CheckoutPOM SelectChequePayment()
         {
-            //For loop with a maximum of 10 iterations to try clicking the cheque payment button.
             //Button might not be immediately available or might be stale, so we try a few times.
-            for (int i = 0; i < 25; i++)
+            while (true)
             {
                 try
                 {
@@ -119,9 +118,8 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
 
         public void PlaceOrder()
         {
-            //For loop with a maximum of 10 iterations to try clicking the cheque payment button.
             //Button might not be immediately available or might be stale, so we try a few times.
-            for (int i = 0; i < 25; i++)
+            while(true)
             {
                 try
                 {
