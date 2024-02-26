@@ -32,6 +32,16 @@ namespace uk.co.nfocus.ecommerceproject.Utils
                 case "firefox":
                     driver = new FirefoxDriver();
                     break;
+                case "chromeheadless":
+                    ChromeOptions chromeOptions = new ChromeOptions();
+                    chromeOptions.AddArgument("--headless"); 
+                    driver = new ChromeDriver(chromeOptions);
+                    break;
+                case "firefoxheadless":
+                    FirefoxOptions firefoxoptions = new FirefoxOptions();
+                    firefoxoptions.AddArgument("--headless");
+                    driver = new FirefoxDriver(firefoxoptions);
+                    break;
                 default:
                     driver = new EdgeDriver();
                     break;
