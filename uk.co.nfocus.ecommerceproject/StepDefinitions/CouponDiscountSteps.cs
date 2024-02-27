@@ -2,6 +2,7 @@
 using System;
 using TechTalk.SpecFlow;
 using uk.co.nfocus.ecommerceproject.POMClasses;
+using static uk.co.nfocus.ecommerceproject.Utils.HelperLib;
 
 namespace uk.co.nfocus.ecommerceproject.StepDefinitions
 {
@@ -54,9 +55,21 @@ namespace uk.co.nfocus.ecommerceproject.StepDefinitions
         }
 
         [Then(@"I recieve '(.*)'% discount off my total, excluding shipping")]
-        public void ThenIRecieveDiscountOffMyTotalExcludingShipping(int discountPercentage)
+        public void ThenIRecieveDiscountOffMyTotalExcludingShipping(int expectedDiscount)
         {
-            _scenarioContext.Pending();
+            //Reports discount percentage applied from previous step
+            CartPOM cart = new CartPOM(_driver);
+            int discount = cart.GetDiscountPercentage();
+
+            Console.WriteLine($"Applied a {discount}% discount");
+            Assert.That(discount, Is.EqualTo(expectedDiscount), $"Expected {expectedDiscount}% off, Actual {discount}% off instead");
+
+            //Verify discount check
+            Assert.That(cart.GetGrandTotalPrice(), Is.EqualTo(cart.ValidateTotal()), "Discount not applied correctly");
+            Console.WriteLine($"Verified that the discount was correctly applied to the cart..");
+            Console.WriteLine($"Expected total value: £{cart.GetGrandTotalPrice()}, Actual total value: £{cart.ValidateTotal()}");
+
+            TakeScreenshot(_driver, cart.CartTotal, "Coupon-Discount-Price"); //Screenshot report
         }
     }
 }
