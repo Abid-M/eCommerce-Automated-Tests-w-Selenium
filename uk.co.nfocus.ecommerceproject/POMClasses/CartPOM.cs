@@ -28,7 +28,9 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
         private IWebElement _cartEmptyDialog => StaticWaitForElement(_driver, By.ClassName("cart-empty"), 1);
         private IWebElement _checkoutLink => StaticWaitForElement(_driver, By.ClassName("checkout-button"));
         private IWebElement _notice => StaticWaitForElement(_driver, By.ClassName("woocommerce-error"));
+        private CultureInfo _provider => new CultureInfo("en-GB");
         public IWebElement CartTotal => _driver.FindElement(By.CssSelector(".cart_totals")); // Set public to allow calls for screenshot
+        
 
         //Empty cart on initial load of test, loop max. 50 times.
         public void EmptyCart()
@@ -129,28 +131,28 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
         public decimal GetSubtotalPrice()
         {
             string strValue = _subtotalPrice.Text;
-            return decimal.Parse(strValue, NumberStyles.Currency); //Removes pound symbol
+            return decimal.Parse(strValue, NumberStyles.Currency, _provider); //Removes pound symbol
         }
 
         // Gets the shipping price from the cart page.
         public decimal GetShippingPrice()
         {
             string strValue = _shippingPrice.Text;
-            return decimal.Parse(strValue, NumberStyles.Currency); //Removes pound symbol
+            return decimal.Parse(strValue, NumberStyles.Currency, _provider); //Removes pound symbol
         }
 
         // Gets the grand total price from the cart page.
         public decimal GetGrandTotalPrice()
         {
             string strValue = _grandTotalPrice.Text;
-            return decimal.Parse(strValue, NumberStyles.Currency); //Removes pound symbol
+            return decimal.Parse(strValue, NumberStyles.Currency, _provider); //Removes pound symbol
         }
 
         // Gets the coupon discount from the cart page.
         public decimal GetCouponDiscount()
         {
             string strValue = _couponDiscount.Text;
-            return decimal.Parse(strValue, NumberStyles.Currency); //Removes pound symbol
+            return decimal.Parse(strValue, NumberStyles.Currency, _provider); //Removes pound symbol
         }
 
         // Gets the coupon discount percentage as an integer.
