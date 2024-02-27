@@ -2,6 +2,7 @@
 using System;
 using TechTalk.SpecFlow;
 using uk.co.nfocus.ecommerceproject.POMClasses;
+using uk.co.nfocus.ecommerceproject.Utils;
 using static uk.co.nfocus.ecommerceproject.Utils.HelperLib;
 
 namespace uk.co.nfocus.ecommerceproject.StepDefinitions
@@ -45,9 +46,12 @@ namespace uk.co.nfocus.ecommerceproject.StepDefinitions
         }
 
         [When(@"I provide the billing details:")]
-        public void WhenIProvideTheBillingDetails(Table table)
+        public void WhenIProvideTheBillingDetails(Table customerInfo)
         {
-            _scenarioContext.Pending();
+            CheckoutPOM checkout = new CheckoutPOM(_driver);
+
+            //Customer customer = checkout.FillInBillingDetails(customerInfo);
+            Console.WriteLine("Billing Details Populated..");
         }
 
         [When(@"I place the order")]

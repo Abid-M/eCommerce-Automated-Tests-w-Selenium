@@ -1,6 +1,8 @@
 ﻿/* Author: Abid Miah */
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
+using System.Data;
+using TechTalk.SpecFlow;
 using uk.co.nfocus.ecommerceproject.Utils;
 using static uk.co.nfocus.ecommerceproject.Utils.HelperLib;
 
@@ -133,6 +135,21 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
                     //Try again
                 }
             }
+        }
+
+        public Customer CreateCustomer(Table CustomerInfo)
+        {
+            var customerRow = CustomerInfo.Rows[0]; // Only one row in table
+
+            string fName = customerRow["first name"];
+            string lName = customerRow["last name"];
+            string address = customerRow["address"];
+            string city = customerRow["city"];
+            string postcode = customerRow["postcode"];
+            string phoneNumber = customerRow["phone number"];
+            string email = customerRow["email"];
+
+            return new Customer(fName, lName, address, city, postcode, phoneNumber, email);
         }
     }
 }
