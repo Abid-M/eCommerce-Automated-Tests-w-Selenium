@@ -63,8 +63,9 @@ namespace uk.co.nfocus.ecommerceproject.StepDefinitions
         public void WhenIPlaceTheOrder()
         {
             CheckoutPOM checkout = new CheckoutPOM(_driver);
-
             checkout.SelectChequePayment().PlaceOrder();
+
+
         }
 
         [Then(@"the order should appear in my accounts order history")]
