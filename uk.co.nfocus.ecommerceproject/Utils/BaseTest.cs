@@ -62,7 +62,7 @@ namespace uk.co.nfocus.ecommerceproject.Utils
             LoginPOM login = new LoginPOM(driver);
 
             bool loggedIn = login.ValidLogin(Environment.GetEnvironmentVariable("USERNAME"), Environment.GetEnvironmentVariable("PASSWORD"));
-            Assert.That(loggedIn, "Login Failed!");
+            Assert.That(loggedIn, "Login Failed! Not set/invalid username & password");
 
             //Empty Cart for default state
             new NavPOM(driver).GoToCart();

@@ -1,4 +1,5 @@
-﻿Feature: PlacingOrder
+﻿@GUI
+Feature: PlacingOrder
 
 A pre-registered user can access the ecommerce website by logging in, 
 select a clothing item, apply a coupon to receive a discount, before checking out and placing the order.
