@@ -62,7 +62,9 @@ namespace uk.co.nfocus.ecommerceproject.StepDefinitions
         [When(@"I place the order with 'Check payments' as payment method")]
         public void WhenIPlaceTheOrder()
         {
-            _scenarioContext.Pending();
+            CheckoutPOM checkout = new CheckoutPOM(_driver);
+
+            checkout.SelectChequePayment().PlaceOrder();
         }
 
         [Then(@"the order should appear in my accounts order history")]
