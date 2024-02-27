@@ -46,6 +46,10 @@ namespace uk.co.nfocus.ecommerceproject.StepDefinitions
 
             string item = (string)_scenarioContext["itemName"];
             Assert.That(cart.CheckItemInCart(item), "Item added, not in cart!");
+
+            //Apply coupon check
+            cart.EnterCoupon(couponCode).ApplyCoupon();
+            Assert.That(cart.ValidateCoupon(couponCode), "Coupon does not exist!");
         }
 
         [Then(@"I recieve '(.*)'% discount off my total, excluding shipping")]
