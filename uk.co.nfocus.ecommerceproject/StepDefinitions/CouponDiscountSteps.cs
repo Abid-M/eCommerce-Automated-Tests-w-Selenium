@@ -50,6 +50,7 @@ namespace uk.co.nfocus.ecommerceproject.StepDefinitions
             //Apply coupon check
             cart.EnterCoupon(couponCode).ApplyCoupon();
             Assert.That(cart.ValidateCoupon(couponCode), "Coupon does not exist!");
+            Console.WriteLine($"Valid Coupon Applied: '{couponCode}'..");
         }
 
         [Then(@"I recieve '(.*)'% discount off my total, excluding shipping")]
