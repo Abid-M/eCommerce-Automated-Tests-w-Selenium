@@ -22,6 +22,7 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
         // Gets the order number from the order confirmation page.
         public string GetOrderNumber()
         {
+            Console.WriteLine($"New Order Number: {_orderNumber.Text}");
             return _orderNumber.Text;
         }
     }

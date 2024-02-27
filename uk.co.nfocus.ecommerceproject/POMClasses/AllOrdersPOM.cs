@@ -23,7 +23,7 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
 
 
         // Gets the new order number from the order confirmation page.
-        public string GetNewOrderNumber()
+        public string GetLatestOrder()
         {
             string newOrderNo = _newOrderNumber.Text;
             return newOrderNo.Replace("#", ""); //Remove # from string, only return order number

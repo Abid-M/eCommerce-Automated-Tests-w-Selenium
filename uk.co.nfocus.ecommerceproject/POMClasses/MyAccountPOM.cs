@@ -27,6 +27,7 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
         public void GoToOrders()
         {
             _ordersLink.Click();
+            Console.WriteLine("Navigated to All Orders on account page");
         }
     }
 }

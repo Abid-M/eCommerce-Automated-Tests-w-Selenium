@@ -51,10 +51,10 @@ namespace uk.co.nfocus.ecommerceproject.StepDefinitions
             CheckoutPOM checkout = new CheckoutPOM(_driver);
             // Creates a customer with the details passed from the feature table
             Customer customer = checkout.CreateCustomer(customerInfo);
-            //Fill in Billing Input Fields with customer object
+            // Fill in Billing Input Fields with customer object
             checkout.FillInBillingDetails(customer);
 
-            //Validate billing fields have been entered
+            // Validate billing fields have been entered
             Assert.That(checkout.ValidateDetails(customer), "Billing input fields not entered!");
             Console.WriteLine("Validated Billing Details have actually been populated");
         }
@@ -65,13 +65,31 @@ namespace uk.co.nfocus.ecommerceproject.StepDefinitions
             CheckoutPOM checkout = new CheckoutPOM(_driver);
             checkout.SelectChequePayment().PlaceOrder();
 
+            OrderInfoPOM orderInfo = new OrderInfoPOM(_driver);
+            string newOrderNumber = orderInfo.GetOrderNumber(); // Fetch order number on page
 
+            _scenarioContext["newOrderNumber"] = newOrderNumber; // Store new Order Number for use in next step
+
+            TakeScreenshot(_driver, orderInfo.SsOrderNumber, "New_Order_Number"); // Screenshot of newly placed order
         }
 
         [Then(@"the order should appear in my accounts order history")]
         public void ThenTheOrderShouldAppearInMyAccountsOrderHistory()
         {
-            _scenarioContext.Pending();
+            // Navigate to all orders page from account
+            new NavPOM(_driver).GoToAccount();
+            new MyAccountPOM(_driver).GoToOrders();
+
+            AllOrdersPOM allOrders = new AllOrdersPOM(_driver);
+            string newOrderNumber = (string)_scenarioContext["newOrderNumber"];
+            string orderNoCheck = allOrders.GetNewOrderNumber(); // Capture order no. on All Orders Page
+
+            // Verifying order numbers are the same from Checkout and in Account Orders
+            Assert.That(orderNoCheck, Is.EqualTo(newOrderNumber), "Order numbers do not match!");
+            Console.WriteLine($"Verified that the order numbers match from checkout page..");
+            Console.WriteLine($"Expected order number: {orderNoCheck}, Actual order number: {newOrderNumber}");
+
+            TakeScreenshot(_driver, allOrders.OrdersTable, "Orders"); //Screenshot report
         }
     }
 }

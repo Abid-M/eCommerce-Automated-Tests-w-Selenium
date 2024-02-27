@@ -29,7 +29,7 @@ namespace uk.co.nfocus.ecommerceproject.StepDefinitions
             // (Assumes the item can be found directly on the shop page)
             ShopPOM shop = new ShopPOM(_driver);
 
-            _scenarioContext["itemName"] = item; //store item for later use in other step
+            _scenarioContext["itemName"] = item; // Store item for later use in other step
 
             // Find the item and assert that item exists
             bool itemExist = shop.FindAndAddItem(item);
@@ -48,7 +48,7 @@ namespace uk.co.nfocus.ecommerceproject.StepDefinitions
             string item = (string)_scenarioContext["itemName"];
             Assert.That(cart.CheckItemInCart(item), "Item added, not in cart!");
 
-            //Apply coupon check
+            // Apply coupon check
             cart.EnterCoupon(couponCode).ApplyCoupon();
             Assert.That(cart.ValidateCoupon(couponCode), "Coupon does not exist!");
         }
@@ -56,19 +56,19 @@ namespace uk.co.nfocus.ecommerceproject.StepDefinitions
         [Then(@"I recieve '(.*)'% discount off my total, excluding shipping")]
         public void ThenIRecieveDiscountOffMyTotalExcludingShipping(int expectedDiscount)
         {
-            //Reports discount percentage applied from previous step
+            // Reports discount percentage applied from previous step
             CartPOM cart = new CartPOM(_driver);
             int discount = cart.GetDiscountPercentage();
 
             // Checks that the calculated discount is equal to the expectedDiscount passed by feature file
             Assert.That(discount, Is.EqualTo(expectedDiscount), $"Expected {expectedDiscount}% off, Actual {discount}% off instead");
 
-            //Verify discount check
+            // Verify discount check
             Assert.That(cart.GetGrandTotalPrice(), Is.EqualTo(cart.ValidateTotal()), "Discount not applied correctly");
             Console.WriteLine($"Verified that the discount was correctly applied to the cart..");
             Console.WriteLine($"Expected total value: £{cart.GetGrandTotalPrice()}, Actual total value: £{cart.ValidateTotal()}");
 
-            TakeScreenshot(_driver, cart.CartTotal, "Coupon-Discount-Price"); //Screenshot report
+            TakeScreenshot(_driver, cart.CartTotal, "Coupon_Discount_Price"); // Screenshot report
         }
     }
 }
