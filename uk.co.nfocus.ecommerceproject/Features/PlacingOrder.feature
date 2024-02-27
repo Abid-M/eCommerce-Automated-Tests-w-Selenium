@@ -30,5 +30,5 @@ Scenario: Order checkout process, and verify in order history
 		And I provide the billing details:
 		| first name | last name | address     | city   | postcode | phone number | email                   |
 		| Abid       | Miah      | 17 Sui Lane | London | SW19 2JY | 07365827365  | test.email@nfocus.co.uk |
-	When I place the order
+	When I place the order with 'Check payments' as payment method
 	Then the order should appear in my accounts order history

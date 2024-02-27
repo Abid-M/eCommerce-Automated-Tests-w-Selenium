@@ -182,7 +182,7 @@ this.FeatureBackground();
   testRunner.And("I provide the billing details:", ((string)(null)), table1, "And ");
 #line hidden
 #line 33
- testRunner.When("I place the order", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("I place the order with \'Check payments\' as payment method", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 34
  testRunner.Then("the order should appear in my accounts order history", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");

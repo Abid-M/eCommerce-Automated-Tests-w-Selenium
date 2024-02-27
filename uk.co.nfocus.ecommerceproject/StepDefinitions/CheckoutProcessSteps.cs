@@ -49,12 +49,17 @@ namespace uk.co.nfocus.ecommerceproject.StepDefinitions
         public void WhenIProvideTheBillingDetails(Table customerInfo)
         {
             CheckoutPOM checkout = new CheckoutPOM(_driver);
+            // Creates a customer with the details passed from the feature table
+            Customer customer = checkout.CreateCustomer(customerInfo);
+            //Fill in Billing Input Fields with customer object
+            checkout.FillInBillingDetails(customer);
 
-            //Customer customer = checkout.FillInBillingDetails(customerInfo);
-            Console.WriteLine("Billing Details Populated..");
+            //Validate billing fields have been entered
+            Assert.That(checkout.ValidateDetails(customer), "Billing input fields not entered!");
+            Console.WriteLine("Validated Billing Details have actually been populated");
         }
 
-        [When(@"I place the order")]
+        [When(@"I place the order with 'Check payments' as payment method")]
         public void WhenIPlaceTheOrder()
         {
             _scenarioContext.Pending();

@@ -76,6 +76,7 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
             SetPhone(customer._phone);
             SetEmail(customer._email);
 
+            Console.WriteLine("Billing Details Populated..");
         }
 
         public bool ValidateDetails(Customer customer)
@@ -107,6 +108,7 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
                 {
                     // If the button is found and clickable, this will succeed and exit the loop.
                     _chequePaymentButton.Click();
+                    Console.WriteLine("Cheque Payment Selected");
                     break;
                 }
                 catch
@@ -128,6 +130,7 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
                     // If the button is found and clickable with order url, this will succeed and exit the loop.
                     _placeOrderButton.Click();
                     new WebDriverWait(_driver, TimeSpan.FromSeconds(3)).Until(drv => drv.Url.Contains("order"));
+                    Console.WriteLine("Order Placed..");
                     break;
                 }
                 catch
