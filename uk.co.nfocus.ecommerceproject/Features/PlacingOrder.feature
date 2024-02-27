@@ -11,7 +11,7 @@ Background:
 
 @TestCase1_Coupon
 Scenario Outline: Applying a discount to the shopping cart
-	When I add a '<item>' into my cart
+	When I add '<item>' into my cart
 		And I apply the coupon code 'edgewords' to the cart
 	Then I recieve '15'% discount off my total, excluding shipping
 

@@ -58,24 +58,6 @@ namespace uk.co.nfocus.ecommerceproject.Utils
         [After]
         public void TearDown()
         {
-            //Determining in teardown test result
-            if (TestContext.CurrentContext.Result.Outcome.Status.ToString() == "Failed")
-            {
-                Console.WriteLine("Test Failed: " + TestContext.CurrentContext.Result.Message);
-            }
-            else
-            {
-                Console.WriteLine("Test Passed and Completed");
-            }
-
-            //Except for passing Assertions - results during execution are logged and can be read back in TearDown
-            var assertionResults = TestContext.CurrentContext.Result.Assertions;
-            foreach (var assertionResult in assertionResults)
-            {
-                Console.WriteLine("Status: " + assertionResult.Status.ToString());
-                Console.WriteLine("Message: " + assertionResult.Message.ToString());
-            }
-
             //Logout
             try
             {

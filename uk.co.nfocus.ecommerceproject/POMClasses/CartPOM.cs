@@ -112,8 +112,9 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
                 }
 
                 // Check if the notice text mentions that the coupon has already been applied
-                if (noticeText.Contains("has been applied", StringComparison.OrdinalIgnoreCase))
+                if (noticeText.Contains("has been applied"))
                 {
+                    Console.WriteLine($"Valid Coupon Applied: '{coupon}'..");
                     return true;
                 }
 
@@ -123,6 +124,7 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
             catch
             {
                 // If an exception is thrown (e.g. if the notice element is not found), assume that the coupon was applied successfully
+                Console.WriteLine($"Valid Coupon Applied: '{coupon}'..");
                 return true; //Coupon applied
             }
         }
@@ -163,6 +165,8 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
 
             // Convert the decimal to an integer
             int discountPercentage = (int)discountPercentageAsDecimal;
+
+            Console.WriteLine($"Applied a {discountPercentage}% discount");
 
             return discountPercentage;
         }

@@ -25,12 +25,14 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
         public void GoToShop()
         {
             _shopLink.Click();
+            Console.WriteLine("Navigated to the Shop Page");
         }
 
         // Navigates to the cart page.
         public void GoToCart()
         {
             _cartLink.Click();
+            Console.WriteLine("Navigated to the Cart Page");
         }
 
         // Navigates to the checkout page.
