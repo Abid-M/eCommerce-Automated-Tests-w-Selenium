@@ -22,8 +22,10 @@ namespace uk.co.nfocus.ecommerceproject.StepDefinitions
         [Given(@"I am on the eCommerce Website")]
         public void GivenIAmOnTheECommerceWebsite()
         {
+            // Direct to URL in test parameters, not env variable as not a secret
             _driver.Url = TestContext.Parameters["WebAppURL"];
-
+            
+            // Dismisses the notice banner
             new NavPOM(_driver).DismissBanner();
         }
 
@@ -32,7 +34,15 @@ namespace uk.co.nfocus.ecommerceproject.StepDefinitions
         {
             LoginPOM login = new LoginPOM(_driver);
 
-            bool loggedIn = login.ValidLogin(Environment.GetEnvironmentVariable("USERNAME"), Environment.GetEnvironmentVariable("PASSWORD"));
+            string? username = Environment.GetEnvironmentVariable("USERNAME");
+            string? password = Environment.GetEnvironmentVariable("PASSWORD");
+            bool loggedIn = false;
+
+            if (username !=null && password != null)
+            {
+                loggedIn = login.ValidLogin(username, password);
+            }
+
             Assert.That(loggedIn, "We did not login");
         }
     }

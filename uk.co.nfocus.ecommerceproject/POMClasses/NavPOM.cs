@@ -39,12 +39,15 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
         public void GoToCheckout()
         {
             _checkoutLink.Click();
+            Console.WriteLine("Navigated to Checkout page");
         }
 
         // Navigates to the my account page.
         public void GoToAccount()
         {
             _myAccountLink.Click();
+            Console.WriteLine("Navigated to Account page");
+
         }
 
         /* Clicks the "Dismiss" link in the blue banner, if it is present. */

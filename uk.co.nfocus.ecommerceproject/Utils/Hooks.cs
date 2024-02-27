@@ -19,7 +19,7 @@ namespace uk.co.nfocus.ecommerceproject.Utils
     [Binding]
     public class Hooks
     {
-        private IWebDriver _driver;
+        private IWebDriver? _driver;
         private readonly ScenarioContext _scenarioContext;
 
         public Hooks(ScenarioContext scenarioContext)
@@ -32,7 +32,12 @@ namespace uk.co.nfocus.ecommerceproject.Utils
         {
             string? browser = Environment.GetEnvironmentVariable("BROWSER");
 
-            //Instantiate a browser based on environment variable
+            if (browser == null)
+            {
+                Console.WriteLine("BROWSER env not set: Setting to Edge..");
+                browser = "edge";
+            }
+
             switch (browser)
             {
                 case "chrome":
@@ -45,6 +50,16 @@ namespace uk.co.nfocus.ecommerceproject.Utils
                     break;
                 case "firefox":
                     _driver = new FirefoxDriver();
+                    break;
+                case "chromeheadless":
+                    ChromeOptions chromeOptions = new ChromeOptions();
+                    chromeOptions.AddArgument("--headless");
+                    _driver = new ChromeDriver(chromeOptions);
+                    break;
+                case "firefoxheadless":
+                    FirefoxOptions firefoxoptions = new FirefoxOptions();
+                    firefoxoptions.AddArgument("--headless");
+                    _driver = new FirefoxDriver(firefoxoptions);
                     break;
                 default:
                     _driver = new EdgeDriver();
@@ -61,7 +76,7 @@ namespace uk.co.nfocus.ecommerceproject.Utils
             //Logout
             try
             {
-                if (_driver.Url.Contains("my-account"))
+                if (_driver!.Url.Contains("my-account"))
                 {
                     new MyAccountPOM(_driver).Logout();
                 }
@@ -76,10 +91,10 @@ namespace uk.co.nfocus.ecommerceproject.Utils
             }
             catch (Exception e)
             {
-                Console.WriteLine($"Logout Failed {e.Message}");
+                Console.WriteLine($"Logout Failed: {e.Message}");
             }
 
-            _driver.Quit();
+            _driver!.Quit(); // Null forgiving operator (!)
         }
 
     }

@@ -1,6 +1,7 @@
 ﻿using OpenQA.Selenium;
 using System;
 using TechTalk.SpecFlow;
+using uk.co.nfocus.ecommerceproject.POMClasses;
 using static uk.co.nfocus.ecommerceproject.Utils.HelperLib;
 
 namespace uk.co.nfocus.ecommerceproject.StepDefinitions
@@ -20,13 +21,26 @@ namespace uk.co.nfocus.ecommerceproject.StepDefinitions
         [Given(@"that the cart contains '(.*)'")]
         public void GivenThatTheCartContains(string item)
         {
-            _scenarioContext.Pending();
+            // Navigate to the shop page via the navigation bar
+            NavPOM nav = new NavPOM(_driver);
+            nav.GoToShop();
+
+            // Find the specified item and add it to the cart
+            // (Assumes the item can be found directly on the shop page)
+            ShopPOM shop = new ShopPOM(_driver);
+
+            // Find the item and assert that item exists
+            bool itemExist = shop.FindAndAddItem(item);
+            Assert.That(itemExist, "Item does not exist");
+
+            // Go to Cart Page
+            shop.GoToCart();
         }
 
         [When(@"I proceed to checkout")]
-        public void WhenIProvideTheBillingDetails()
+        public void WhenIProceedToCheckout()
         {
-            _scenarioContext.Pending();
+            new CartPOM(_driver).GoToCheckout();
         }
 
         [When(@"I provide the billing details:")]
