@@ -40,6 +40,7 @@ namespace uk.co.nfocus.ecommerceproject.StepDefinitions
         [When(@"I proceed to checkout")]
         public void WhenIProceedToCheckout()
         {
+            // navigates to checkout page
             new CartPOM(_driver).GoToCheckout();
         }
 
