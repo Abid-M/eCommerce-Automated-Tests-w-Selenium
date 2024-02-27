@@ -94,6 +94,7 @@ namespace uk.co.nfocus.ecommerceproject.Utils
                 Console.WriteLine($"Logout Failed: {e.Message}");
             }
 
+            Console.WriteLine("Test Passed & Completed!");
             _driver!.Quit(); // Null forgiving operator (!)
         }
 

@@ -181,6 +181,7 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
         // Navigates to the checkout page.
         public void GoToCheckout()
         {
+            Console.WriteLine("Navigated to Checkout page");
             _checkoutLink.Click();
         }
     }

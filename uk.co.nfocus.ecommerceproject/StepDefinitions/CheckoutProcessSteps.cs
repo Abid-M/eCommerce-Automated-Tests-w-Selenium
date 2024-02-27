@@ -82,7 +82,7 @@ namespace uk.co.nfocus.ecommerceproject.StepDefinitions
 
             AllOrdersPOM allOrders = new AllOrdersPOM(_driver);
             string newOrderNumber = (string)_scenarioContext["newOrderNumber"];
-            string orderNoCheck = allOrders.GetNewOrderNumber(); // Capture order no. on All Orders Page
+            string orderNoCheck = allOrders.GetLatestOrder(); // Capture order no. on All Orders Page
 
             // Verifying order numbers are the same from Checkout and in Account Orders
             Assert.That(orderNoCheck, Is.EqualTo(newOrderNumber), "Order numbers do not match!");
