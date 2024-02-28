@@ -25,7 +25,7 @@ namespace uk.co.nfocus.ecommerceproject.StepDefinitions
         public void GivenIAmOnTheECommerceWebsite()
         {
             // Direct to URL in test parameters, not env variable as not a secret
-            _driver.Url = TestContext.Parameters["WebAppURL"]; // starting on cart page to clear
+            _driver.Url = TestContext.Parameters["WebAppURL"] ?? throw new Exception("BASE_URL not set."); // starting on cart page to clear
 
             // Dismisses the notice banner
             NavPOM nav = new NavPOM(_driver, _specFlowOutputHelper);
@@ -37,8 +37,8 @@ namespace uk.co.nfocus.ecommerceproject.StepDefinitions
         {
             LoginPOM login = new LoginPOM(_driver, _specFlowOutputHelper);
 
-            string? username = Environment.GetEnvironmentVariable("USERNAME");
-            string? password = Environment.GetEnvironmentVariable("PASSWORD");
+            string? username = Environment.GetEnvironmentVariable("USERNAME") ?? throw new Exception("USERNAME env variable is not set.");
+            string? password = Environment.GetEnvironmentVariable("PASSWORD") ?? throw new Exception("PASSWORD env variable is not set.");
             bool loggedIn = false;
 
             if (username !=null && password != null)
