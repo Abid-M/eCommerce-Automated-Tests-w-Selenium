@@ -29,23 +29,23 @@ The tests will be conducted on the following e-commerce site:
 1. Clone this repo to your local machine.
 
 2. Install the following packages:
-  * NUnit (4.0.1)
-  * NUnit.Analyzers (4.0.1)
-  * NUnit3TestAdapter (4.5.0)
-  * Selenium.WebDriver (4.17.0)
-  * Selenium.Support(4.17.0)
-  * SpecFlow.NUnit (3.9.74)
-  * SpecFlow.Plus.LivingDocPlugin (3.9.57)
+   * NUnit (4.0.1)
+   * NUnit.Analyzers (4.0.1)
+   * NUnit3TestAdapter (4.5.0)
+   * Selenium.WebDriver (4.17.0)
+   * Selenium.Support(4.17.0)
+   * SpecFlow.NUnit (3.9.74)
+   * SpecFlow.Plus.LivingDocPlugin (3.9.57)
 
 3. Create 3 environment variables:
-  * USERNAME
-  * PASSWORD
-  * BROWSER
+   * USERNAME
+   * PASSWORD
+   * BROWSER
 
   ###### *USERNAME and PASSWORD must be the login details*
   ###### *Specify BROWSER as edge, chrome or firefox* (If none specified, default is edge)*
 
 4. Create test run parameter
-  * name="WebAppURL" value="https://www.edgewordstraining.co.uk/demo-site/my-account/"
+   * name="WebAppURL" value="https://www.edgewordstraining.co.uk/demo-site/my-account/"
 
 5. Run the test with `dotnet test` or via VS Test Explorer
