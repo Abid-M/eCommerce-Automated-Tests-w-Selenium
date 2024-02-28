@@ -18,6 +18,7 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
         }
 
         //Locators
+        private static CultureInfo s_provider = new CultureInfo("en-GB");
         IList<IWebElement> _items => _driver.FindElements(By.CssSelector("td.product-name a")); //Collates all items in the cart (Tests for multiple items in cart)
         private IWebElement _couponCodeField => WaitForElement(_driver, By.Name("coupon_code"));
         private IWebElement _applyCouponButton => _driver.FindElement(By.Name("apply_coupon"));
@@ -29,9 +30,9 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
         private IWebElement _cartEmptyDialog => WaitForElement(_driver, By.ClassName("cart-empty"), 1);
         private IWebElement _checkoutLink => WaitForElement(_driver, By.ClassName("checkout-button"));
         private IWebElement _notice => WaitForElement(_driver, By.ClassName("woocommerce-error"));
-        private CultureInfo _provider => new CultureInfo("en-GB");
         public IWebElement CartTotal => _driver.FindElement(By.CssSelector(".cart_totals")); // Set public to allow calls for screenshot
-        
+
+
 
         //Empty cart on initial load of test, loop max. 50 times.
         public void EmptyCart()
@@ -134,28 +135,28 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
         public decimal GetSubtotalPrice()
         {
             string strValue = _subtotalPrice.Text;
-            return decimal.Parse(strValue, NumberStyles.Currency, _provider); //Removes pound symbol
+            return decimal.Parse(strValue, NumberStyles.Currency, s_provider); //Removes pound symbol
         }
 
         // Gets the shipping price from the cart page.
         public decimal GetShippingPrice()
         {
             string strValue = _shippingPrice.Text;
-            return decimal.Parse(strValue, NumberStyles.Currency, _provider); //Removes pound symbol
+            return decimal.Parse(strValue, NumberStyles.Currency, s_provider); //Removes pound symbol
         }
 
         // Gets the grand total price from the cart page.
         public decimal GetGrandTotalPrice()
         {
             string strValue = _grandTotalPrice.Text;
-            return decimal.Parse(strValue, NumberStyles.Currency, _provider); //Removes pound symbol
+            return decimal.Parse(strValue, NumberStyles.Currency, s_provider); //Removes pound symbol
         }
 
         // Gets the coupon discount from the cart page.
         public decimal GetCouponDiscount()
         {
             string strValue = _couponDiscount.Text;
-            return decimal.Parse(strValue, NumberStyles.Currency, _provider); //Removes pound symbol
+            return decimal.Parse(strValue, NumberStyles.Currency, s_provider); //Removes pound symbol
         }
 
         // Gets the coupon discount percentage as an integer.
