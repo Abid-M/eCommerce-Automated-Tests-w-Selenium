@@ -34,6 +34,6 @@ Scenario Outline: Order checkout process, and verify in order history
 	Then the order should appear in my accounts order history
 
 Examples:
-	| payment method | item   |
+	| payment method | item	  |
 	| Check          | Hoodie |
-	| Cash           | Cap    |
+	| Cash           | Cap	  |
