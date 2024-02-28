@@ -19,6 +19,7 @@ namespace uk.co.nfocus.ecommerceproject.StepDefinitions
             this._driver = (IWebDriver)_scenarioContext["myDriver"];
         }
 
+        /* Adding an item to cart for this context */
         [Given(@"that the cart contains '(.*)'")]
         public void GivenThatTheCartContains(string item)
         {
@@ -59,11 +60,11 @@ namespace uk.co.nfocus.ecommerceproject.StepDefinitions
             Console.WriteLine("Validated Billing Details have actually been populated");
         }
 
-        [When(@"I place the order with 'Check payments' as payment method")]
-        public void WhenIPlaceTheOrder()
+        [When(@"I place the order with '(.*)' payment")]
+        public void WhenIPlaceTheOrder(string paymentMethod)
         {
             CheckoutPOM checkout = new CheckoutPOM(_driver);
-            checkout.SelectChequePayment().PlaceOrder();
+            checkout.SelectPayment(paymentMethod).PlaceOrder();
 
             OrderInfoPOM orderInfo = new OrderInfoPOM(_driver);
             string newOrderNumber = orderInfo.GetOrderNumber(); // Fetch order number on page

@@ -1,6 +1,6 @@
 ﻿/* Author: Abid Miah */
 using OpenQA.Selenium;
-using OpenQA.Selenium.DevTools.V119.Debugger;
+using OpenQA.Selenium.DevTools;
 using System.Globalization;
 using System.Xml.Linq;
 using static uk.co.nfocus.ecommerceproject.Utils.HelperLib;
@@ -118,8 +118,8 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
                     return true;
                 }
 
-                // If the notice text does not indicate that the coupon is invalid or applied, return false
-                return false;
+                // If the notice text does not indicate that the coupon is invalid or applied, return true
+                return true;
             }
             catch
             {

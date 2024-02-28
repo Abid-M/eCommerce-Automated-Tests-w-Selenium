@@ -26,7 +26,8 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
         private IWebElement _postcodeField => _driver.FindElement(By.Id("billing_postcode"));
         private IWebElement _phoneField => _driver.FindElement(By.Id("billing_phone"));
         private IWebElement _emailField => _driver.FindElement(By.Id("billing_email"));
-        private IWebElement _chequePaymentButton => StaticWaitForElement(_driver, By.CssSelector("li.wc_payment_method.payment_method_cheque > label"), 1);
+        private IWebElement _chequePaymentButton => StaticWaitForElement(_driver, By.CssSelector("label[for='payment_method_cheque']"), 1);
+        private IWebElement _cashPaymentButton => StaticWaitForElement(_driver, By.CssSelector("label[for='payment_method_cod']"), 1);
         private IWebElement _placeOrderButton => StaticWaitForElement(_driver, By.Id("place_order"), 1);
 
         // Clears and sets the value of the fields.
@@ -99,21 +100,44 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
             }
         }
 
-        public CheckoutPOM SelectChequePayment()
+        public CheckoutPOM SelectPayment(string paymentMethod)
         {
-            //Button might not be immediately available or might be stale, so we try a few times.
-            while (true)
+
+            if (paymentMethod.ToLower().Equals("cash"))
             {
-                try
+                //Button might not be immediately available or might be stale, so we try a few times.
+                while (true)
                 {
-                    // If the button is found and clickable, this will succeed and exit the loop.
-                    _chequePaymentButton.Click();
-                    Console.WriteLine("Cheque Payment Selected");
-                    break;
+                    try
+                    {
+                        // If the button is found and clickable, this will succeed and exit the loop.
+                        _cashPaymentButton.Click();
+                        Console.WriteLine("Cash Payment Selected");
+                        break;
+                    }
+                    catch
+                    {
+                        //Try again
+                    }
                 }
-                catch
+            }
+            // Default option is paying by cheque
+            else
+            {
+                //Button might not be immediately available or might be stale, so we try a few times.
+                while (true)
                 {
-                    //Try again
+                    try
+                    {
+                        // If the button is found and clickable, this will succeed and exit the loop.
+                        _chequePaymentButton.Click();
+                        Console.WriteLine("Cheque Payment Selected");
+                        break;
+                    }
+                    catch
+                    {
+                        //Try again
+                    }
                 }
             }
 

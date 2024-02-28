@@ -23,15 +23,20 @@ namespace uk.co.nfocus.ecommerceproject.StepDefinitions
         public void GivenIAmOnTheECommerceWebsite()
         {
             // Direct to URL in test parameters, not env variable as not a secret
-            _driver.Url = TestContext.Parameters["WebAppURL"];
-            
+            _driver.Url = TestContext.Parameters["WebAppURL"]; // starting on cart page to clear
+
             // Dismisses the notice banner
-            new NavPOM(_driver).DismissBanner();
+            NavPOM nav = new NavPOM(_driver);
+            nav.DismissBanner();
+
+            // Emptying cart in the beginning to have fix state at the start of test
+            new CartPOM(_driver).EmptyCart();
         }
 
         [Given(@"I am logged in as a registered user")]
         public void GivenIAmLoggedInAsARegisteredUser()
         {
+            new NavPOM(_driver).GoToAccount();
             LoginPOM login = new LoginPOM(_driver);
 
             string? username = Environment.GetEnvironmentVariable("USERNAME");

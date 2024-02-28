@@ -137,11 +137,19 @@ this.FeatureBackground();
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Order checkout process, and verify in order history")]
         [NUnit.Framework.CategoryAttribute("TestCase2_Checkout")]
-        public void OrderCheckoutProcessAndVerifyInOrderHistory()
+        [NUnit.Framework.TestCaseAttribute("Check", null)]
+        [NUnit.Framework.TestCaseAttribute("Cash", null)]
+        public void OrderCheckoutProcessAndVerifyInOrderHistory(string paymentMethod, string[] exampleTags)
         {
-            string[] tagsOfScenario = new string[] {
+            string[] @__tags = new string[] {
                     "TestCase2_Checkout"};
+            if ((exampleTags != null))
+            {
+                @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
+            }
+            string[] tagsOfScenario = @__tags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("payment method", paymentMethod);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Order checkout process, and verify in order history", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 27
 this.ScenarioInitialize(scenarioInfo);
@@ -182,7 +190,7 @@ this.FeatureBackground();
   testRunner.And("I provide the billing details:", ((string)(null)), table1, "And ");
 #line hidden
 #line 33
- testRunner.When("I place the order with \'Check payments\' as payment method", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When(string.Format("I place the order with \'{0}\' payment", paymentMethod), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 34
  testRunner.Then("the order should appear in my accounts order history", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");

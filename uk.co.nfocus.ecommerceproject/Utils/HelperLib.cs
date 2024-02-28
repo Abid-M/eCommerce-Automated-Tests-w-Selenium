@@ -20,7 +20,7 @@ namespace uk.co.nfocus.ecommerceproject.Utils
             return driver.FindElement(locator);
         }
 
-        // Scrolls the specified element into view.
+        /* Scrolls the specified element into view. */
         public static void ScrollElIntoView(IWebDriver driver, IWebElement element)
         {
             // Check if the driver supports JavaScript execution
@@ -77,34 +77,6 @@ namespace uk.co.nfocus.ecommerceproject.Utils
                 // Write an error message to the console
                 Console.WriteLine($"Screenshot Failed {e.Message}");
             }
-        }
-
-        /* Navigates to the shop page, finds the specified item, 
-         * adds it to the cart, 
-         * checks that it is present in the cart. */
-        public static void AddItemToCart(IWebDriver driver)
-        {
-            // Navigate to the shop page via the navigation bar
-            NavPOM nav = new NavPOM(driver);
-            nav.GoToShop();
-            Console.WriteLine("Navigated to the Shop Page");
-
-            // Find the specified item and add it to the cart
-            // (Assumes the item can be found directly on the shop page)
-            ShopPOM shop = new ShopPOM(driver);
-            string item = "beanie";
-
-            // Find the item and assert that item exists
-            bool itemExist = shop.FindAndAddItem(item);
-            Assert.That(itemExist, "Item does not exist");
-
-            // Navigate to the cart page
-            shop.GoToCart();
-            Console.WriteLine("Navigated to the Cart Page");
-
-            // Check that the item is present in the cart
-            CartPOM cart = new CartPOM(driver);
-            Assert.That(cart.CheckItemInCart(item), "Item added, not in cart!");
         }
     }
 }
