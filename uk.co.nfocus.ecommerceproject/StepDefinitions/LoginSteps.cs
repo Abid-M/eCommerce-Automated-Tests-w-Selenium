@@ -11,7 +11,7 @@ namespace uk.co.nfocus.ecommerceproject.StepDefinitions
     {
         private IWebDriver _driver;
         private readonly ScenarioContext _scenarioContext;
-        private readonly ISpecFlowOutputHelper _specFlowOutputHelper;
+        private readonly ISpecFlowOutputHelper _specFlowOutputHelper; // Shows Test Output in LivingDoc HTML Report, rather than CWs
 
         public LoginSteps(ScenarioContext scenarioContext, ISpecFlowOutputHelper specFlowOutputHelper)
         {

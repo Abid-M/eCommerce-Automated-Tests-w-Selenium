@@ -8,7 +8,7 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
     internal class NavPOM
     {
         private IWebDriver _driver;
-        private readonly ISpecFlowOutputHelper _specFlowOutputHelper;
+        private readonly ISpecFlowOutputHelper _specFlowOutputHelper; // Shows Test Output in LivingDoc HTML Report, rather than CWs
 
         public NavPOM(IWebDriver driver, ISpecFlowOutputHelper specFlowOutputHelper)
         {

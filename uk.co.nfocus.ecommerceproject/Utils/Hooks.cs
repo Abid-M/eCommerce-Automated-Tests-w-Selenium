@@ -22,7 +22,7 @@ namespace uk.co.nfocus.ecommerceproject.Utils
     {
         private IWebDriver? _driver;
         private readonly ScenarioContext _scenarioContext;
-        private readonly ISpecFlowOutputHelper _specFlowOutputHelper;
+        private readonly ISpecFlowOutputHelper _specFlowOutputHelper; // Shows Test Output in LivingDoc HTML Report, rather than CWs // Shows Test Output in LivingDoc HTML Report, rather than CWs
         public Hooks(ScenarioContext scenarioContext, ISpecFlowOutputHelper specFlowOutputHelper)
         {
             _scenarioContext = scenarioContext;

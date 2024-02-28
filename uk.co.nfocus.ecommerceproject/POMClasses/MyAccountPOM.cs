@@ -7,7 +7,7 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
     internal class MyAccountPOM
     {
         private IWebDriver _driver;
-        private readonly ISpecFlowOutputHelper _specFlowOutputHelper;
+        private readonly ISpecFlowOutputHelper _specFlowOutputHelper; // Shows Test Output in LivingDoc HTML Report, rather than CWs
 
         public MyAccountPOM(IWebDriver driver, ISpecFlowOutputHelper specFlowOutputHelper) 
         {
