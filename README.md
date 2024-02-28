@@ -34,6 +34,8 @@ The tests will be conducted on the following e-commerce site:
   * NUnit3TestAdapter (4.5.0)
   * Selenium.WebDriver (4.17.0)
   * Selenium.Support(4.17.0)
+  * SpecFlow.NUnit (3.9.74)
+  * SpecFlow.Plus.LivingDocPlugin (3.9.57)
 
 3. Create 3 environment variables:
   * USERNAME
