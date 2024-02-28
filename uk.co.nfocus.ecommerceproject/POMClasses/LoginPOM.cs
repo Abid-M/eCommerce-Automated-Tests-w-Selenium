@@ -1,7 +1,7 @@
-﻿using OpenQA.Selenium.Support.UI;
+﻿/* Author: Abid Miah */
 using OpenQA.Selenium;
 using TechTalk.SpecFlow.Infrastructure;
-/* Author: Abid Miah */
+
 namespace uk.co.nfocus.ecommerceproject.POMClasses
 {
     internal class LoginPOM

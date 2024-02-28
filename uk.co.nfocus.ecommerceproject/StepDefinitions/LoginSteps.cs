@@ -1,5 +1,5 @@
-﻿using OpenQA.Selenium;
-using System;
+﻿/* Author: Abid Miah */
+using OpenQA.Selenium;
 using TechTalk.SpecFlow;
 using TechTalk.SpecFlow.Infrastructure;
 using uk.co.nfocus.ecommerceproject.POMClasses;

@@ -1,9 +1,7 @@
 ﻿/* Author: Abid Miah */
 using OpenQA.Selenium.Support.UI;
 using OpenQA.Selenium;
-using uk.co.nfocus.ecommerceproject.POMClasses;
 using TechTalk.SpecFlow.Infrastructure;
-using TechTalk.SpecFlow;
 
 namespace uk.co.nfocus.ecommerceproject.Utils
 {
