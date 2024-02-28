@@ -28,15 +28,11 @@ namespace uk.co.nfocus.ecommerceproject.StepDefinitions
             // Dismisses the notice banner
             NavPOM nav = new NavPOM(_driver);
             nav.DismissBanner();
-
-            // Emptying cart in the beginning to have fix state at the start of test
-            new CartPOM(_driver).EmptyCart();
         }
 
         [Given(@"I am logged in as a registered user")]
         public void GivenIAmLoggedInAsARegisteredUser()
         {
-            new NavPOM(_driver).GoToAccount();
             LoginPOM login = new LoginPOM(_driver);
 
             string? username = Environment.GetEnvironmentVariable("USERNAME");
@@ -49,6 +45,10 @@ namespace uk.co.nfocus.ecommerceproject.StepDefinitions
             }
 
             Assert.That(loggedIn, "We did not login");
+
+            // Emptying cart after login to have fix state at the start of test
+            new NavPOM(_driver).GoToCart();
+            new CartPOM(_driver).EmptyCart();
         }
     }
 }

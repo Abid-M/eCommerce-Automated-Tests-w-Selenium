@@ -25,7 +25,7 @@ Examples:
 
 @TestCase2_Checkout
 Scenario Outline: Order checkout process, and verify in order history
-	Given that the cart contains 'Beanie'
+	Given that the cart contains '<item>'
 	When I proceed to checkout
 		And I provide the billing details:
 		| first name | last name | address     | city   | postcode | phone number | email                   |
@@ -34,6 +34,6 @@ Scenario Outline: Order checkout process, and verify in order history
 	Then the order should appear in my accounts order history
 
 Examples:
-	| payment method |
-	| Check          |
-	| Cash			 |
+	| payment method | item   |
+	| Check          | Hoodie |
+	| Cash           | Cap    |

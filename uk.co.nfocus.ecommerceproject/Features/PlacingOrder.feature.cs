@@ -137,9 +137,9 @@ this.FeatureBackground();
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Order checkout process, and verify in order history")]
         [NUnit.Framework.CategoryAttribute("TestCase2_Checkout")]
-        [NUnit.Framework.TestCaseAttribute("Check", null)]
-        [NUnit.Framework.TestCaseAttribute("Cash", null)]
-        public void OrderCheckoutProcessAndVerifyInOrderHistory(string paymentMethod, string[] exampleTags)
+        [NUnit.Framework.TestCaseAttribute("Check", "Hoodie", null)]
+        [NUnit.Framework.TestCaseAttribute("Cash", "Cap", null)]
+        public void OrderCheckoutProcessAndVerifyInOrderHistory(string paymentMethod, string item, string[] exampleTags)
         {
             string[] @__tags = new string[] {
                     "TestCase2_Checkout"};
@@ -150,6 +150,7 @@ this.FeatureBackground();
             string[] tagsOfScenario = @__tags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             argumentsOfScenario.Add("payment method", paymentMethod);
+            argumentsOfScenario.Add("item", item);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Order checkout process, and verify in order history", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 27
 this.ScenarioInitialize(scenarioInfo);
@@ -165,7 +166,7 @@ this.ScenarioInitialize(scenarioInfo);
 this.FeatureBackground();
 #line hidden
 #line 28
- testRunner.Given("that the cart contains \'Beanie\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given(string.Format("that the cart contains \'{0}\'", item), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 29
  testRunner.When("I proceed to checkout", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
