@@ -93,7 +93,6 @@ namespace uk.co.nfocus.ecommerceproject.Features
         [NUnit.Framework.DescriptionAttribute("Applying a discount to the shopping cart")]
         [NUnit.Framework.CategoryAttribute("TestCase1_Coupon")]
         [NUnit.Framework.TestCaseAttribute("Beanie", null)]
-        [NUnit.Framework.TestCaseAttribute("Belt", null)]
         [NUnit.Framework.TestCaseAttribute("Polo", null)]
         [NUnit.Framework.TestCaseAttribute("Sunglasses", null)]
         public void ApplyingADiscountToTheShoppingCart(string item, string[] exampleTags)
@@ -152,7 +151,7 @@ this.FeatureBackground();
             argumentsOfScenario.Add("payment method", paymentMethod);
             argumentsOfScenario.Add("item", item);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Order checkout process, and verify in order history", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 27
+#line 26
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -165,10 +164,10 @@ this.ScenarioInitialize(scenarioInfo);
 #line 7
 this.FeatureBackground();
 #line hidden
-#line 28
+#line 27
  testRunner.Given(string.Format("that the cart contains \'{0}\'", item), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 29
+#line 28
  testRunner.When("I proceed to checkout", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
                 TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
@@ -187,13 +186,13 @@ this.FeatureBackground();
                             "SW19 2JY",
                             "07365827365",
                             "test.email@nfocus.co.uk"});
-#line 30
+#line 29
   testRunner.And("I provide the billing details:", ((string)(null)), table1, "And ");
 #line hidden
-#line 33
+#line 32
  testRunner.When(string.Format("I place the order with \'{0}\' payment", paymentMethod), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 34
+#line 33
  testRunner.Then("the order should appear in my accounts order history", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }

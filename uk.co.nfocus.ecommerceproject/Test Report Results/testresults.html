@@ -1,0 +1,242 @@
+﻿<?xml version="1.0" encoding="utf-8"?><html xmlns:tp="http://schemas.datacontract.org/2004/07/Microsoft.VisualStudio.TestPlatform.Extensions.HtmlLogger.ObjectModel" xmlns:a="http://schemas.microsoft.com/2003/10/Serialization/Arrays" xmlns:msxsl="urn:schemas-microsoft-com:xslt"><body><h1>Test run details</h1><div class="summary"><div class="block"><span>Total tests</span><div class="total-tests">6</div><br /></div><div class="block"><span>Passed  : </span><span class="passedTests">6</span><br /><span>Failed  : </span><span class="failedTests">0</span><br /><span>Skipped : </span><span class="skippedTests">0</span><br /></div><div class="block"><span>Pass percentage</span><div class="pass-percentage">100 %</div><br /></div><div class="block"><span>Run duration</span><div class="test-run-time">1m 38s</div><br /></div><br /></div><h2>All Results</h2><div class="list-row" onclick="ToggleClass('1774525569')">C:\Users\AbidMiah\source\repos\uk.co.nfocus.ecommerceproject\uk.co.nfocus.ecommerceproject\bin\Debug\net6.0\uk.co.nfocus.ecommerceproject.dll</div><div class="inner-row" Id="1774525569" style="display:none;"><div class="leaf-division"><div><span class="pass">✔</span><span> ApplyingADiscountToTheShoppingCart("Beanie",null)​</span><div class="duration"><span>15s 452ms</span><br /></div></div><div class="error-info" /></div><div class="leaf-division"><div><span class="pass">✔</span><span> ApplyingADiscountToTheShoppingCart("Belt",null)​</span><div class="duration"><span>17s 628ms</span><br /></div></div><div class="error-info" /></div><div class="leaf-division"><div><span class="pass">✔</span><span> ApplyingADiscountToTheShoppingCart("Polo",null)​</span><div class="duration"><span>17s 822ms</span><br /></div></div><div class="error-info" /></div><div class="leaf-division"><div><span class="pass">✔</span><span> ApplyingADiscountToTheShoppingCart("Sunglasses",null)​</span><div class="duration"><span>18s 290ms</span><br /></div></div><div class="error-info" /></div><div class="leaf-division"><div><span class="pass">✔</span><span> OrderCheckoutProcessAndVerifyInOrderHistory("Check","Hoodie",null)​</span><div class="duration"><span>15s 319ms</span><br /></div></div><div class="error-info" /></div><div class="leaf-division"><div><span class="pass">✔</span><span> OrderCheckoutProcessAndVerifyInOrderHistory("Cash","Cap",null)​</span><div class="duration"><span>13s 66ms</span><br /></div></div><div class="error-info" /></div></div><div><h2>Informational messages</h2><span>NUnit Adapter 4.5.0.0: Test execution started</span><br /><span>Running all tests in C:\Users\AbidMiah\source\repos\uk.co.nfocus.ecommerceproject\uk.co.nfocus.ecommerceproject\bin\Debug\net6.0\uk.co.nfocus.ecommerceproject.dll</span><br /><span>   NUnit3TestExecutor discovered 6 of 6 NUnit test cases using Current Discovery mode, Non-Explicit run</span><br /><span>NUnit Adapter 4.5.0.0: Test execution complete</span><br /></div><div><h2>Error and Warning messages</h2><span>BROWSER env not set: Setting to Edge..
+Given I am on the eCommerce Website
+-&gt; done: LoginSteps.GivenIAmOnTheECommerceWebsite() (0.7s)
+And I am logged in as a registered user
+Successfully Logged In
+Navigated to the Cart Page
+Check Cart Cleared
+-&gt; done: LoginSteps.GivenIAmLoggedInAsARegisteredUser() (1.6s)
+When I add 'Beanie' into my cart
+Navigated to the Shop Page
+Verified that the 'Beanie' item exists on the shop page
+Added the 'Beanie' item to the cart
+-&gt; done: CouponDiscountSteps.WhenIAddAnIntoMyCart("Beanie") (1.6s)
+And I apply the coupon code 'edgewords' to the cart
+Verified that the 'Beanie' item is in the cart
+Valid Coupon Applied: 'edgewords'..
+-&gt; done: CouponDiscountSteps.WhenIApplyTheCouponCodeToTheCart("edgewords") (5.4s)
+Then I recieve '15'% discount off my total, excluding shipping
+Applied a 15% discount
+Verified that the discount was correctly applied to the cart..
+Expected total value: £19.25, Actual total value: £19.25
+Attaching 'Coupon_Discount_Price' screenshot to report
+-&gt; done: CouponDiscountSteps.ThenIRecieveDiscountOffMyTotalExcludingShipping(15) (0.2s)
+Navigated to Account page
+Successfully Logged Out
+Test Passed &amp; Completed!
+</span><br /><span>BROWSER env not set: Setting to Edge..
+Given I am on the eCommerce Website
+-&gt; done: LoginSteps.GivenIAmOnTheECommerceWebsite() (0.6s)
+And I am logged in as a registered user
+Successfully Logged In
+Navigated to the Cart Page
+Check Cart Cleared
+-&gt; done: LoginSteps.GivenIAmLoggedInAsARegisteredUser() (3.8s)
+When I add 'Belt' into my cart
+Navigated to the Shop Page
+Verified that the 'Belt' item exists on the shop page
+Added the 'Belt' item to the cart
+-&gt; done: CouponDiscountSteps.WhenIAddAnIntoMyCart("Belt") (1.6s)
+And I apply the coupon code 'edgewords' to the cart
+Verified that the 'Belt' item is in the cart
+Valid Coupon Applied: 'edgewords'..
+-&gt; done: CouponDiscountSteps.WhenIApplyTheCouponCodeToTheCart("edgewords") (5.5s)
+Then I recieve '15'% discount off my total, excluding shipping
+Applied a 15% discount
+Verified that the discount was correctly applied to the cart..
+Expected total value: £50.70, Actual total value: £50.70
+Attaching 'Coupon_Discount_Price' screenshot to report
+-&gt; done: CouponDiscountSteps.ThenIRecieveDiscountOffMyTotalExcludingShipping(15) (0.3s)
+Navigated to Account page
+Successfully Logged Out
+Test Passed &amp; Completed!
+</span><br /><span>BROWSER env not set: Setting to Edge..
+Given I am on the eCommerce Website
+-&gt; done: LoginSteps.GivenIAmOnTheECommerceWebsite() (0.7s)
+And I am logged in as a registered user
+Successfully Logged In
+Navigated to the Cart Page
+Check Cart Cleared
+-&gt; done: LoginSteps.GivenIAmLoggedInAsARegisteredUser() (3.9s)
+When I add 'Polo' into my cart
+Navigated to the Shop Page
+Verified that the 'Polo' item exists on the shop page
+Added the 'Polo' item to the cart
+-&gt; done: CouponDiscountSteps.WhenIAddAnIntoMyCart("Polo") (1.6s)
+And I apply the coupon code 'edgewords' to the cart
+Verified that the 'Polo' item is in the cart
+Valid Coupon Applied: 'edgewords'..
+-&gt; done: CouponDiscountSteps.WhenIApplyTheCouponCodeToTheCart("edgewords") (5.4s)
+Then I recieve '15'% discount off my total, excluding shipping
+Applied a 15% discount
+Verified that the discount was correctly applied to the cart..
+Expected total value: £20.95, Actual total value: £20.95
+Attaching 'Coupon_Discount_Price' screenshot to report
+-&gt; done: CouponDiscountSteps.ThenIRecieveDiscountOffMyTotalExcludingShipping(15) (0.4s)
+Navigated to Account page
+Successfully Logged Out
+Test Passed &amp; Completed!
+</span><br /><span>BROWSER env not set: Setting to Edge..
+Given I am on the eCommerce Website
+-&gt; done: LoginSteps.GivenIAmOnTheECommerceWebsite() (0.6s)
+And I am logged in as a registered user
+Successfully Logged In
+Navigated to the Cart Page
+Check Cart Cleared
+-&gt; done: LoginSteps.GivenIAmLoggedInAsARegisteredUser() (3.8s)
+When I add 'Sunglasses' into my cart
+Navigated to the Shop Page
+Verified that the 'Sunglasses' item exists on the shop page
+Added the 'Sunglasses' item to the cart
+-&gt; done: CouponDiscountSteps.WhenIAddAnIntoMyCart("Sunglasses") (1.6s)
+And I apply the coupon code 'edgewords' to the cart
+Verified that the 'Sunglasses' item is in the cart
+Valid Coupon Applied: 'edgewords'..
+-&gt; done: CouponDiscountSteps.WhenIApplyTheCouponCodeToTheCart("edgewords") (5.5s)
+Then I recieve '15'% discount off my total, excluding shipping
+Applied a 15% discount
+Verified that the discount was correctly applied to the cart..
+Expected total value: £80.45, Actual total value: £80.45
+Attaching 'Coupon_Discount_Price' screenshot to report
+-&gt; done: CouponDiscountSteps.ThenIRecieveDiscountOffMyTotalExcludingShipping(15) (0.3s)
+Navigated to Account page
+Successfully Logged Out
+Test Passed &amp; Completed!
+</span><br /><span>BROWSER env not set: Setting to Edge..
+Given I am on the eCommerce Website
+-&gt; done: LoginSteps.GivenIAmOnTheECommerceWebsite() (0.7s)
+And I am logged in as a registered user
+Successfully Logged In
+Navigated to the Cart Page
+Check Cart Cleared
+-&gt; done: LoginSteps.GivenIAmLoggedInAsARegisteredUser() (3.7s)
+Given that the cart contains 'Hoodie'
+Navigated to the Shop Page
+Verified that the 'Hoodie' item exists on the shop page
+Added the 'Hoodie' item to the cart
+-&gt; done: CheckoutProcessSteps.GivenThatTheCartContains("Hoodie") (1.6s)
+When I proceed to checkout
+Navigated to Checkout page
+-&gt; done: CheckoutProcessSteps.WhenIProceedToCheckout() (0.5s)
+And I provide the billing details:
+  --- table step argument ---
+  | first name | last name | address     | city   | postcode | phone number | email                   |
+  | Abid       | Miah      | 17 Sui Lane | London | SW19 2JY | 07365827365  | test.email@nfocus.co.uk |
+Billing Details Populated..
+Validated Billing Details have actually been populated
+-&gt; done: CheckoutProcessSteps.WhenIProvideTheBillingDetails(&lt;table&gt;) (0.9s)
+When I place the order with 'Check' payment
+Cheque Payment Selected
+Order Placed..
+New Order Number: 10565
+Attaching 'New_Order_Number' screenshot to report
+-&gt; done: CheckoutProcessSteps.WhenIPlaceTheOrder("Check") (1.4s)
+Then the order should appear in my accounts order history
+Navigated to Account page
+Navigated to All Orders on account page
+Verified that the order numbers match from checkout page..
+Expected order number: 10565, Actual order number: 10565
+Attaching 'Orders' screenshot to report
+-&gt; done: CheckoutProcessSteps.ThenTheOrderShouldAppearInMyAccountsOrderHistory() (1.2s)
+Successfully Logged Out
+Test Passed &amp; Completed!
+</span><br /><span>BROWSER env not set: Setting to Edge..
+Given I am on the eCommerce Website
+-&gt; done: LoginSteps.GivenIAmOnTheECommerceWebsite() (0.7s)
+And I am logged in as a registered user
+Successfully Logged In
+Navigated to the Cart Page
+Check Cart Cleared
+-&gt; done: LoginSteps.GivenIAmLoggedInAsARegisteredUser() (1.5s)
+Given that the cart contains 'Cap'
+Navigated to the Shop Page
+Verified that the 'Cap' item exists on the shop page
+Added the 'Cap' item to the cart
+-&gt; done: CheckoutProcessSteps.GivenThatTheCartContains("Cap") (1.6s)
+When I proceed to checkout
+Navigated to Checkout page
+-&gt; done: CheckoutProcessSteps.WhenIProceedToCheckout() (0.5s)
+And I provide the billing details:
+  --- table step argument ---
+  | first name | last name | address     | city   | postcode | phone number | email                   |
+  | Abid       | Miah      | 17 Sui Lane | London | SW19 2JY | 07365827365  | test.email@nfocus.co.uk |
+Billing Details Populated..
+Validated Billing Details have actually been populated
+-&gt; done: CheckoutProcessSteps.WhenIProvideTheBillingDetails(&lt;table&gt;) (0.8s)
+When I place the order with 'Cash' payment
+Cash Payment Selected
+Order Placed..
+New Order Number: 10566
+Attaching 'New_Order_Number' screenshot to report
+-&gt; done: CheckoutProcessSteps.WhenIPlaceTheOrder("Cash") (1.5s)
+Then the order should appear in my accounts order history
+Navigated to Account page
+Navigated to All Orders on account page
+Verified that the order numbers match from checkout page..
+Expected order number: 10566, Actual order number: 10566
+Attaching 'Orders' screenshot to report
+-&gt; done: CheckoutProcessSteps.ThenTheOrderShouldAppearInMyAccountsOrderHistory() (1.2s)
+Successfully Logged Out
+Test Passed &amp; Completed!
+</span><br /></div></body><script language="javascript">
+        function ToggleClass(id) {
+        var elem = document.getElementById(id);
+        if (elem.style.display == "none") {
+        elem.style.display = "block";
+        }
+        else {
+        elem.style.display = "none";
+        }
+        }
+      </script><style>
+        body { font-family: Calibri, Verdana, Arial, sans-serif; background-color: White; color: Black; }
+        h2 {
+        margin-top: 15px;
+        margin-bottom:10px;
+        }
+        pre {
+        white-space: pre-wrap;
+        }
+        .summary {font-family:monospace;
+        display: -webkit-flex; /* Safari */
+        -webkit-flex-wrap: wrap; /* Safari 6.1+ */
+        display: flex;
+        flex-wrap: wrap;
+        }
+        .row {
+        border: 2px solid #ffffff;
+        width:100%;
+        cursor:pointer;
+        background-color:#d7e9fa;
+        }
+        .list-row {
+        border: 2px solid #ffffff;
+        width:100%;
+        cursor:pointer;
+        background-color:#ffffff;
+        }
+        .inner-row{
+        border: 2px solid #ffffff;
+        padding-left:1%;
+        margin-left:1%;
+        background-color:#ffffff;
+        }
+        .block{
+        width : 150px;
+        }
+        .leaf-division{
+        border: 2px solid #ffffff;
+        background-color:#e6eff7;
+        }
+        .pass { color: #0c0; }
+        .fail { color: #c00; }
+        .error-message { color : brown; }
+        .error-stack-trace { color: brown; }
+        .duration {float:right;padding-right:1%;}
+        .total-tests { font-size : 30px}
+        .test-run-time { font-size : 30px}
+        .pass-percentage { font-size : 30px}
+        .error-info{
+        margin-left:16px;
+        }
+      </style></html>

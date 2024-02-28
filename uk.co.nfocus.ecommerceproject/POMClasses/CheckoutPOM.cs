@@ -3,6 +3,7 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using System.Data;
 using TechTalk.SpecFlow;
+using TechTalk.SpecFlow.Infrastructure;
 using uk.co.nfocus.ecommerceproject.Utils;
 using static uk.co.nfocus.ecommerceproject.Utils.HelperLib;
 
@@ -12,11 +13,14 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
     {
         //Field that will hold a driver for Service Methods in this test to work with
         private IWebDriver _driver;
+        private readonly ISpecFlowOutputHelper _specFlowOutputHelper;
+
 
         //Constructor to get the driver from the test
-        public CheckoutPOM(IWebDriver driver)
+        public CheckoutPOM(IWebDriver driver, ISpecFlowOutputHelper specFlowOutputHelper)
         {
             this._driver = driver;
+            _specFlowOutputHelper = specFlowOutputHelper;
         }
 
         private IWebElement _fNameField => _driver.FindElement(By.Id("billing_first_name"));
@@ -26,9 +30,9 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
         private IWebElement _postcodeField => _driver.FindElement(By.Id("billing_postcode"));
         private IWebElement _phoneField => _driver.FindElement(By.Id("billing_phone"));
         private IWebElement _emailField => _driver.FindElement(By.Id("billing_email"));
-        private IWebElement _chequePaymentButton => StaticWaitForElement(_driver, By.CssSelector("label[for='payment_method_cheque']"), 1);
-        private IWebElement _cashPaymentButton => StaticWaitForElement(_driver, By.CssSelector("label[for='payment_method_cod']"), 1);
-        private IWebElement _placeOrderButton => StaticWaitForElement(_driver, By.Id("place_order"), 1);
+        private IWebElement _chequePaymentButton => WaitForElement(_driver, By.CssSelector("label[for='payment_method_cheque']"), 1);
+        private IWebElement _cashPaymentButton => WaitForElement(_driver, By.CssSelector("label[for='payment_method_cod']"), 1);
+        private IWebElement _placeOrderButton => WaitForElement(_driver, By.Id("place_order"), 1);
 
         // Clears and sets the value of the fields.
         private void SetFirstName(string firstName)
@@ -77,7 +81,7 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
             SetPhone(customer._phone);
             SetEmail(customer._email);
 
-            Console.WriteLine("Billing Details Populated..");
+            _specFlowOutputHelper.WriteLine("Billing Details Populated..");
         }
 
         public bool ValidateDetails(Customer customer)
@@ -112,7 +116,7 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
                     {
                         // If the button is found and clickable, this will succeed and exit the loop.
                         _cashPaymentButton.Click();
-                        Console.WriteLine("Cash Payment Selected");
+                        _specFlowOutputHelper.WriteLine("Cash Payment Selected");
                         break;
                     }
                     catch
@@ -131,7 +135,7 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
                     {
                         // If the button is found and clickable, this will succeed and exit the loop.
                         _chequePaymentButton.Click();
-                        Console.WriteLine("Cheque Payment Selected");
+                        _specFlowOutputHelper.WriteLine("Cheque Payment Selected");
                         break;
                     }
                     catch
@@ -154,7 +158,7 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
                     // If the button is found and clickable with order url, this will succeed and exit the loop.
                     _placeOrderButton.Click();
                     new WebDriverWait(_driver, TimeSpan.FromSeconds(3)).Until(drv => drv.Url.Contains("order"));
-                    Console.WriteLine("Order Placed..");
+                    _specFlowOutputHelper.WriteLine("Order Placed..");
                     break;
                 }
                 catch

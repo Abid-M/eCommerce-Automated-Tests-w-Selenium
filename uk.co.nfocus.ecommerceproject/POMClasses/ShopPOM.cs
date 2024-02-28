@@ -1,5 +1,6 @@
 ﻿/* Author: Abid Miah */
 using OpenQA.Selenium;
+using TechTalk.SpecFlow.Infrastructure;
 using static uk.co.nfocus.ecommerceproject.Utils.HelperLib;
 
 namespace uk.co.nfocus.ecommerceproject.POMClasses
@@ -8,17 +9,18 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
     {
         // Field that will hold a driver for Service Methods in this test to work with
         private IWebDriver _driver;
+        private readonly ISpecFlowOutputHelper _specFlowOutputHelper;
 
         // Constructor to get the driver from the test
-        public ShopPOM(IWebDriver driver)
+        public ShopPOM(IWebDriver driver, ISpecFlowOutputHelper specFlowOutputHelper)
         {
             this._driver = driver;
+            _specFlowOutputHelper = specFlowOutputHelper;
         }
 
         //Locators
         IList<IWebElement> _allItems => _driver.FindElements(By.CssSelector("li h2")); //Collates all items in the shop
-        IWebElement _viewCartButton => StaticWaitForElement(_driver, By.CssSelector(".added_to_cart"));
-
+        IWebElement _viewCartButton => WaitForElement(_driver, By.CssSelector(".added_to_cart"));
 
         /* This method checks if a shop item with a given name exists in the list of all items.
         If the item is found, it is added to the cart and the method returns true.
@@ -32,7 +34,7 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
                 if (item.Text.ToLower().Equals((name).ToLower()))
                 {
                     // If the item is found, report to the console
-                    Console.WriteLine($"Verified that the '{name}' item exists on the shop page");
+                    _specFlowOutputHelper.WriteLine($"Verified that the '{name}' item exists on the shop page");
 
                     // Call the AddToCart method to add the item to the cart
                     AddToCart(item, name); 
@@ -51,7 +53,7 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
             // Parent element of h2 text, then following 'a' element clicked
             item.FindElement(By.XPath("../following-sibling::a")).Click(); //Not locator as needs reference to item name
             
-            Console.WriteLine($"Added the '{name}' item to the cart");
+            _specFlowOutputHelper.WriteLine($"Added the '{name}' item to the cart");
         }
 
         // Navigates to the cart page.

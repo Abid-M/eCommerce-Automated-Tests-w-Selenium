@@ -3,6 +3,7 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.DevTools;
 using System.Globalization;
 using System.Xml.Linq;
+using TechTalk.SpecFlow.Infrastructure;
 using static uk.co.nfocus.ecommerceproject.Utils.HelperLib;
 
 namespace uk.co.nfocus.ecommerceproject.POMClasses
@@ -10,24 +11,26 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
     internal class CartPOM
     {
         private IWebDriver _driver; //Field that will hold a driver for Service Methods in this test to work with
+        private readonly ISpecFlowOutputHelper _specFlowOutputHelper;
 
-        public CartPOM(IWebDriver driver) //Constructor to get the driver from the test
+        public CartPOM(IWebDriver driver, ISpecFlowOutputHelper specFlowOutputHelper) //Constructor to get the driver from the test
         {
             this._driver = driver; //Assigns passed driver into private field in this class
+            _specFlowOutputHelper = specFlowOutputHelper;
         }
 
         //Locators
         IList<IWebElement> _items => _driver.FindElements(By.CssSelector("td.product-name a")); //Collates all items in the cart (Tests for multiple items in cart)
-        private IWebElement _couponCodeField => StaticWaitForElement(_driver, By.Name("coupon_code"));
+        private IWebElement _couponCodeField => WaitForElement(_driver, By.Name("coupon_code"));
         private IWebElement _applyCouponButton => _driver.FindElement(By.Name("apply_coupon"));
         private IWebElement _subtotalPrice => _driver.FindElement(By.CssSelector("td:nth-child(2) > .woocommerce-Price-amount > bdi"));
         private IWebElement _shippingPrice => _driver.FindElement(By.CssSelector("Label > span > bdi"));
         private IWebElement _grandTotalPrice => _driver.FindElement(By.CssSelector(".order-total > td"));
         private IWebElement _couponDiscount => _driver.FindElement(By.CssSelector("tr.cart-discount > td > span"));
-        private IWebElement _removeItemButton => StaticWaitForElement(_driver, By.ClassName("remove"), 1);
-        private IWebElement _cartEmptyDialog => StaticWaitForElement(_driver, By.ClassName("cart-empty"), 1);
-        private IWebElement _checkoutLink => StaticWaitForElement(_driver, By.ClassName("checkout-button"));
-        private IWebElement _notice => StaticWaitForElement(_driver, By.ClassName("woocommerce-error"));
+        private IWebElement _removeItemButton => WaitForElement(_driver, By.ClassName("remove"), 1);
+        private IWebElement _cartEmptyDialog => WaitForElement(_driver, By.ClassName("cart-empty"), 1);
+        private IWebElement _checkoutLink => WaitForElement(_driver, By.ClassName("checkout-button"));
+        private IWebElement _notice => WaitForElement(_driver, By.ClassName("woocommerce-error"));
         private CultureInfo _provider => new CultureInfo("en-GB");
         public IWebElement CartTotal => _driver.FindElement(By.CssSelector(".cart_totals")); // Set public to allow calls for screenshot
         
@@ -60,7 +63,7 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
                 }
             }
 
-            Console.WriteLine("Check Cart Cleared");
+            _specFlowOutputHelper.WriteLine("Check Cart Cleared");
         }
 
         // Checks if the specified item is in the cart.
@@ -73,7 +76,7 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
                 if (item.Text.ToLower().Equals(name.ToLower()))
                 {
                     // If a match is found, print a message to the console and return true
-                    Console.WriteLine($"Verified that the '{name}' item is in the cart");
+                    _specFlowOutputHelper.WriteLine($"Verified that the '{name}' item is in the cart");
                     return true;
                 }
             }
@@ -114,7 +117,7 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
                 // Check if the notice text mentions that the coupon has already been applied
                 if (noticeText.Contains("has been applied"))
                 {
-                    Console.WriteLine($"Valid Coupon Applied: '{coupon}'..");
+                    _specFlowOutputHelper.WriteLine($"Valid Coupon Applied: '{coupon}'..");
                     return true;
                 }
 
@@ -124,7 +127,7 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
             catch
             {
                 // If an exception is thrown (e.g. if the notice element is not found), assume that the coupon was applied successfully
-                Console.WriteLine($"Valid Coupon Applied: '{coupon}'..");
+                _specFlowOutputHelper.WriteLine($"Valid Coupon Applied: '{coupon}'..");
                 return true; //Coupon applied
             }
         }
@@ -166,7 +169,7 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
             // Convert the decimal to an integer
             int discountPercentage = (int)discountPercentageAsDecimal;
 
-            Console.WriteLine($"Applied a {discountPercentage}% discount");
+            _specFlowOutputHelper.WriteLine($"Applied a {discountPercentage}% discount");
 
             return discountPercentage;
         }
@@ -181,7 +184,7 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
         // Navigates to the checkout page.
         public void GoToCheckout()
         {
-            Console.WriteLine("Navigated to Checkout page");
+            _specFlowOutputHelper.WriteLine("Navigated to Checkout page");
             _checkoutLink.Click();
         }
     }

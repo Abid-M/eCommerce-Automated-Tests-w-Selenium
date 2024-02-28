@@ -1,8 +1,9 @@
 ﻿using OpenQA.Selenium;
 using System;
 using TechTalk.SpecFlow;
+using TechTalk.SpecFlow.Infrastructure;
 using uk.co.nfocus.ecommerceproject.POMClasses;
-using static uk.co.nfocus.ecommerceproject.Utils.HelperLib;
+using uk.co.nfocus.ecommerceproject.Utils;
 
 namespace uk.co.nfocus.ecommerceproject.StepDefinitions
 {
@@ -11,10 +12,13 @@ namespace uk.co.nfocus.ecommerceproject.StepDefinitions
     {
         private IWebDriver _driver;
         private readonly ScenarioContext _scenarioContext;
+        private readonly ISpecFlowOutputHelper _specFlowOutputHelper;
 
-        public CouponDiscountSteps(ScenarioContext scenarioContext)
+        public CouponDiscountSteps(ScenarioContext scenarioContext, ISpecFlowOutputHelper specFlowOutputHelper)
         {
             _scenarioContext = scenarioContext;
+            _specFlowOutputHelper = specFlowOutputHelper;
+
             this._driver = (IWebDriver)_scenarioContext["myDriver"];
         }
 
@@ -22,12 +26,12 @@ namespace uk.co.nfocus.ecommerceproject.StepDefinitions
         public void WhenIAddAnIntoMyCart(string item)
         {
             // Navigate to the shop page via the navigation bar
-            NavPOM nav = new NavPOM(_driver);
+            NavPOM nav = new NavPOM(_driver, _specFlowOutputHelper);
             nav.GoToShop();
 
             // Find the specified item and add it to the cart
             // (Assumes the item can be found directly on the shop page)
-            ShopPOM shop = new ShopPOM(_driver);
+            ShopPOM shop = new ShopPOM(_driver, _specFlowOutputHelper);
 
             _scenarioContext["itemName"] = item; // Store item for later use in other step
 
@@ -43,7 +47,7 @@ namespace uk.co.nfocus.ecommerceproject.StepDefinitions
         public void WhenIApplyTheCouponCodeToTheCart(string couponCode)
         {
             // Check that the item is present in the cart before applying coupon
-            CartPOM cart = new CartPOM(_driver);
+            CartPOM cart = new CartPOM(_driver, _specFlowOutputHelper);
 
             string item = (string)_scenarioContext["itemName"];
             Assert.That(cart.CheckItemInCart(item), "Item added, not in cart!");
@@ -57,7 +61,7 @@ namespace uk.co.nfocus.ecommerceproject.StepDefinitions
         public void ThenIRecieveDiscountOffMyTotalExcludingShipping(int expectedDiscount)
         {
             // Reports discount percentage applied from previous step
-            CartPOM cart = new CartPOM(_driver);
+            CartPOM cart = new CartPOM(_driver, _specFlowOutputHelper);
             int discount = cart.GetDiscountPercentage();
 
             // Checks that the calculated discount is equal to the expectedDiscount passed by feature file
@@ -65,10 +69,10 @@ namespace uk.co.nfocus.ecommerceproject.StepDefinitions
 
             // Verify discount check
             Assert.That(cart.GetGrandTotalPrice(), Is.EqualTo(cart.ValidateTotal()), "Discount not applied correctly");
-            Console.WriteLine($"Verified that the discount was correctly applied to the cart..");
-            Console.WriteLine($"Expected total value: £{cart.GetGrandTotalPrice()}, Actual total value: £{cart.ValidateTotal()}");
+            _specFlowOutputHelper.WriteLine($"Verified that the discount was correctly applied to the cart..");
+            _specFlowOutputHelper.WriteLine($"Expected total value: £{cart.GetGrandTotalPrice()}, Actual total value: £{cart.ValidateTotal()}");
 
-            TakeScreenshot(_driver, cart.CartTotal, "Coupon_Discount_Price"); // Screenshot report
+            new HelperLib(_specFlowOutputHelper).TakeScreenshot(_driver, cart.CartTotal, "Coupon_Discount_Price"); // Screenshot report
         }
     }
 }

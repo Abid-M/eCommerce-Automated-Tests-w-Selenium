@@ -1,15 +1,18 @@
 ﻿/* Author: Abid Miah */
 using OpenQA.Selenium;
+using TechTalk.SpecFlow.Infrastructure;
 
 namespace uk.co.nfocus.ecommerceproject.POMClasses
 {
     internal class MyAccountPOM
     {
-        private IWebDriver _driver; // Field that will hold a driver for Service Methods in this test to work with
+        private IWebDriver _driver;
+        private readonly ISpecFlowOutputHelper _specFlowOutputHelper;
 
-        public MyAccountPOM(IWebDriver driver) // Constructor to get the driver from the test
+        public MyAccountPOM(IWebDriver driver, ISpecFlowOutputHelper specFlowOutputHelper) 
         {
             this._driver = driver; // Assigns passed driver into private field in this class
+            _specFlowOutputHelper = specFlowOutputHelper;
         }
 
         // Locator fields (finding elements on the page)
@@ -27,7 +30,7 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
         public void GoToOrders()
         {
             _ordersLink.Click();
-            Console.WriteLine("Navigated to All Orders on account page");
+            _specFlowOutputHelper.WriteLine("Navigated to All Orders on account page");
         }
     }
 }

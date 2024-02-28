@@ -1,9 +1,9 @@
 ﻿using OpenQA.Selenium;
 using System;
 using TechTalk.SpecFlow;
+using TechTalk.SpecFlow.Infrastructure;
 using uk.co.nfocus.ecommerceproject.POMClasses;
 using uk.co.nfocus.ecommerceproject.Utils;
-using static uk.co.nfocus.ecommerceproject.Utils.HelperLib;
 
 namespace uk.co.nfocus.ecommerceproject.StepDefinitions
 {
@@ -12,10 +12,13 @@ namespace uk.co.nfocus.ecommerceproject.StepDefinitions
     {
         private IWebDriver _driver;
         private readonly ScenarioContext _scenarioContext;
+        private ISpecFlowOutputHelper _specFlowOutputHelper;
 
-        public CheckoutProcessSteps(ScenarioContext scenarioContext)
+        public CheckoutProcessSteps(ScenarioContext scenarioContext, ISpecFlowOutputHelper specFlowOutputHelper)
         {
             _scenarioContext = scenarioContext;
+            _specFlowOutputHelper = specFlowOutputHelper;
+
             this._driver = (IWebDriver)_scenarioContext["myDriver"];
         }
 
@@ -24,12 +27,12 @@ namespace uk.co.nfocus.ecommerceproject.StepDefinitions
         public void GivenThatTheCartContains(string item)
         {
             // Navigate to the shop page via the navigation bar
-            NavPOM nav = new NavPOM(_driver);
+            NavPOM nav = new NavPOM(_driver, _specFlowOutputHelper);
             nav.GoToShop();
 
             // Find the specified item and add it to the cart
             // (Assumes the item can be found directly on the shop page)
-            ShopPOM shop = new ShopPOM(_driver);
+            ShopPOM shop = new ShopPOM(_driver, _specFlowOutputHelper);
 
             // Find the item and assert that item exists
             bool itemExist = shop.FindAndAddItem(item);
@@ -43,13 +46,13 @@ namespace uk.co.nfocus.ecommerceproject.StepDefinitions
         public void WhenIProceedToCheckout()
         {
             // navigates to checkout page
-            new CartPOM(_driver).GoToCheckout();
+            new CartPOM(_driver, _specFlowOutputHelper).GoToCheckout();
         }
 
         [When(@"I provide the billing details:")]
         public void WhenIProvideTheBillingDetails(Table customerInfo)
         {
-            CheckoutPOM checkout = new CheckoutPOM(_driver);
+            CheckoutPOM checkout = new CheckoutPOM(_driver, _specFlowOutputHelper);
             // Creates a customer with the details passed from the feature table
             Customer customer = checkout.CreateCustomer(customerInfo);
             // Fill in Billing Input Fields with customer object
@@ -57,29 +60,29 @@ namespace uk.co.nfocus.ecommerceproject.StepDefinitions
 
             // Validate billing fields have been entered
             Assert.That(checkout.ValidateDetails(customer), "Billing input fields not entered!");
-            Console.WriteLine("Validated Billing Details have actually been populated");
+            _specFlowOutputHelper.WriteLine("Validated Billing Details have actually been populated");
         }
 
         [When(@"I place the order with '(.*)' payment")]
         public void WhenIPlaceTheOrder(string paymentMethod)
         {
-            CheckoutPOM checkout = new CheckoutPOM(_driver);
+            CheckoutPOM checkout = new CheckoutPOM(_driver, _specFlowOutputHelper);
             checkout.SelectPayment(paymentMethod).PlaceOrder();
 
-            OrderInfoPOM orderInfo = new OrderInfoPOM(_driver);
+            OrderInfoPOM orderInfo = new OrderInfoPOM(_driver, _specFlowOutputHelper);
             string newOrderNumber = orderInfo.GetOrderNumber(); // Fetch order number on page
 
             _scenarioContext["newOrderNumber"] = newOrderNumber; // Store new Order Number for use in next step
 
-            TakeScreenshot(_driver, orderInfo.SsOrderNumber, "New_Order_Number"); // Screenshot of newly placed order
+            new HelperLib(_specFlowOutputHelper).TakeScreenshot(_driver, orderInfo.SsOrderNumber, "New_Order_Number"); // Screenshot of newly placed order
         }
 
         [Then(@"the order should appear in my accounts order history")]
         public void ThenTheOrderShouldAppearInMyAccountsOrderHistory()
         {
             // Navigate to all orders page from account
-            new NavPOM(_driver).GoToAccount();
-            new MyAccountPOM(_driver).GoToOrders();
+            new NavPOM(_driver, _specFlowOutputHelper).GoToAccount();
+            new MyAccountPOM(_driver, _specFlowOutputHelper).GoToOrders();
 
             AllOrdersPOM allOrders = new AllOrdersPOM(_driver);
             string newOrderNumber = (string)_scenarioContext["newOrderNumber"];
@@ -87,10 +90,10 @@ namespace uk.co.nfocus.ecommerceproject.StepDefinitions
 
             // Verifying order numbers are the same from Checkout and in Account Orders
             Assert.That(orderNoCheck, Is.EqualTo(newOrderNumber), "Order numbers do not match!");
-            Console.WriteLine($"Verified that the order numbers match from checkout page..");
-            Console.WriteLine($"Expected order number: {orderNoCheck}, Actual order number: {newOrderNumber}");
+            _specFlowOutputHelper.WriteLine($"Verified that the order numbers match from checkout page..");
+            _specFlowOutputHelper.WriteLine($"Expected order number: {orderNoCheck}, Actual order number: {newOrderNumber}");
 
-            TakeScreenshot(_driver, allOrders.OrdersTable, "Orders"); //Screenshot report
+            new HelperLib(_specFlowOutputHelper).TakeScreenshot(_driver, allOrders.OrdersTable, "Orders"); //Screenshot report
         }
     }
 }

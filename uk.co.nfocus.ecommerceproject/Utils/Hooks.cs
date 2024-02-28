@@ -10,6 +10,7 @@ using TechTalk.SpecFlow;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
 using uk.co.nfocus.ecommerceproject.POMClasses;
+using TechTalk.SpecFlow.Infrastructure;
 
 [assembly: Parallelizable(ParallelScope.Fixtures)] //Can only parallelise Features
 [assembly: LevelOfParallelism(4)] //Worker thread i.e. max amount of Features to run in Parallel
@@ -21,10 +22,11 @@ namespace uk.co.nfocus.ecommerceproject.Utils
     {
         private IWebDriver? _driver;
         private readonly ScenarioContext _scenarioContext;
-
-        public Hooks(ScenarioContext scenarioContext)
+        private readonly ISpecFlowOutputHelper _specFlowOutputHelper;
+        public Hooks(ScenarioContext scenarioContext, ISpecFlowOutputHelper specFlowOutputHelper)
         {
             _scenarioContext = scenarioContext;
+            _specFlowOutputHelper = specFlowOutputHelper;
         }
 
         [Before]
@@ -34,7 +36,7 @@ namespace uk.co.nfocus.ecommerceproject.Utils
 
             if (browser == null)
             {
-                Console.WriteLine("BROWSER env not set: Setting to Edge..");
+                _specFlowOutputHelper.WriteLine("BROWSER env not set: Setting to Edge..");
                 browser = "edge";
             }
 
@@ -78,23 +80,23 @@ namespace uk.co.nfocus.ecommerceproject.Utils
             {
                 if (_driver!.Url.Contains("my-account"))
                 {
-                    new MyAccountPOM(_driver).Logout();
+                    new MyAccountPOM(_driver, _specFlowOutputHelper).Logout();
                 }
                 else
                 {
-                    new NavPOM(_driver).GoToAccount();
-                    new MyAccountPOM(_driver).Logout();
+                    new NavPOM(_driver, _specFlowOutputHelper).GoToAccount();
+                    new MyAccountPOM(_driver, _specFlowOutputHelper).Logout();
                 }
 
-                Console.WriteLine("Successfully Logged Out");
+                _specFlowOutputHelper.WriteLine("Successfully Logged Out");
 
             }
             catch (Exception e)
             {
-                Console.WriteLine($"Logout Failed: {e.Message}");
+                _specFlowOutputHelper.WriteLine($"Logout Failed: {e.Message}");
             }
 
-            Console.WriteLine("Test Passed & Completed!");
+            _specFlowOutputHelper.WriteLine("Test Passed & Completed!");
             _driver!.Quit(); // Null forgiving operator (!)
         }
 

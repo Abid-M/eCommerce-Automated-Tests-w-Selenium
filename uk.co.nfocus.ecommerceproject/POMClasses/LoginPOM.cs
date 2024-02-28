@@ -1,15 +1,18 @@
 ﻿using OpenQA.Selenium.Support.UI;
 using OpenQA.Selenium;
+using TechTalk.SpecFlow.Infrastructure;
 /* Author: Abid Miah */
 namespace uk.co.nfocus.ecommerceproject.POMClasses
 {
     internal class LoginPOM
     {
         private IWebDriver _driver;
+        private readonly ISpecFlowOutputHelper _specFlowOutputHelper;
 
-        public LoginPOM(IWebDriver driver)
+        public LoginPOM(IWebDriver driver, ISpecFlowOutputHelper specFlowOutputHelper)
         {
             this._driver = driver;
+            _specFlowOutputHelper = specFlowOutputHelper;
         }
 
         //Locators
@@ -57,7 +60,7 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
             }
             catch
             {
-                Console.WriteLine("Successfully Logged In");
+                _specFlowOutputHelper.WriteLine("Successfully Logged In");
                 return true;
             }
         }

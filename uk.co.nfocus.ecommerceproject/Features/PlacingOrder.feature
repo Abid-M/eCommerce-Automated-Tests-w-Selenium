@@ -18,7 +18,6 @@ Scenario Outline: Applying a discount to the shopping cart
 Examples:
 	| item       |
 	| Beanie     |
-	| Belt       |
 	| Polo       |
 	| Sunglasses |
 

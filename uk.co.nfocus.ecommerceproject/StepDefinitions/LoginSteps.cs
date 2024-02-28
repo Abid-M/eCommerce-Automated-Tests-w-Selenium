@@ -1,9 +1,8 @@
 ﻿using OpenQA.Selenium;
 using System;
 using TechTalk.SpecFlow;
+using TechTalk.SpecFlow.Infrastructure;
 using uk.co.nfocus.ecommerceproject.POMClasses;
-using static uk.co.nfocus.ecommerceproject.Utils.HelperLib;
-
 
 namespace uk.co.nfocus.ecommerceproject.StepDefinitions
 {
@@ -12,10 +11,13 @@ namespace uk.co.nfocus.ecommerceproject.StepDefinitions
     {
         private IWebDriver _driver;
         private readonly ScenarioContext _scenarioContext;
+        private readonly ISpecFlowOutputHelper _specFlowOutputHelper;
 
-        public LoginSteps(ScenarioContext scenarioContext)
+        public LoginSteps(ScenarioContext scenarioContext, ISpecFlowOutputHelper specFlowOutputHelper)
         {
             _scenarioContext = scenarioContext;
+            _specFlowOutputHelper = specFlowOutputHelper;
+
             this._driver = (IWebDriver)_scenarioContext["myDriver"];
         }
 
@@ -26,14 +28,14 @@ namespace uk.co.nfocus.ecommerceproject.StepDefinitions
             _driver.Url = TestContext.Parameters["WebAppURL"]; // starting on cart page to clear
 
             // Dismisses the notice banner
-            NavPOM nav = new NavPOM(_driver);
+            NavPOM nav = new NavPOM(_driver, _specFlowOutputHelper);
             nav.DismissBanner();
         }
 
         [Given(@"I am logged in as a registered user")]
         public void GivenIAmLoggedInAsARegisteredUser()
         {
-            LoginPOM login = new LoginPOM(_driver);
+            LoginPOM login = new LoginPOM(_driver, _specFlowOutputHelper);
 
             string? username = Environment.GetEnvironmentVariable("USERNAME");
             string? password = Environment.GetEnvironmentVariable("PASSWORD");
@@ -47,8 +49,8 @@ namespace uk.co.nfocus.ecommerceproject.StepDefinitions
             Assert.That(loggedIn, "We did not login");
 
             // Emptying cart after login to have fix state at the start of test
-            new NavPOM(_driver).GoToCart();
-            new CartPOM(_driver).EmptyCart();
+            new NavPOM(_driver, _specFlowOutputHelper).GoToCart();
+            new CartPOM(_driver, _specFlowOutputHelper).EmptyCart();
         }
     }
 }

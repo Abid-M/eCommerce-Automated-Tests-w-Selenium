@@ -1,20 +1,24 @@
 ﻿/* Author: Abid Miah */
 using OpenQA.Selenium;
+using TechTalk.SpecFlow.Infrastructure;
+using static uk.co.nfocus.ecommerceproject.Utils.HelperLib;
 
 namespace uk.co.nfocus.ecommerceproject.POMClasses
 {
     internal class NavPOM
     {
         private IWebDriver _driver;
+        private readonly ISpecFlowOutputHelper _specFlowOutputHelper;
 
-        public NavPOM(IWebDriver driver)
+        public NavPOM(IWebDriver driver, ISpecFlowOutputHelper specFlowOutputHelper)
         {
             this._driver = driver;
+            _specFlowOutputHelper = specFlowOutputHelper;
+
         }
 
         // Locators
-        private IWebElement _homeLink => _driver.FindElement(By.LinkText("Home"));
-        private IWebElement _shopLink => _driver.FindElement(By.LinkText("Shop"));
+        private IWebElement _shopLink => WaitForElement(_driver, By.LinkText("Shop"));
         private IWebElement _cartLink => _driver.FindElement(By.LinkText("Cart"));
         private IWebElement _checkoutLink => _driver.FindElement(By.LinkText("Checkout"));
         private IWebElement _myAccountLink => _driver.FindElement(By.LinkText("My account"));
@@ -25,28 +29,28 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
         public void GoToShop()
         {
             _shopLink.Click();
-            Console.WriteLine("Navigated to the Shop Page");
+            _specFlowOutputHelper.WriteLine("Navigated to the Shop Page");
         }
 
         // Navigates to the cart page.
         public void GoToCart()
         {
             _cartLink.Click();
-            Console.WriteLine("Navigated to the Cart Page");
+            _specFlowOutputHelper.WriteLine("Navigated to the Cart Page");
         }
 
         // Navigates to the checkout page.
         public void GoToCheckout()
         {
             _checkoutLink.Click();
-            Console.WriteLine("Navigated to Checkout page");
+            _specFlowOutputHelper.WriteLine("Navigated to Checkout page");
         }
 
         // Navigates to the my account page.
         public void GoToAccount()
         {
             _myAccountLink.Click();
-            Console.WriteLine("Navigated to Account page");
+            _specFlowOutputHelper.WriteLine("Navigated to Account page");
 
         }
 

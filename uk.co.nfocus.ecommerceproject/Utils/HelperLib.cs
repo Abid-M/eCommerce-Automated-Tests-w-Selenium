@@ -2,13 +2,21 @@
 using OpenQA.Selenium.Support.UI;
 using OpenQA.Selenium;
 using uk.co.nfocus.ecommerceproject.POMClasses;
+using TechTalk.SpecFlow.Infrastructure;
+using TechTalk.SpecFlow;
 
 namespace uk.co.nfocus.ecommerceproject.Utils
 {
     internal class HelperLib
     {
-        /* Waits for an element to be displayed on the page. */ 
-        public static IWebElement StaticWaitForElement(IWebDriver driver, By locator, int timeoutInSeconds = 5)
+        private readonly ISpecFlowOutputHelper _specFlowOutputHelper;
+        public HelperLib(ISpecFlowOutputHelper specFlowOutputHelper)
+        {
+            _specFlowOutputHelper = specFlowOutputHelper;
+        }
+
+        /* Waits for an element to be displayed on the page. */
+        public static IWebElement WaitForElement(IWebDriver driver, By locator, int timeoutInSeconds = 5)
         {
             // Create a new WebDriverWait instance with the specified timeout
             WebDriverWait myWait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeoutInSeconds));
@@ -33,10 +41,9 @@ namespace uk.co.nfocus.ecommerceproject.Utils
                 jsdriver.ExecuteScript("arguments[0].scrollIntoView()", element);
             }
         }
-
-        
+     
         /* Takes a screenshot of the specified element and saves it. */
-        public static void TakeScreenshot(IWebDriver driver, IWebElement element, string el)
+        public void TakeScreenshot(IWebDriver driver, IWebElement element, string el)
         {
             try
             {
@@ -66,16 +73,16 @@ namespace uk.co.nfocus.ecommerceproject.Utils
                     screenshotElm.SaveAsFile(filePath);
 
                     // Write a message to the test output
-                    TestContext.WriteLine($"Attaching '{el}' screenshot to report");
+                    _specFlowOutputHelper.WriteLine($"Attaching '{el}' screenshot to report");
 
                     // Add the screenshot as a test attachment
-                    TestContext.AddTestAttachment(filePath, $"{el} png");
+                    _specFlowOutputHelper.AddAttachment(filePath);
                 }
             }
             catch (Exception e)
             {
                 // Write an error message to the console
-                Console.WriteLine($"Screenshot Failed {e.Message}");
+                _specFlowOutputHelper.WriteLine($"Screenshot Failed {e.Message}");
             }
         }
     }
