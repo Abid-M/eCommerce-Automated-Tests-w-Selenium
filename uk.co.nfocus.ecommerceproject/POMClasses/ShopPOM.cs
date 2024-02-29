@@ -20,7 +20,7 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
 
         //Locators
         IList<IWebElement> _allItems => _driver.FindElements(By.CssSelector("li h2")); //Collates all items in the shop
-        IWebElement _viewCartButton => WaitForElement(_driver, By.CssSelector(".added_to_cart"));
+        IWebElement _viewCartButton => WaitForElement(_driver, By.LinkText("View cart"));
 
         /* This method checks if a shop item with a given name exists in the list of all items.
         If the item is found, it is added to the cart and the method returns true.
@@ -51,6 +51,7 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
         public void AddToCart(IWebElement item, string name)
         {
             // Parent element of h2 text, then following 'a' element clicked
+            //_driver.FindElement(By.LinkText("View cart"));
             item.FindElement(By.XPath("../following-sibling::a")).Click(); //Not locator as needs reference to item name
             
             _specFlowOutputHelper.WriteLine($"Added the '{name}' item to the cart");

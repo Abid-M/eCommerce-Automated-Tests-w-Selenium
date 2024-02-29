@@ -39,13 +39,8 @@ namespace uk.co.nfocus.ecommerceproject.StepDefinitions
 
             string? username = Environment.GetEnvironmentVariable("USERNAME") ?? throw new Exception("USERNAME env variable is not set.");
             string? password = Environment.GetEnvironmentVariable("PASSWORD") ?? throw new Exception("PASSWORD env variable is not set.");
-            bool loggedIn = false;
 
-            if (username !=null && password != null)
-            {
-                loggedIn = login.ValidLogin(username, password);
-            }
-
+            bool loggedIn = login.ValidLogin(username, password);
             Assert.That(loggedIn, "We did not login");
 
             // Emptying cart after login to have fix state at the start of test
