@@ -21,7 +21,7 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
         //Locators
         IList<IWebElement> _allItems => _driver.FindElements(By.CssSelector("li h2")); //Collates all items in the shop
         IWebElement _viewCartButton => WaitForElement(_driver, By.LinkText("View cart"));
-        IWebElement _addToCart(IWebElement item) => item.FindElement(By.XPath("../following-sibling::a")); // Specific Item's Add to cart button
+        IWebElement _addToCart(string name) => _driver.FindElement(By.CssSelector($"[aria-label=\"Add “{name}” to your cart\"]"));
 
         /* This method checks if a shop item with a given name exists in the list of all items.
         If the item is found, it is added to the cart and the method returns true.
@@ -38,7 +38,7 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
                     _specFlowOutputHelper.WriteLine($"Verified that the '{name}' item exists on the shop page");
 
                     // Call the AddToCart method to add the item to the cart
-                    AddToCart(item, name); 
+                    AddToCart(name); 
 
                     // Return true to indicate that the item was found
                     return true;
@@ -49,12 +49,10 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
             return false;
         }
 
-        public void AddToCart(IWebElement item, string name)
+        public void AddToCart(string itemName)
         {
-            // Parent element of h2 text, then following 'a' element clicked
-            _addToCart(item).Click(); // Ref locator passing the specific item
-            
-            _specFlowOutputHelper.WriteLine($"Added the '{name}' item to the cart");
+            _addToCart(itemName).Click(); // Ref locator passing the specific item name
+            _specFlowOutputHelper.WriteLine($"Added '{itemName}' item to the cart");
         }
 
         // Navigates to the cart page.
