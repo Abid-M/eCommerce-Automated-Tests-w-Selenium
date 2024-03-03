@@ -44,8 +44,8 @@ git clone https://github.com/Abid-M/uk.co.nfocus.ecommerceproject.git
 3. Create 3 environment variables:
    - `USERNAME`
    - `PASSWORD`
-   - `BROWSER`
      - `USERNAME` and `PASSWORD` must be the registered login details
+   - `BROWSER`
      - Specify `BROWSER` as `edge`, `chrome`, or `firefox` (If none specified, default is `edge`)
        
 4. Create test run parameter:
