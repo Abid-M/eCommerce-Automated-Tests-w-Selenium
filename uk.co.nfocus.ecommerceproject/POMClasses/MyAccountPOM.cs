@@ -19,14 +19,12 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
         private IWebElement _logoutLink => _driver.FindElement(By.LinkText("Logout"));
         private IWebElement _ordersLink => _driver.FindElement(By.LinkText("Orders"));
 
-
-        // Logouts
         public void Logout()
         {
             _logoutLink.Click();
         }
         
-        // Navigates to Orders page
+        /* Navigates to Orders page */
         public void GoToOrders()
         {
             _ordersLink.Click();

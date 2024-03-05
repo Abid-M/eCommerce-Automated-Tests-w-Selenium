@@ -12,7 +12,7 @@ namespace uk.co.nfocus.ecommerceproject.StepDefinitions
     {
         private IWebDriver _driver;
         private readonly ScenarioContext _scenarioContext;
-        private ISpecFlowOutputHelper _specFlowOutputHelper;
+        private readonly ISpecFlowOutputHelper _specFlowOutputHelper; // Shows Test Output in LivingDoc HTML Report, rather than CWs
 
         public CheckoutProcessSteps(ScenarioContext scenarioContext, ISpecFlowOutputHelper specFlowOutputHelper)
         {
@@ -22,7 +22,11 @@ namespace uk.co.nfocus.ecommerceproject.StepDefinitions
             this._driver = (IWebDriver)_scenarioContext["myDriver"];
         }
 
-        /* Adding an item to cart for this context */
+        /*
+         [Given] "that the cart contains 'hoodie'"
+         - Adds an item to the cart for the given context.
+         - Examples include:. 
+        */
         [Given(@"that the cart contains '(.*)'")]
         public void GivenThatTheCartContains(string item)
         {
@@ -42,6 +46,10 @@ namespace uk.co.nfocus.ecommerceproject.StepDefinitions
             shop.GoToCart();
         }
 
+        /*
+         [When] "I proceed to checkout"
+         - Redirects to the checkout page on button click.
+        */
         [When(@"I proceed to checkout")]
         public void WhenIProceedToCheckout()
         {
@@ -49,6 +57,11 @@ namespace uk.co.nfocus.ecommerceproject.StepDefinitions
             new CartPOM(_driver, _specFlowOutputHelper).GoToCheckout();
         }
 
+        /*
+         [When] "I provide the billing details"
+         - Uses the table passed from feature file.
+         - Creates a customer object which is used to populate the billing fields.
+        */
         [When(@"I provide the billing details:")]
         public void WhenIProvideTheBillingDetails(Table customerInfo)
         {
@@ -63,6 +76,11 @@ namespace uk.co.nfocus.ecommerceproject.StepDefinitions
             _specFlowOutputHelper.WriteLine("Validated Billing Details have actually been populated");
         }
 
+        /*
+         [When] "I place the order with 'payment method' payment"
+         - Selects payment method, either 'cash' or 'check' and places the order.
+         - New order number is captured and stored in scenario context.
+        */
         [When(@"I place the order with '(.*)' payment")]
         public void WhenIPlaceTheOrder(string paymentMethod)
         {
@@ -77,6 +95,10 @@ namespace uk.co.nfocus.ecommerceproject.StepDefinitions
             new HelperLib(_specFlowOutputHelper).TakeScreenshot(_driver, orderInfo.SsOrderNumber, "New_Order_Number"); // Screenshot of newly placed order
         }
 
+        /*
+         [Then] "the order should appear in my accounts order history"
+         - Verifies the new order number in the previous step is shown on the order history.
+        */
         [Then(@"the order should appear in my accounts order history")]
         public void ThenTheOrderShouldAppearInMyAccountsOrderHistory()
         {

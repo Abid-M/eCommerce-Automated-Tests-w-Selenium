@@ -23,9 +23,11 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
         IWebElement _viewCartButton => WaitForElement(_driver, By.LinkText("View cart"));
         IWebElement _addToCart(string name) => _driver.FindElement(By.CssSelector($"[aria-label=\"Add “{name}” to your cart\"]"));
 
-        /* This method checks if a shop item with a given name exists in the list of all items.
-        If the item is found, it is added to the cart and the method returns true.
-        If the item is not found, the method returns false. */
+        /* FindAndAddItem(string)
+         - This method checks if a shop item with a given name exists in the list of all items.
+         - If the item is found, it is added to the cart and the method returns true.
+         - If the item is not found, the method returns false. 
+        */
         public bool FindAndAddItem(string name)
         {
             // Iterate through each item in the list of all items
@@ -49,13 +51,14 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
             return false;
         }
 
+        /* Clicks the "Add to Cart" button for the specified item. */
         public void AddToCart(string itemName)
         {
             _addToCart(itemName).Click(); // Ref locator passing the specific item name
             _specFlowOutputHelper.WriteLine($"Added '{itemName}' item to the cart");
         }
 
-        // Navigates to the cart page.
+        /* Navigates to the cart page. */
         public void GoToCart()
         {
             _viewCartButton.Click();

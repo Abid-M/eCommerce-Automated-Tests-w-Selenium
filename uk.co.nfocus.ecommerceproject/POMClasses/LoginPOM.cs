@@ -15,13 +15,13 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
             _specFlowOutputHelper = specFlowOutputHelper;
         }
 
-        //Locators
+        // Locators
         private IWebElement _usernameField => _driver.FindElement(By.Id("username"));
         private IWebElement _passwordField => _driver.FindElement(By.Id("password"));
         private IWebElement _loginButton => _driver.FindElement(By.Name("login"));
         private IWebElement _errorBanner => _driver.FindElement(By.ClassName("woocommerce-error"));
 
-        // Clears and sets the value of the username field.
+        /* Clears and sets the value of the username field. */
         public LoginPOM SetUsername(string username)
         {
             _usernameField.Clear();
@@ -30,7 +30,7 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
             return this;
         }
 
-        // Clears and sets the value of the password field.
+        /* Clears and sets the value of the password field. */
         public LoginPOM SetPassword(string password)
         {
             _passwordField.Clear();
@@ -39,7 +39,7 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
             return this;
         }
 
-        // Clicks the login button.
+        /* Clicks the login button. */
         public void GoLogin()
         {
             _loginButton.Click();

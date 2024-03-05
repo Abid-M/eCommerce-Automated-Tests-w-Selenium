@@ -8,18 +8,18 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
 {
     internal class CartPOM
     {
-        private IWebDriver _driver; //Field that will hold a driver for Service Methods in this test to work with
+        private IWebDriver _driver; // Field that will hold a driver for Service Methods in this test to work with
         private readonly ISpecFlowOutputHelper _specFlowOutputHelper; // Shows Test Output in LivingDoc HTML Report, rather than CWs
 
-        public CartPOM(IWebDriver driver, ISpecFlowOutputHelper specFlowOutputHelper) //Constructor to get the driver from the test
+        public CartPOM(IWebDriver driver, ISpecFlowOutputHelper specFlowOutputHelper)
         {
-            this._driver = driver; //Assigns passed driver into private field in this class
+            this._driver = driver; // Assigns passed driver into private field in this class
             _specFlowOutputHelper = specFlowOutputHelper;
         }
 
         //Locators
         private static CultureInfo s_provider = new CultureInfo("en-GB");
-        IList<IWebElement> _items => _driver.FindElements(By.CssSelector("td.product-name a")); //Collates all items in the cart (Tests for multiple items in cart)
+        IList<IWebElement> _cartItems => _driver.FindElements(By.CssSelector("td.product-name a")); //Collates all items in the cart (Tests for multiple items in cart)
         private IWebElement _couponCodeField => WaitForElement(_driver, By.Name("coupon_code"));
         private IWebElement _applyCouponButton => _driver.FindElement(By.Name("apply_coupon"));
         private IWebElement _subtotalPrice => _driver.FindElement(By.CssSelector("td:nth-child(2) > .woocommerce-Price-amount > bdi"));
@@ -34,7 +34,7 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
 
 
 
-        //Empty cart on initial load of test, loop max. 50 times.
+        /* Empty cart on initial load of test. */
         public void EmptyCart()
         {
             while (true)
@@ -46,17 +46,17 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
                     {
                         if (_cartEmptyDialog.Displayed)
                         {
-                            break; //break out of loop (cart empty)
+                            break; // break out of loop (cart empty)
                         }
                     }
                     catch
                     {
-                       //Need additional try catch so doesn't get stuck on finding element displayed
+                       // Need additional try catch so doesn't get stuck on finding element displayed
                     }
 
                     _removeItemButton.Click();
                 }
-                catch
+                catch                   
                 {
                     // Try again
                 }
@@ -65,11 +65,11 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
             _specFlowOutputHelper.WriteLine("Check Cart Cleared");
         }
 
-        // Checks if the specified item is in the cart.
+        /* Checks if the specified item is in the cart. */
         public bool CheckItemInCart(string name)
         {
             // Iterate through each item in the cart
-            foreach (IWebElement item in _items)
+            foreach (IWebElement item in _cartItems)
             {
                 // Check if the item's text matches the specified name (case-insensitive)
                 if (item.Text.ToLower().Equals(name.ToLower()))
@@ -84,7 +84,7 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
             return false;
         }
 
-        // Clears and sets the value coupon from argument value.
+        /* Clears and sets the value coupon from argument value. */
         public CartPOM EnterCoupon(string coupon)
         {
             _couponCodeField.Clear();
@@ -93,13 +93,13 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
             return this;
         }
 
-        // Clicks apply coupon button
+        /* Clicks apply coupon button. */
         public void ApplyCoupon()
         {
             _applyCouponButton.Click();
         }
 
-        // Validates that the specified coupon code can be applied to the cart.
+        /* Validates that the specified coupon code can be applied to the cart. */
         public bool ValidateCoupon(string coupon)
         {
             try
@@ -131,35 +131,35 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
             }
         }
 
-        // Gets the subtotal price from the cart page.
+        /* Gets the subtotal price from the cart page. */
         public decimal GetSubtotalPrice()
         {
             string strValue = _subtotalPrice.Text;
             return decimal.Parse(strValue, NumberStyles.Currency, s_provider); //Removes pound symbol
         }
 
-        // Gets the shipping price from the cart page.
+        /* Gets the shipping price from the cart page. */
         public decimal GetShippingPrice()
         {
             string strValue = _shippingPrice.Text;
             return decimal.Parse(strValue, NumberStyles.Currency, s_provider); //Removes pound symbol
         }
 
-        // Gets the grand total price from the cart page.
+        /* Gets the grand total price from the cart page. */
         public decimal GetGrandTotalPrice()
         {
             string strValue = _grandTotalPrice.Text;
             return decimal.Parse(strValue, NumberStyles.Currency, s_provider); //Removes pound symbol
         }
 
-        // Gets the coupon discount from the cart page.
+        /* Gets the coupon discount from the cart page. */
         public decimal GetCouponDiscount()
         {
             string strValue = _couponDiscount.Text;
             return decimal.Parse(strValue, NumberStyles.Currency, s_provider); //Removes pound symbol
         }
 
-        // Gets the coupon discount percentage as an integer.
+        /* Gets the coupon discount percentage as an integer. */
         public int GetDiscountPercentage()
         {
             // Calculate the coupon discount percentage as a decimal
@@ -173,14 +173,14 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
             return discountPercentage;
         }
 
-        // Validates that the calculated total matches the grand total price.
+        /* Validates that the calculated total matches the grand total price. */
         public decimal ValidateTotal()
         {
             decimal checkTotal = GetSubtotalPrice() - GetCouponDiscount() + GetShippingPrice();
             return checkTotal;
         }
 
-        // Navigates to the checkout page.
+        /* Navigates to the checkout page. */
         public void GoToCheckout()
         {
             _specFlowOutputHelper.WriteLine("Navigated to Checkout page");

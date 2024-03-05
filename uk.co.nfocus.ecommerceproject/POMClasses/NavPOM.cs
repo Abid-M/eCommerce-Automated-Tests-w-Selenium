@@ -25,28 +25,28 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
         private IWebElement _dismissBannerLink => _driver.FindElement(By.LinkText("Dismiss"));
 
 
-        // Navigates to the shop page.
+        /* Navigates to the shop page. */
         public void GoToShop()
         {
             _shopLink.Click();
             _specFlowOutputHelper.WriteLine("Navigated to the Shop Page");
         }
 
-        // Navigates to the cart page.
+        /* Navigates to the cart page. */
         public void GoToCart()
         {
             _cartLink.Click();
             _specFlowOutputHelper.WriteLine("Navigated to the Cart Page");
         }
 
-        // Navigates to the checkout page.
+        /* Navigates to the checkout page. */
         public void GoToCheckout()
         {
             _checkoutLink.Click();
             _specFlowOutputHelper.WriteLine("Navigated to Checkout page");
         }
 
-        // Navigates to the my account page.
+        /* Navigates to the my account page. */
         public void GoToAccount()
         {
             _myAccountLink.Click();

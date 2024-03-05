@@ -7,8 +7,8 @@ using OpenQA.Selenium.Firefox;
 using uk.co.nfocus.ecommerceproject.POMClasses;
 using TechTalk.SpecFlow.Infrastructure;
 
-[assembly: Parallelizable(ParallelScope.Fixtures)] //Can only parallelise Features
-[assembly: LevelOfParallelism(4)] //Worker thread i.e. max amount of Features to run in Parallel
+[assembly: Parallelizable(ParallelScope.Fixtures)] // Can only parallelise Features
+[assembly: LevelOfParallelism(4)] // Worker thread i.e. max amount of Features to run in Parallel
 
 namespace uk.co.nfocus.ecommerceproject.Utils
 {
@@ -18,12 +18,19 @@ namespace uk.co.nfocus.ecommerceproject.Utils
         private IWebDriver? _driver;
         private readonly ScenarioContext _scenarioContext;
         private readonly ISpecFlowOutputHelper _specFlowOutputHelper; // Shows Test Output in LivingDoc HTML Report, rather than CWs
+
         public Hooks(ScenarioContext scenarioContext, ISpecFlowOutputHelper specFlowOutputHelper)
         {
             _scenarioContext = scenarioContext;
             _specFlowOutputHelper = specFlowOutputHelper;
         }
 
+        /* SetUp()
+        - Sets up the WebDriver instance based on the environment variable "BROWSER".
+        - If the "BROWSER" environment variable is not set, defaults to Edge browser.
+        - Supported browsers include Chrome, Firefox, and their respective headless versions.
+        - This method runs once before each scenario feature. 
+        */
         [Before]
         public void SetUp()
         {
@@ -63,10 +70,16 @@ namespace uk.co.nfocus.ecommerceproject.Utils
                     break;
             }
 
-            _scenarioContext["myDriver"] = _driver; //putting driver into the sContext box and give label of myDriver
-            _driver.Manage().Window.Maximize(); //Maximize window to full screen
+            _scenarioContext["myDriver"] = _driver; // Putting driver into the sContext box and give label of myDriver
+            _driver.Manage().Window.Maximize(); // Maximize window to full screen
         }
 
+
+        /* TearDown()
+        - Tears down the WebDriver instance after each scenario feature.
+        - This method logs out of the application if the current URL contains "my-account".
+        - If not, it navigates to the account page and then logs out.
+        */
         [After]
         public void TearDown()
         {

@@ -6,23 +6,23 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
 {
     internal class AllOrdersPOM
     {
-        //Field that will hold a driver for Service Methods in this test to work with
+        // Field that will hold a driver for Service Methods in this test to work with
         private IWebDriver _driver;
 
-        //Constructor to get the driver from the test
+        /* Constructor to get the driver from the test */
         public AllOrdersPOM(IWebDriver driver)
         {
             this._driver = driver;
         }
 
-        //Locators
-        //Gets the first td in the table row (latest top order)
+        // Locators
+        // Gets the first td in the table row (latest top order)
         private IWebElement _newOrderNumber => WaitForElement(_driver, By.CssSelector("td[data-title='Order'] a"));
-        public IWebElement OrdersTable => _driver.FindElement(By.CssSelector(".woocommerce-orders-table")); //public for screenshot
+        public IWebElement OrdersTable => _driver.FindElement(By.CssSelector(".woocommerce-orders-table")); // Public for screenshot
         
 
 
-        // Gets the new order number from the order confirmation page.
+        /* Gets the new order number from the order confirmation page. */
         public string GetLatestOrder()
         {
             string newOrderNo = _newOrderNumber.Text;

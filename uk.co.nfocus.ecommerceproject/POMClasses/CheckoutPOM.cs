@@ -10,12 +10,12 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
 {
     internal class CheckoutPOM
     {
-        //Field that will hold a driver for Service Methods in this test to work with
+        // Field that will hold a driver for Service Methods in this test to work with
         private IWebDriver _driver;
         private readonly ISpecFlowOutputHelper _specFlowOutputHelper; // Shows Test Output in LivingDoc HTML Report, rather than CWs
 
 
-        //Constructor to get the driver from the test
+        /* Constructor to get the driver from the test */
         public CheckoutPOM(IWebDriver driver, ISpecFlowOutputHelper specFlowOutputHelper)
         {
             this._driver = driver;
@@ -33,7 +33,7 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
         private IWebElement _cashPaymentButton => WaitForElement(_driver, By.CssSelector("label[for='payment_method_cod']"), 1);
         private IWebElement _placeOrderButton => WaitForElement(_driver, By.Id("place_order"), 1);
 
-        // Clears and sets the value of the fields.
+        /* Clears and sets the value of the fields. */
         private void SetFirstName(string firstName)
         {
             _fNameField.Clear();
@@ -70,6 +70,10 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
             _emailField.SendKeys(email);
         }
 
+        /* FillInBillingDetails(Customer)
+         - Fills in the billing details using the provided Customer object.
+         - Sets the first name, last name, address, city, postcode, phone, and email. 
+        */
         public void FillInBillingDetails(Customer customer)
         {
             SetFirstName(customer._fName);
@@ -83,6 +87,7 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
             _specFlowOutputHelper.WriteLine("Billing Details Populated..");
         }
 
+        /* Validates whether the billing details within the input fields match those provided in the Customer object. */
         public bool ValidateDetails(Customer customer)
         {
             if (customer._fName == _fNameField.GetAttribute("value") &&
@@ -103,6 +108,7 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
             }
         }
 
+        /* Selects the payment method for checkout (check or cash). */
         public CheckoutPOM SelectPayment(string paymentMethod)
         {
 
@@ -120,14 +126,14 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
                     }
                     catch
                     {
-                        //Try again
+                        // Try again
                     }
                 }
             }
             // Default option is paying by cheque
             else
             {
-                //Button might not be immediately available or might be stale, so we try a few times.
+                // Button might not be immediately available or might be stale, so we try a few times.
                 while (true)
                 {
                     try
@@ -139,7 +145,7 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
                     }
                     catch
                     {
-                        //Try again
+                        // Try again
                     }
                 }
             }
@@ -147,6 +153,10 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
             return this;
         }
 
+        /* PlaceOrder()
+         - Places the order by clicking on the place order button.
+         - Waits for the order URL to appear after clicking the button. 
+        */
         public void PlaceOrder()
         {
             //Button might not be immediately available or might be stale, so we try a few times.
@@ -167,6 +177,7 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
             }
         }
 
+        /* Creates a Customer object using the information provided from the feature table. */
         public Customer CreateCustomer(Table CustomerInfo)
         {
             var customerRow = CustomerInfo.Rows[0]; // Only one row in table

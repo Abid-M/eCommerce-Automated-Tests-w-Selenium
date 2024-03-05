@@ -22,6 +22,11 @@ namespace uk.co.nfocus.ecommerceproject.StepDefinitions
             this._driver = (IWebDriver)_scenarioContext["myDriver"];
         }
 
+        /*
+         [When] "I add item to my cart"
+         - Adds an item to the cart. 
+         - Examples include:. 
+        */
         [When(@"I add '(.*)' into my cart")]
         public void WhenIAddAnIntoMyCart(string item)
         {
@@ -31,7 +36,7 @@ namespace uk.co.nfocus.ecommerceproject.StepDefinitions
 
             // Find the specified item and add it to the cart
             // (Assumes the item can be found directly on the shop page)
-            ShopPOM shop = new ShopPOM(_driver, _specFlowOutputHelper);
+            ShopPOM shop = new ShopPOM(_driver, _specFlowOutputHelper); 
 
             _scenarioContext["itemName"] = item; // Store item for later use in other step
 
@@ -43,6 +48,11 @@ namespace uk.co.nfocus.ecommerceproject.StepDefinitions
             shop.GoToCart();
         }
 
+        /*
+         [When] "I apply the coupon code 'edgewords' to the cart"
+         - Verifies that the item added is actually in the cart.
+         - Applies the 15% coupon 'edgewords' to the cart.
+        */
         [When(@"I apply the coupon code '(.*)' to the cart")]
         public void WhenIApplyTheCouponCodeToTheCart(string couponCode)
         {
@@ -57,6 +67,10 @@ namespace uk.co.nfocus.ecommerceproject.StepDefinitions
             Assert.That(cart.ValidateCoupon(couponCode), "Coupon does not exist!");
         }
 
+        /*
+         [Then] "I receive '15'% discount off my total, excluding shipping "
+         - Calculates the coupon discount and verifies it with the grand total.
+        */
         [Then(@"I recieve '(.*)'% discount off my total, excluding shipping")]
         public void ThenIRecieveDiscountOffMyTotalExcludingShipping(int expectedDiscount)
         {
