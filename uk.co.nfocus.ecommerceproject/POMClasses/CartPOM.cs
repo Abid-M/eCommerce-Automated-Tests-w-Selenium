@@ -17,7 +17,7 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
             _specFlowOutputHelper = specFlowOutputHelper;
         }
 
-        //Locators
+        // Locators
         private static CultureInfo s_provider = new CultureInfo("en-GB");
         IList<IWebElement> _cartItems => _driver.FindElements(By.CssSelector("td.product-name a")); //Collates all items in the cart (Tests for multiple items in cart)
         private IWebElement _couponCodeField => WaitForElement(_driver, By.Name("coupon_code"));
