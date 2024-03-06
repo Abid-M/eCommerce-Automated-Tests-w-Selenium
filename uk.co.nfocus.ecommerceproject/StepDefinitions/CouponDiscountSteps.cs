@@ -25,7 +25,7 @@ namespace uk.co.nfocus.ecommerceproject.StepDefinitions
         /*
          [When] "I add item to my cart"
          - Adds an item to the cart. 
-         - Examples include:. 
+         - Examples include: Beanie, Polo, Sunglasses. 
         */
         [When(@"I add '(.*)' into my cart")]
         public void WhenIAddAnIntoMyCart(string item)

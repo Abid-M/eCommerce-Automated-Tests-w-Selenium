@@ -25,7 +25,7 @@ namespace uk.co.nfocus.ecommerceproject.StepDefinitions
         /*
          [Given] "that the cart contains 'hoodie'"
          - Adds an item to the cart for the given context.
-         - Examples include:. 
+         - Examples include: Hoodie, Cap. 
         */
         [Given(@"that the cart contains '(.*)'")]
         public void GivenThatTheCartContains(string item)
