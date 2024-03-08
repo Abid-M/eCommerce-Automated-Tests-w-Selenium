@@ -42,7 +42,7 @@ namespace uk.co.nfocus.ecommerceproject.StepDefinitions
          - Logs into the eCommerce website as a registered user.
         */
         [Given(@"I am logged in as a registered user")]
-        public void GivenIAmLoggedInAsARegisteredUser()
+        public void GivenIAmLoggedInAsAUser()
         {
             LoginPOM login = new LoginPOM(_driver, _specFlowOutputHelper);
 

@@ -100,7 +100,7 @@ namespace uk.co.nfocus.ecommerceproject.StepDefinitions
          - Verifies the new order number in the previous step is shown on the order history.
         */
         [Then(@"the order should appear in my accounts order history")]
-        public void ThenTheOrderShouldAppearInMyAccountsOrderHistory()
+        public void ThenTheOrderShouldBeInHistory()
         {
             // Navigate to all orders page from account
             new NavPOM(_driver, _specFlowOutputHelper).GoToAccount();

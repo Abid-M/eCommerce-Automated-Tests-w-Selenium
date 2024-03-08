@@ -22,6 +22,7 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
             _specFlowOutputHelper = specFlowOutputHelper;
         }
 
+        /* Locators */
         private IWebElement _fNameField => WaitForElement(_driver, By.Id("billing_first_name"));
         private IWebElement _lNameField => _driver.FindElement(By.Id("billing_last_name"));
         private IWebElement _streetAddressField => _driver.FindElement(By.Id("billing_address_1"));

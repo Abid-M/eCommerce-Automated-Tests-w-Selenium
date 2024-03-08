@@ -11,7 +11,7 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
         private IWebDriver _driver;
         private readonly ISpecFlowOutputHelper _specFlowOutputHelper; // Shows Test Output in LivingDoc HTML Report, rather than CWs
 
-        // Constructor to get the driver from the test
+        /* Constructor to get the driver from the test */
         public OrderInfoPOM(IWebDriver driver, ISpecFlowOutputHelper specFlowOutputHelper)
         {
             this._driver = driver;

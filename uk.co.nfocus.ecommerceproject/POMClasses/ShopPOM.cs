@@ -11,14 +11,14 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
         private IWebDriver _driver;
         private readonly ISpecFlowOutputHelper _specFlowOutputHelper; // Shows Test Output in LivingDoc HTML Report, rather than CWs
 
-        // Constructor to get the driver from the test
+        /* Constructor to get the driver from the test */
         public ShopPOM(IWebDriver driver, ISpecFlowOutputHelper specFlowOutputHelper)
         {
             this._driver = driver;
             _specFlowOutputHelper = specFlowOutputHelper;
         }
 
-        //Locators
+        // Locators
         IList<IWebElement> _allItems => _driver.FindElements(By.CssSelector("li h2")); //Collates all items in the shop
         IWebElement _viewCartButton => WaitForElement(_driver, By.LinkText("View cart"));
         IWebElement _addToCart(string name) => _driver.FindElement(By.CssSelector($"[aria-label=\"Add “{name}” to your cart\"]"));

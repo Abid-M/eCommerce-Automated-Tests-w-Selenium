@@ -54,7 +54,7 @@ namespace uk.co.nfocus.ecommerceproject.StepDefinitions
          - Applies the 15% coupon 'edgewords' to the cart.
         */
         [When(@"I apply the coupon code '(.*)' to the cart")]
-        public void WhenIApplyTheCouponCodeToTheCart(string couponCode)
+        public void WhenIApplyTheCouponCode(string couponCode)
         {
             // Check that the item is present in the cart before applying coupon
             CartPOM cart = new CartPOM(_driver, _specFlowOutputHelper);
@@ -72,7 +72,7 @@ namespace uk.co.nfocus.ecommerceproject.StepDefinitions
          - Calculates the coupon discount and verifies it with the grand total.
         */
         [Then(@"I recieve '(.*)'% discount off my total, excluding shipping")]
-        public void ThenIRecieveDiscountOffMyTotalExcludingShipping(int expectedDiscount)
+        public void ThenIRecieveDiscount(int expectedDiscount)
         {
             // Reports discount percentage applied from previous step
             CartPOM cart = new CartPOM(_driver, _specFlowOutputHelper);
