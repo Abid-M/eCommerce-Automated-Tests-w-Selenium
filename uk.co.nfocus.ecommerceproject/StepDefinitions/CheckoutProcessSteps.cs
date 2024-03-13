@@ -71,7 +71,7 @@ namespace uk.co.nfocus.ecommerceproject.StepDefinitions
         {
             CheckoutPOM checkout = new CheckoutPOM(_driver, _specFlowOutputHelper);
 
-            // Creates an instance of the 'Customer' class using the table 'customerInfo' from feature file.
+            // Creates an instance of the 'Customer' class using the table 'customerInfo' from feature file
             _customerDetails = customerInfo.CreateInstance<Customer>();
 
             // Fill in Billing Input Fields with customer object
