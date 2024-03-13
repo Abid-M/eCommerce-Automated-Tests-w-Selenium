@@ -14,7 +14,6 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
         private IWebDriver _driver;
         private readonly ISpecFlowOutputHelper _specFlowOutputHelper; // Shows Test Output in LivingDoc HTML Report, rather than CWs
 
-
         /* Constructor to get the driver from the test */
         public CheckoutPOM(IWebDriver driver, ISpecFlowOutputHelper specFlowOutputHelper)
         {
@@ -112,7 +111,6 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
         /* Selects the payment method for checkout (check or cash). */
         public CheckoutPOM SelectPayment(string paymentMethod)
         {
-
             if (paymentMethod.ToLower().Equals("cash"))
             {
                 //Button might not be immediately available or might be stale, so we try a few times.
@@ -167,13 +165,15 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
                 {
                     // If the button is found and clickable with order url, this will succeed and exit the loop.
                     _placeOrderButton.Click();
-                    new WebDriverWait(_driver, TimeSpan.FromSeconds(3)).Until(drv => drv.Url.Contains("order"));
+
+                    WaitToNavigate(_driver, "order");
                     _specFlowOutputHelper.WriteLine("Order Placed..");
+
                     break;
                 }
                 catch
                 {
-                    //Try again
+                    // Try again
                 }
             }
         }

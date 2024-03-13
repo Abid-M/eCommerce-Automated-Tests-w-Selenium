@@ -26,6 +26,13 @@ namespace uk.co.nfocus.ecommerceproject.Utils
             return driver.FindElement(locator);
         }
 
+        /* Waits until the url contains the location. */
+        public static void WaitToNavigate(IWebDriver driver, string location)
+        {
+            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(3));
+            wait.Until(drv => drv.Url.Contains(location));
+        }
+
         /* Scrolls the specified element into view. */
         public static void ScrollElIntoView(IWebDriver driver, IWebElement element)
         {
@@ -76,7 +83,7 @@ namespace uk.co.nfocus.ecommerceproject.Utils
                     ScrollElIntoView(driver, element);
 
                     var ssElm = element as ITakesScreenshot;
-                    Screenshot screenshotElm = ssElm.GetScreenshot();
+                    Screenshot screenshotElm = ssElm!.GetScreenshot();
 
                     // Create the file path for the screenshot
                     string filePath = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..\Screenshots\", $"{ssName}_{date}.png");
