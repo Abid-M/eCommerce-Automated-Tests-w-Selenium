@@ -92,7 +92,7 @@ namespace uk.co.nfocus.ecommerceproject.Features
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Applying a discount to the shopping cart")]
         [NUnit.Framework.CategoryAttribute("TestCase1_Coupon")]
-        [NUnit.Framework.TestCaseAttribute("Shush", null)]
+        [NUnit.Framework.TestCaseAttribute("Beanie", null)]
         [NUnit.Framework.TestCaseAttribute("Polo", null)]
         [NUnit.Framework.TestCaseAttribute("Sunglasses", null)]
         public void ApplyingADiscountToTheShoppingCart(string item, string[] exampleTags)
