@@ -42,7 +42,7 @@ namespace uk.co.nfocus.ecommerceproject.StepDefinitions
 
             // Find the item and assert that item exists
             bool itemExist = shop.FindAndAddItem(item);
-            Assert.That(itemExist, "Item does not exist");
+            Assert.That(itemExist, Is.True, "Item does not exist");
 
             // Go to Cart Page
             shop.GoToCart();
@@ -64,14 +64,14 @@ namespace uk.co.nfocus.ecommerceproject.StepDefinitions
 
             // Apply coupon check
             cart.EnterCoupon(couponCode).ApplyCoupon();
-            Assert.That(cart.ValidateCoupon(couponCode), "Coupon does not exist!");
+            Assert.That(cart.ValidateCoupon(couponCode), Is.True, "Coupon does not exist!");
         }
 
         /*
          [Then] "I receive '15'% discount off my total, excluding shipping "
          - Calculates the coupon discount and verifies it with the grand total.
         */
-        [Then(@"I recieve '(.*)'% discount off my total, excluding shipping")]
+        [Then(@"I recieve (.*)% discount off my total, excluding shipping")]
         public void ThenIRecieveDiscount(int expectedDiscount)
         {
             // Reports discount percentage applied from previous step
@@ -82,11 +82,11 @@ namespace uk.co.nfocus.ecommerceproject.StepDefinitions
             Assert.That(discount, Is.EqualTo(expectedDiscount), $"Expected {expectedDiscount}% off, Actual {discount}% off instead");
 
             // Verify discount check
-            Assert.That(cart.GetGrandTotalPrice(), Is.EqualTo(cart.ValidateTotal()), "Discount not applied correctly");
+            Assert.That(cart.GetGrandTotalPrice(), Is.EqualTo(cart.CalculateTotal()), "Discount not applied correctly");
             _specFlowOutputHelper.WriteLine($"Verified that the discount was correctly applied to the cart..");
-            _specFlowOutputHelper.WriteLine($"Expected total value: £{cart.GetGrandTotalPrice()}, Actual total value: £{cart.ValidateTotal()}");
+            _specFlowOutputHelper.WriteLine($"Expected total value: £{cart.GetGrandTotalPrice()}, Actual total value: £{cart.CalculateTotal()}");
 
-            new HelperLib(_specFlowOutputHelper).TakeScreenshot(_driver, cart.CartTotal, "Coupon_Discount_Price"); // Screenshot report
+            new HelperLib(_specFlowOutputHelper).TakeScreenshot(_driver, "Coupon_Discount_Price", cart.CartTotal); // Screenshot report
         }
     }
 }

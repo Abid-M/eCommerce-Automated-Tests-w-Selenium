@@ -1,25 +1,17 @@
 ﻿/* Author: Abid Miah */
 namespace uk.co.nfocus.ecommerceproject.Utils
 {
-    internal class Customer
+    public class Customer
     {
-        internal string _fName { get; set; }
-        internal string _lName { get; set; }
-        internal string _address { get; set; }
-        internal string _city { get; set; }
-        internal string _postcode { get; set; }
-        internal string _phone { get; set; }
-        internal string _email { get; set; }
-
-        public Customer(string fName, string lName, string address, string city, string postcode, string phone, string email)
-        {
-            this._fName = fName;
-            this._lName = lName;
-            this._address = address;
-            this._city = city;
-            this._postcode = postcode;
-            this._phone = phone;
-            this._email = email;
-        }
+        public string? FName { get; set; }
+        public string? LName { get; set; }
+        public string? Address { get; set; }
+        public string? City { get; set; }
+        public string? Postcode { get; set; }
+        public string? Phone { get; set; }
+        public string? Email { get; set; }
     }
+
+    // No Constructor Needed. 
+    // With Constructors test fails due to: "BoDi.ObjectContainerException : Primitive types or structs cannot be resolved"
 }

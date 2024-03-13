@@ -13,11 +13,11 @@ Background:
 Scenario Outline: Applying a discount to the shopping cart
 	When I add '<item>' into my cart
 		And I apply the coupon code 'edgewords' to the cart
-	Then I recieve '15'% discount off my total, excluding shipping
+	Then I recieve 15% discount off my total, excluding shipping
 
 Examples:
 	| item       |
-	| Beanie     |
+	| Shush      |
 	| Polo       |
 	| Sunglasses |
 
@@ -27,8 +27,8 @@ Scenario Outline: Order checkout process, and verify in order history
 	Given that the cart contains '<item>'
 	When I proceed to checkout
 		And I provide the billing details:
-		| first name | last name | address     | city   | postcode | phone number | email                   |
-		| Abid       | Miah      | 17 Sui Lane | London | SW19 2JY | 07365827365  | test.email@nfocus.co.uk |
+		| FName | LName | Address     | City   | Postcode | Phone		 | Email                   |
+		| Abid  | Miah  | 17 Sui Lane | London | SW19 2JY | 07365827365  | test.email@nfocus.co.uk |
 	When I place the order with '<payment method>' payment
 	Then the order should appear in my accounts order history
 

@@ -1,6 +1,7 @@
 ﻿/* Author: Abid Miah */
 using OpenQA.Selenium;
 using TechTalk.SpecFlow;
+using TechTalk.SpecFlow.Assist;
 using TechTalk.SpecFlow.Infrastructure;
 using uk.co.nfocus.ecommerceproject.POMClasses;
 using uk.co.nfocus.ecommerceproject.Utils;
@@ -11,13 +12,16 @@ namespace uk.co.nfocus.ecommerceproject.StepDefinitions
     public class CheckoutProcessSteps
     {
         private IWebDriver _driver;
+        private Customer _customerDetails;
+
         private readonly ScenarioContext _scenarioContext;
         private readonly ISpecFlowOutputHelper _specFlowOutputHelper; // Shows Test Output in LivingDoc HTML Report, rather than CWs
 
-        public CheckoutProcessSteps(ScenarioContext scenarioContext, ISpecFlowOutputHelper specFlowOutputHelper)
+        public CheckoutProcessSteps(ScenarioContext scenarioContext, ISpecFlowOutputHelper specFlowOutputHelper, Customer customerDetails)
         {
             _scenarioContext = scenarioContext;
             _specFlowOutputHelper = specFlowOutputHelper;
+            _customerDetails = customerDetails;
 
             this._driver = (IWebDriver)_scenarioContext["myDriver"];
         }
@@ -40,7 +44,7 @@ namespace uk.co.nfocus.ecommerceproject.StepDefinitions
 
             // Find the item and assert that item exists
             bool itemExist = shop.FindAndAddItem(item);
-            Assert.That(itemExist, "Item does not exist");
+            Assert.That(itemExist, Is.True, "Item does not exist");
 
             // Go to Cart Page
             shop.GoToCart();
@@ -66,13 +70,15 @@ namespace uk.co.nfocus.ecommerceproject.StepDefinitions
         public void WhenIProvideTheBillingDetails(Table customerInfo)
         {
             CheckoutPOM checkout = new CheckoutPOM(_driver, _specFlowOutputHelper);
-            // Creates a customer with the details passed from the feature table
-            Customer customer = checkout.CreateCustomer(customerInfo);
+
+            // Creates an instance of the 'Customer' class using the table 'customerInfo' from feature file.
+            _customerDetails = customerInfo.CreateInstance<Customer>();
+
             // Fill in Billing Input Fields with customer object
-            checkout.FillInBillingDetails(customer);
+            checkout.FillInBillingDetails(_customerDetails);
 
             // Validate billing fields have been entered
-            Assert.That(checkout.ValidateDetails(customer), "Billing input fields not entered!");
+            Assert.That(checkout.ValidateDetails(_customerDetails), Is.True, "Billing input fields not entered!");
             _specFlowOutputHelper.WriteLine("Validated Billing Details have actually been populated");
         }
 
@@ -92,7 +98,7 @@ namespace uk.co.nfocus.ecommerceproject.StepDefinitions
 
             _scenarioContext["newOrderNumber"] = newOrderNumber; // Store new Order Number for use in next step
 
-            new HelperLib(_specFlowOutputHelper).TakeScreenshot(_driver, orderInfo.SsOrderNumber, "New_Order_Number"); // Screenshot of newly placed order
+            new HelperLib(_specFlowOutputHelper).TakeScreenshot(_driver, "New_Order_Number", orderInfo.SsOrderNumber); // Screenshot of newly placed order
         }
 
         /*
@@ -115,7 +121,7 @@ namespace uk.co.nfocus.ecommerceproject.StepDefinitions
             _specFlowOutputHelper.WriteLine($"Verified that the order numbers match from checkout page..");
             _specFlowOutputHelper.WriteLine($"Expected order number: {orderNoCheck}, Actual order number: {newOrderNumber}");
 
-            new HelperLib(_specFlowOutputHelper).TakeScreenshot(_driver, allOrders.OrdersTable, "Orders"); //Screenshot report
+            new HelperLib(_specFlowOutputHelper).TakeScreenshot(_driver, "Orders", allOrders.OrdersTable); //Screenshot report
         }
     }
 }

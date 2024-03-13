@@ -47,8 +47,8 @@ namespace uk.co.nfocus.ecommerceproject.StepDefinitions
             LoginPOM login = new LoginPOM(_driver, _specFlowOutputHelper);
 
             // Retrieves sensitive email and password from environment. If variable is null, throw error.
-            string? username = Environment.GetEnvironmentVariable("USERNAME") ?? throw new Exception("USERNAME env variable is not set.");
-            string? password = Environment.GetEnvironmentVariable("PASSWORD") ?? throw new Exception("PASSWORD env variable is not set.");
+            string username = Environment.GetEnvironmentVariable("USERNAME") ?? throw new Exception("USERNAME env variable is not set.");
+            string password = Environment.GetEnvironmentVariable("PASSWORD") ?? throw new Exception("PASSWORD env variable is not set.");
 
             // Validate the login details
             bool loggedIn = login.ValidLogin(username, password);

@@ -77,13 +77,13 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
         */
         public void FillInBillingDetails(Customer customer)
         {
-            SetFirstName(customer._fName);
-            SetLastName(customer._lName);
-            SetAddress(customer._address);
-            SetCity(customer._city);
-            SetPostcode(customer._postcode);
-            SetPhone(customer._phone);
-            SetEmail(customer._email);
+            SetFirstName(customer.FName);
+            SetLastName(customer.LName);
+            SetAddress(customer.Address);
+            SetCity(customer.City);
+            SetPostcode(customer.Postcode);
+            SetPhone(customer.Phone);
+            SetEmail(customer.Email);
 
             _specFlowOutputHelper.WriteLine("Billing Details Populated..");
         }
@@ -91,13 +91,13 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
         /* Validates whether the billing details within the input fields match those provided in the Customer object. */
         public bool ValidateDetails(Customer customer)
         {
-            if (customer._fName == _fNameField.GetAttribute("value") &&
-                customer._lName == _lNameField.GetAttribute("value") &&
-                customer._address == _streetAddressField.GetAttribute("value") &&
-                customer._city == _cityField.GetAttribute("value") &&
-                customer._postcode == _postcodeField.GetAttribute("value") &&
-                customer._phone == _phoneField.GetAttribute("value") &&
-                customer._email == _emailField.GetAttribute("value")
+            if (customer.FName == _fNameField.GetAttribute("value") &&
+                customer.LName == _lNameField.GetAttribute("value") &&
+                customer.Address == _streetAddressField.GetAttribute("value") &&
+                customer.City == _cityField.GetAttribute("value") &&
+                customer.Postcode == _postcodeField.GetAttribute("value") &&
+                customer.Phone == _phoneField.GetAttribute("value") &&
+                customer.Email == _emailField.GetAttribute("value")
                 )
             {
                 return true;
@@ -176,22 +176,6 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
                     //Try again
                 }
             }
-        }
-
-        /* Creates a Customer object using the information provided from the feature table. */
-        public Customer CreateCustomer(Table CustomerInfo)
-        {
-            var customerRow = CustomerInfo.Rows[0]; // Only one row in table
-
-            string fName = customerRow["first name"];
-            string lName = customerRow["last name"];
-            string address = customerRow["address"];
-            string city = customerRow["city"];
-            string postcode = customerRow["postcode"];
-            string phoneNumber = customerRow["phone number"];
-            string email = customerRow["email"];
-
-            return new Customer(fName, lName, address, city, postcode, phoneNumber, email);
         }
     }
 }

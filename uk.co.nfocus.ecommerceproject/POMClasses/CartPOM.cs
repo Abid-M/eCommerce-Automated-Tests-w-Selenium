@@ -174,7 +174,7 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
         }
 
         /* Validates that the calculated total matches the grand total price. */
-        public decimal ValidateTotal()
+        public decimal CalculateTotal()
         {
             decimal checkTotal = GetSubtotalPrice() - GetCouponDiscount() + GetShippingPrice();
             return checkTotal;

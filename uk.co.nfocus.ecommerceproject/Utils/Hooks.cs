@@ -36,12 +36,6 @@ namespace uk.co.nfocus.ecommerceproject.Utils
         {
             string? browser = Environment.GetEnvironmentVariable("BROWSER");
 
-            if (browser == null)
-            {
-                _specFlowOutputHelper.WriteLine("BROWSER env not set: Setting to Edge..");
-                browser = "edge";
-            }
-
             switch (browser)
             {
                 case "chrome":
@@ -66,6 +60,7 @@ namespace uk.co.nfocus.ecommerceproject.Utils
                     _driver = new FirefoxDriver(firefoxoptions);
                     break;
                 default:
+                    _specFlowOutputHelper.WriteLine("BROWSER env not set: Setting to Edge..");
                     _driver = new EdgeDriver();
                     break;
             }
@@ -74,6 +69,26 @@ namespace uk.co.nfocus.ecommerceproject.Utils
             _driver.Manage().Window.Maximize(); // Maximize window to full screen
         }
 
+        /* AfterStep()
+        - Takes screenshot if a Test Fails within a step.
+        */
+        [AfterStep]
+        public void AfterStep()
+        {
+            // Scenario Context is a context object that provides info about the current scenario being executed
+            // Test Error property of SC. Holds info about ex or error that occured during exceution of a scenario
+            if (_scenarioContext.TestError != null) // not null = error occured
+            {
+                string errorMessage = _scenarioContext.TestError.Message;
+
+                // Only gets Error Message before Assert word..
+                string firstLine = errorMessage.Substring(0, errorMessage.IndexOf("Assert"));
+                // Removes leading and trailing white space. 
+                string error = firstLine.Trim().Replace(" ", "-");
+
+                new HelperLib(_specFlowOutputHelper).TakeScreenshot(_driver!, error); // Screenshot report
+            }
+        }
 
         /* TearDown()
         - Tears down the WebDriver instance after each scenario feature.

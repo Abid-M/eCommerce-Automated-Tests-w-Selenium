@@ -92,7 +92,7 @@ namespace uk.co.nfocus.ecommerceproject.Features
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Applying a discount to the shopping cart")]
         [NUnit.Framework.CategoryAttribute("TestCase1_Coupon")]
-        [NUnit.Framework.TestCaseAttribute("Beanie", null)]
+        [NUnit.Framework.TestCaseAttribute("Shush", null)]
         [NUnit.Framework.TestCaseAttribute("Polo", null)]
         [NUnit.Framework.TestCaseAttribute("Sunglasses", null)]
         public void ApplyingADiscountToTheShoppingCart(string item, string[] exampleTags)
@@ -127,7 +127,7 @@ this.FeatureBackground();
   testRunner.And("I apply the coupon code \'edgewords\' to the cart", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 16
- testRunner.Then("I recieve \'15\'% discount off my total, excluding shipping", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("I recieve 15% discount off my total, excluding shipping", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -171,13 +171,13 @@ this.FeatureBackground();
  testRunner.When("I proceed to checkout", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
                 TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
-                            "first name",
-                            "last name",
-                            "address",
-                            "city",
-                            "postcode",
-                            "phone number",
-                            "email"});
+                            "FName",
+                            "LName",
+                            "Address",
+                            "City",
+                            "Postcode",
+                            "Phone",
+                            "Email"});
                 table1.AddRow(new string[] {
                             "Abid",
                             "Miah",

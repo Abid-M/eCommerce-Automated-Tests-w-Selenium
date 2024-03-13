@@ -39,41 +39,52 @@ namespace uk.co.nfocus.ecommerceproject.Utils
                 jsdriver.ExecuteScript("arguments[0].scrollIntoView()", element);
             }
         }
-     
+
         /* Takes a screenshot of the specified element and saves it. */
-        public void TakeScreenshot(IWebDriver driver, IWebElement element, string el)
+        public void TakeScreenshot(IWebDriver driver, string ssName, IWebElement? element = null)
         {
             try
             {
-                // Scroll the element into view
-                ScrollElIntoView(driver, element);
+                // Create the directory for the screenshots if it doesn't exist
+                // Current dir: in bin->Debug>net6.0->screenshots. From net6.0 back to project files
+                Directory.CreateDirectory(Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..\Screenshots\"));
 
-                // Check if the element supports taking screenshots
-                var ssElm = element as ITakesScreenshot;
+                // Get the current date and time
+                string date = DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss");
 
-                // If the element supports taking screenshots, take a screenshot
-                if (ssElm != null)
+                // Taking screenshot on Test Fails!
+                if (element == null)
                 {
                     // Take the screenshot
+                    var ssDriver = driver as ITakesScreenshot;
+                    Screenshot failedScreenshot = ssDriver!.GetScreenshot();
+
+                    // Create the file path for the screenshot and save
+                    string filePath = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..\Screenshots\", $"FAILED_{ssName}_{date}.png");
+                    // Save the screenshot to the file
+                    failedScreenshot.SaveAsFile(filePath);
+
+                    // Test output with screenshot as test attachment
+                    _specFlowOutputHelper.WriteLine($"Attaching failed '{ssName}' screenshot to report");
+                    _specFlowOutputHelper.AddAttachment(filePath);
+                }
+
+                // Normal Reporting Screenshots
+                else
+                {
+                    // Scroll the element into view
+                    ScrollElIntoView(driver, element);
+
+                    var ssElm = element as ITakesScreenshot;
                     Screenshot screenshotElm = ssElm.GetScreenshot();
 
-                    // Get the current date and time
-                    string date = DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss");
-
-                    // Create the directory for the screenshots if it doesn't exist
-                    //current dir: in bin->Debug>net6.0->screenshots. From net6.0 back to project files
-                    Directory.CreateDirectory(Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..\Screenshots\"));
-
                     // Create the file path for the screenshot
-                    string filePath = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..\Screenshots\", $"{el}_{date}.png");
-
+                    string filePath = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..\Screenshots\", $"{ssName}_{date}.png");
                     // Save the screenshot to the file
                     screenshotElm.SaveAsFile(filePath);
 
-                    // Write a message to the test output
-                    _specFlowOutputHelper.WriteLine($"Attaching '{el}' screenshot to report");
-
-                    // Add the screenshot as a test attachment
+                    // Test output with screenshot as test attachment
+                    _specFlowOutputHelper.WriteLine($"Attaching '{ssName}' screenshot to report");
                     _specFlowOutputHelper.AddAttachment(filePath);
                 }
             }
