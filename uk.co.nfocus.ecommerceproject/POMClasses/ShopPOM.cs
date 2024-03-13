@@ -10,12 +10,14 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
         // Field that will hold a driver for Service Methods in this test to work with
         private IWebDriver _driver;
         private readonly ISpecFlowOutputHelper _specFlowOutputHelper; // Shows Test Output in LivingDoc HTML Report, rather than CWs
+        //private IList<IWebElement> _allItems;
 
         /* Constructor to get the driver from the test */
         public ShopPOM(IWebDriver driver, ISpecFlowOutputHelper specFlowOutputHelper)
         {
             this._driver = driver;
             _specFlowOutputHelper = specFlowOutputHelper;
+            //_allItems = _driver.FindElements(By.CssSelector("li h2"));
         }
 
         // Locators

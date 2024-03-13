@@ -37,8 +37,13 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
         /* Empty cart on initial load of test. */
         public void EmptyCart()
         {
+            int count = 0;
+
             while (true)
             {
+                count++;
+                if (count == 50) break; // Fail-safe so doesn't infinite loop
+
                 try
                 {
                     // Check if the cart empty dialog is displayed after clicking the remove button
