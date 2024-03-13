@@ -13,5 +13,5 @@ namespace uk.co.nfocus.ecommerceproject.Utils
     }
 
     // No Constructor Needed. 
-    // With Constructors test fails due to: "BoDi.ObjectContainerException : Primitive types or structs cannot be resolved"
+    // With Constructors test fails due to: "BoDi.ObjectContainerException : Primitive types or structs cannot be resolved".
 }
