@@ -14,7 +14,6 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
         {
             this._driver = driver;
             _specFlowOutputHelper = specFlowOutputHelper;
-
         }
 
         // Locators

@@ -64,7 +64,7 @@ namespace uk.co.nfocus.ecommerceproject.StepDefinitions
 
             // Apply coupon check
             cart.EnterCoupon(couponCode).ApplyCoupon();
-            Assert.That(cart.ValidateCoupon(couponCode), Is.True, "Coupon does not exist!");
+            Assert.That(cart.ValidateCoupon(couponCode), Is.True, $"Coupon Code: '{couponCode}', does not exist!");
         }
 
         /*

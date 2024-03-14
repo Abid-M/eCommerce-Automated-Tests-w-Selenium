@@ -111,11 +111,16 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
         /* Selects the payment method for checkout (check or cash). */
         public CheckoutPOM SelectPayment(string paymentMethod)
         {
+            int count = 0;
+
             if (paymentMethod.ToLower().Equals("cash"))
             {
                 //Button might not be immediately available or might be stale, so we try a few times.
                 while (true)
                 {
+                    count++;
+                    if (count == 50) break; // Fail-safe so doesn't infinite loop
+
                     try
                     {
                         // If the button is found and clickable, this will succeed and exit the loop.
@@ -135,6 +140,9 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
                 // Button might not be immediately available or might be stale, so we try a few times.
                 while (true)
                 {
+                    count++;
+                    if (count == 50) break; // Fail-safe so doesn't infinite loop
+
                     try
                     {
                         // If the button is found and clickable, this will succeed and exit the loop.
@@ -158,9 +166,14 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
         */
         public void PlaceOrder()
         {
-            //Button might not be immediately available or might be stale, so we try a few times.
-            while(true)
+            int count = 0;
+
+            // Button might not be immediately available or might be stale, so we try a few times.
+            while (true)
             {
+                count++;
+                if (count == 50) break; // Fail-safe so doesn't infinite loop
+
                 try
                 {
                     // If the button is found and clickable with order url, this will succeed and exit the loop.
