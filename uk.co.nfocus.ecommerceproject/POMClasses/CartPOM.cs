@@ -1,6 +1,7 @@
 ﻿/* Author: Abid Miah */
 using OpenQA.Selenium;
 using System.Globalization;
+using System.Linq.Expressions;
 using TechTalk.SpecFlow.Infrastructure;
 using static uk.co.nfocus.ecommerceproject.Utils.HelperLib;
 
@@ -26,6 +27,7 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
         private IWebElement _shippingPrice => _driver.FindElement(By.CssSelector("Label > span > bdi"));
         private IWebElement _grandTotalPrice => _driver.FindElement(By.CssSelector(".order-total > td"));
         private IWebElement _couponDiscount => _driver.FindElement(By.CssSelector("tr.cart-discount > td > span"));
+        private IWebElement _removeDiscountButton => _driver.FindElement(By.LinkText("[Remove]"));
         private IWebElement _removeItemButton => WaitForElement(_driver, By.ClassName("remove"), 1);
         private IWebElement _cartEmptyDialog => WaitForElement(_driver, By.ClassName("cart-empty"), 1);
         private IWebElement _checkoutLink => WaitForElement(_driver, By.ClassName("checkout-button"));
@@ -47,22 +49,20 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
                 try
                 {
                     // Check if the cart empty dialog is displayed after clicking the remove button
-                    try
-                    {
-                        if (_cartEmptyDialog.Displayed)
-                        {
-                            break; // break out of loop (cart empty)
-                        }
-                    }
-                    catch
-                    {
-                       // Need additional try catch so doesn't get stuck on finding element displayed
-                    }
+                    // If empty dialog, break out of loop (cart is empty)
+
+                    try { if (_cartEmptyDialog.Displayed) break; } 
+                    catch { } // Need additional try catch so doesn't get stuck on finding element displayed
+
+                    try { _removeDiscountButton.Click(); }
+                    catch { }
 
                     _removeItemButton.Click();
                 }
                 catch                   
                 {
+                    try { _removeDiscountButton.Click(); }
+                    catch { }
                     // Try again
                 }
             }
