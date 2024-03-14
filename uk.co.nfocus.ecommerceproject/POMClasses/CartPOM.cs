@@ -66,11 +66,12 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
 
                 // Fail-safe timeout of 1 minute so doesn't loop forever
                 // Over a minute to clear cart? There's a problem!
-                if ((DateTime.Now - startTime).TotalMinutes >= timeoutMinutes)
+                if (ExitLoopTimeout(startTime, timeoutMinutes))
                 {
                     _specFlowOutputHelper.WriteLine("Timeout Reached. Exiting Loop..");
                     _specFlowOutputHelper.WriteLine("Check Cart NOT Cleared");
-                    return;
+
+                    return; // Exits loop/method
                 }
             }
 

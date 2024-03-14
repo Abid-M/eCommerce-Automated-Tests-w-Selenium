@@ -33,6 +33,19 @@ namespace uk.co.nfocus.ecommerceproject.Utils
             wait.Until(drv => drv.Url.Contains(location));
         }
 
+        /* Fail-safe timeout for while true loops */
+        public static bool ExitLoopTimeout(DateTime startTime, int timeoutMinutes)
+        {
+            if ((DateTime.Now - startTime).TotalMinutes >= timeoutMinutes)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         /* Scrolls the specified element into view. */
         public static void ScrollElIntoView(IWebDriver driver, IWebElement element)
         {
@@ -67,7 +80,7 @@ namespace uk.co.nfocus.ecommerceproject.Utils
                     Screenshot failedScreenshot = ssDriver!.GetScreenshot();
 
                     // Create the file path for the screenshot and save
-                    string filePath = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..\Screenshots\", $"[FAILED] {ssName} {date}.png");
+                    string filePath = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..\Screenshots\", $"[FAILED] {ssName}, {date}.png");
                     // Save the screenshot to the file
                     failedScreenshot.SaveAsFile(filePath);
 

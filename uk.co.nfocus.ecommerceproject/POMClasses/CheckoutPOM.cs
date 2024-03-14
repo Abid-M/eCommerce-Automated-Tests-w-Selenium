@@ -79,7 +79,7 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
             SetFirstName(customer.FName);
             SetLastName(customer.LName);
             SetAddress(customer.Address);
-            SetCity("shush city");
+            SetCity(customer.City);
             SetPostcode(customer.Postcode);
             SetPhone(customer.Phone);
             SetEmail(customer.Email);
@@ -127,16 +127,14 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
         /* Selects the payment method for checkout (check or cash). */
         public CheckoutPOM SelectPayment(string paymentMethod)
         {
-            int count = 0;
+            int timeoutMinutes = 1; // Fail-safe timeout of 1 minute
+            DateTime startTime = DateTime.Now;
 
             if (paymentMethod.ToLower().Equals("cash"))
             {
                 //Button might not be immediately available or might be stale, so we try a few times.
                 while (true)
                 {
-                    count++;
-                    if (count == 50) break; // Fail-safe so doesn't infinite loop
-
                     try
                     {
                         // If the button is found and clickable, this will succeed and exit the loop.
@@ -144,9 +142,18 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
                         _specFlowOutputHelper.WriteLine("Cash Payment Selected");
                         break;
                     }
-                    catch
+                    catch {};
+
+
+                    // Fail-safe timeout of 1 minute so doesn't loop forever
+                    // Over a minute to clear cart? There's a problem!
+                    if (ExitLoopTimeout(startTime, timeoutMinutes))
                     {
-                        // Try again
+                        _specFlowOutputHelper.WriteLine("Timeout Reached. Exiting Loop..\nCash Payment NOT Selected");
+                        _specFlowOutputHelper.WriteLine("Cheque Payment Selected as DEFAULT");
+
+
+                        break; // Exits loop/method
                     }
                 }
             }
@@ -156,9 +163,6 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
                 // Button might not be immediately available or might be stale, so we try a few times.
                 while (true)
                 {
-                    count++;
-                    if (count == 50) break; // Fail-safe so doesn't infinite loop
-
                     try
                     {
                         // If the button is found and clickable, this will succeed and exit the loop.
@@ -166,9 +170,16 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
                         _specFlowOutputHelper.WriteLine("Cheque Payment Selected");
                         break;
                     }
-                    catch
+                    catch {};
+
+                    // Fail-safe timeout of 1 minute so doesn't loop forever
+                    // Over a minute to clear cart? There's a problem!
+                    if (ExitLoopTimeout(startTime, timeoutMinutes))
                     {
-                        // Try again
+                        _specFlowOutputHelper.WriteLine("Timeout Reached. Exiting Loop..");
+                        _specFlowOutputHelper.WriteLine("Cheque Payment Selected as DEFAULT");
+
+                        break; // Exits loop/method
                     }
                 }
             }
@@ -182,14 +193,12 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
         */
         public void PlaceOrder()
         {
-            int count = 0;
+            int timeoutMinutes = 1; // Fail-safe timeout of 1 minute
+            DateTime startTime = DateTime.Now;
 
             // Button might not be immediately available or might be stale, so we try a few times.
             while (true)
             {
-                count++;
-                if (count == 50) break; // Fail-safe so doesn't infinite loop
-
                 try
                 {
                     // If the button is found and clickable with order url, this will succeed and exit the loop.
@@ -200,9 +209,16 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
 
                     break;
                 }
-                catch
+                catch {};
+
+                // Fail-safe timeout of 1 minute so doesn't loop forever
+                // Over a minute to clear cart? There's a problem!
+                if (ExitLoopTimeout(startTime, timeoutMinutes))
                 {
-                    // Try again
+                    _specFlowOutputHelper.WriteLine("Timeout Reached. Exiting Loop..");
+                    Assert.Fail("Placing Order Failed!");
+
+                    break; // Exits loop/method
                 }
             }
         }
