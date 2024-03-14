@@ -39,23 +39,22 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
         /* Empty cart on initial load of test. */
         public void EmptyCart()
         {
-            int count = 0;
+            int timeoutMinutes = 1; // Fail-safe timeout of 1 minute
+            DateTime startTime = DateTime.Now;
 
             while (true)
             {
-                count++;
-                if (count == 50) break; // Fail-safe so doesn't infinite loop
-
                 try
                 {
                     // Check if the cart empty dialog is displayed after clicking the remove button
                     // If empty dialog, break out of loop (cart is empty)
+                    if (_cartEmptyDialog.Displayed) break;
 
-                    try { if (_cartEmptyDialog.Displayed) break; } 
-                    catch { } // Need additional try catch so doesn't get stuck on finding element displayed
+                    //try { if (_cartEmptyDialog.Displayed) break; } 
+                    //catch { } // Need additional try catch so doesn't get stuck on finding element displayed
 
-                    try { _removeDiscountButton.Click(); }
-                    catch { }
+                    //try { _removeDiscountButton.Click(); }
+                    //catch { }
 
                     _removeItemButton.Click();
                 }
@@ -64,6 +63,15 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
                     try { _removeDiscountButton.Click(); }
                     catch { }
                     // Try again
+                }
+
+                // Fail-safe timeout of 1 minute so doesn't loop forever
+                // Over a minute to clear cart? There's a problem!
+                if ((DateTime.Now - startTime).TotalMinutes >= timeoutMinutes)
+                {
+                    _specFlowOutputHelper.WriteLine("Timeout Reached. Exiting Loop..");
+                    _specFlowOutputHelper.WriteLine("Check Cart NOT Cleared");
+                    return;
                 }
             }
 
