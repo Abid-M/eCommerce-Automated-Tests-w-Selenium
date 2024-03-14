@@ -99,6 +99,18 @@ namespace uk.co.nfocus.ecommerceproject.Utils
         [After]
         public void TearDown()
         {
+            // Emptying cart after test to have fix state at the start of the next test
+            if (_driver!.Url.Contains("cart"))
+            {
+                new CartPOM(_driver!, _specFlowOutputHelper).EmptyCart();
+            }
+
+            else
+            {
+                new NavPOM(_driver!, _specFlowOutputHelper).GoToCart();
+                new CartPOM(_driver!, _specFlowOutputHelper).EmptyCart();
+            }
+
             //Logout
             try
             {

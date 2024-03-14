@@ -30,7 +30,7 @@ namespace uk.co.nfocus.ecommerceproject.StepDefinitions
         public void GivenIAmOnTheECommerceWebsite()
         {
             // Direct to URL in test parameters, not env variable as not a secret
-            _driver.Url = TestContext.Parameters["WebAppURL"] ?? throw new Exception("BASE_URL not set."); 
+            _driver.Url = TestContext.Parameters["WebAppURL"] ?? throw new Exception("BASE_URL not set.");
 
             // Dismisses the notice banner (Not in feature file as its an implementation detail)
             NavPOM nav = new NavPOM(_driver, _specFlowOutputHelper);
@@ -53,10 +53,6 @@ namespace uk.co.nfocus.ecommerceproject.StepDefinitions
             // Validate the login details
             bool loggedIn = login.ValidLogin(username, password);
             Assert.That(loggedIn, "We did not login");
-
-            // Emptying cart after login to have fix state at the start of test
-            new NavPOM(_driver, _specFlowOutputHelper).GoToCart();
-            new CartPOM(_driver, _specFlowOutputHelper).EmptyCart();
         }
     }
 }
