@@ -35,6 +35,7 @@ namespace uk.co.nfocus.ecommerceproject.Utils
         public void SetUp()
         {
             string? browser = Environment.GetEnvironmentVariable("BROWSER");
+            if (browser != null) browser = browser.ToLower();
 
             switch (browser)
             {
@@ -60,7 +61,7 @@ namespace uk.co.nfocus.ecommerceproject.Utils
                     _driver = new FirefoxDriver(firefoxoptions);
                     break;
                 default:
-                    _specFlowOutputHelper.WriteLine("BROWSER env not set: Setting to Edge..");
+                    _specFlowOutputHelper.WriteLine("BROWSER env not set/recognised: Setting to Edge..");
                     _driver = new EdgeDriver();
                     break;
             }
