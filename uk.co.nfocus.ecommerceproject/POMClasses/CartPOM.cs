@@ -26,7 +26,7 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
         private IWebElement _subtotalPrice => _driver.FindElement(By.CssSelector("td:nth-child(2) > .woocommerce-Price-amount > bdi"));
         private IWebElement _shippingPrice => _driver.FindElement(By.CssSelector("Label > span > bdi"));
         private IWebElement _grandTotalPrice => _driver.FindElement(By.CssSelector(".order-total > td"));
-        private IWebElement _couponDiscount => _driver.FindElement(By.CssSelector("tr.cart-discount > td > span"));
+        private IWebElement _couponDiscount(string couponCode) => _driver.FindElement(By.CssSelector($"[data-title='Coupon: {couponCode}'] .amount"));
         private IWebElement _removeDiscountButton => _driver.FindElement(By.LinkText("[Remove]"));
         private IWebElement _removeItemButton => WaitForElement(_driver, By.ClassName("remove"), 1);
         private IWebElement _cartEmptyDialog => WaitForElement(_driver, By.ClassName("cart-empty"), 1);
@@ -158,17 +158,17 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
         }
 
         /* Gets the coupon discount from the cart page. */
-        public decimal GetCouponDiscount()
+        public decimal GetCouponDiscount(string couponCode)
         {
-            string strValue = _couponDiscount.Text;
+            string strValue = _couponDiscount(couponCode).Text;
             return decimal.Parse(strValue, NumberStyles.Currency, s_provider); //Removes pound symbol
         }
 
         /* Gets the coupon discount percentage as an integer. */
-        public int GetDiscountPercentage()
+        public int GetDiscountPercentage(string couponCode)
         {
             // Calculate the coupon discount percentage as a decimal
-            decimal discountPercentageAsDecimal = GetCouponDiscount() / GetSubtotalPrice() * 100;
+            decimal discountPercentageAsDecimal = GetCouponDiscount(couponCode) / GetSubtotalPrice() * 100;
 
             // Convert the decimal to an integer
             int discountPercentage = (int)discountPercentageAsDecimal;
@@ -179,9 +179,9 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
         }
 
         /* Validates that the calculated total matches the grand total price. */
-        public decimal CalculateTotal()
+        public decimal CalculateTotal(string couponCode)
         {
-            decimal checkTotal = GetSubtotalPrice() - GetCouponDiscount() + GetShippingPrice();
+            decimal checkTotal = GetSubtotalPrice() - GetCouponDiscount(couponCode) + GetShippingPrice();
             return checkTotal;
         }
 
