@@ -1,5 +1,6 @@
 ﻿/* Author: Abid Miah */
 using OpenQA.Selenium;
+using System.Xml.Linq;
 using TechTalk.SpecFlow.Infrastructure;
 using static uk.co.nfocus.ecommerceproject.Utils.HelperLib;
 
@@ -21,43 +22,28 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
         }
 
         // Locators
-        IList<IWebElement> _allItems => _driver.FindElements(By.CssSelector("li h2")); //Collates all items in the shop
         IWebElement _viewCartButton => WaitForElement(_driver, By.LinkText("View cart"));
         IWebElement _addToCart(string name) => _driver.FindElement(By.CssSelector($"[aria-label=\"Add “{name}” to your cart\"]"));
 
-        /* FindAndAddItem(string)
-         - This method checks if a shop item with a given name exists in the list of all items.
-         - If the item is found, it is added to the cart and the method returns true.
+
+        /* AddToCart(string)
+         - Clicks the "Add to Cart" button for the specified item. Returns true.
          - If the item is not found, the method returns false. 
         */
-        public bool FindAndAddItem(string name)
+        public bool AddToCart(string itemName)
         {
-            // Iterate through each item in the list of all items
-            foreach (IWebElement item in _allItems)
+            try
             {
-                // Check if the text of the current item matches the given name (case-insensitive)
-                if (item.Text.ToLower().Equals((name).ToLower()))
-                {
-                    // If the item is found, report to the console
-                    _specFlowOutputHelper.WriteLine($"Verified that the '{name}' item exists on the shop page");
+                _addToCart(itemName).Click(); // Ref locator passing the specific item name
 
-                    // Call the AddToCart method to add the item to the cart
-                    AddToCart(name); 
-
-                    // Return true to indicate that the item was found
-                    return true;
-                }
+                _specFlowOutputHelper.WriteLine($"'{itemName}' exists on the shop page..");
+                _specFlowOutputHelper.WriteLine("Added to Cart");
+                return true;
             }
-
-            // If the item was not found, return false
-            return false;
-        }
-
-        /* Clicks the "Add to Cart" button for the specified item. */
-        public void AddToCart(string itemName)
-        {
-            _addToCart(itemName).Click(); // Ref locator passing the specific item name
-            _specFlowOutputHelper.WriteLine($"Added '{itemName}' item to the cart");
+            catch
+            {
+                return false;
+            }
         }
 
         /* Navigates to the cart page. */

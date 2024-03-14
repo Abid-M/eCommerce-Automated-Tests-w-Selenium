@@ -23,10 +23,12 @@ namespace uk.co.nfocus.ecommerceproject.StepDefinitions
         }
 
         /*
-         [When] "I add item to my cart"
+         [Given] "that the cart contains 'item'
+         [When] "I add item to my cart"          
          - Adds an item to the cart. 
-         - Examples include: Beanie, Polo, Sunglasses. 
+         - Examples include: Beanie, Polo, Sunglasses, Hoodie, Cap. 
         */
+        [Given(@"that the cart contains '(.*)'")]
         [When(@"I add '(.*)' into my cart")]
         public void WhenIAddAnIntoMyCart(string item)
         {
@@ -40,18 +42,18 @@ namespace uk.co.nfocus.ecommerceproject.StepDefinitions
 
             _scenarioContext["itemName"] = item; // Store item for later use in other step
 
-            // Find the item and assert that item exists
-            bool itemExist = shop.FindAndAddItem(item);
-            Assert.That(itemExist, Is.True, "Item does not exist");
+            // Find and add the item
+            bool itemExistAdded = shop.AddToCart(item);
+            Assert.That(itemExistAdded, Is.True, $"Item '{item}' not added to cart, does not exist");
 
             // Go to Cart Page
             shop.GoToCart();
         }
 
         /*
-         [When] "I apply the coupon code 'edgewords' to the cart"
+         [When] "I apply the coupon code 'coupon' to the cart"
          - Verifies that the item added is actually in the cart.
-         - Applies the 15% coupon 'edgewords' to the cart.
+         - Applies the coupon discount to the cart.
         */
         [When(@"I apply the coupon code '(.*)' to the cart")]
         public void WhenIApplyTheCouponCode(string couponCode)
@@ -69,7 +71,7 @@ namespace uk.co.nfocus.ecommerceproject.StepDefinitions
         }
 
         /*
-         [Then] "I receive '15'% discount off my total, excluding shipping "
+         [Then] "I receive 'discount'% discount off my total, excluding shipping "
          - Calculates the coupon discount and verifies it with the grand total.
         */
         [Then(@"I recieve (.*)% discount off my total, excluding shipping")]

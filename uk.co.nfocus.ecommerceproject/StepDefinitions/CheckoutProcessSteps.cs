@@ -27,30 +27,6 @@ namespace uk.co.nfocus.ecommerceproject.StepDefinitions
         }
 
         /*
-         [Given] "that the cart contains 'hoodie'"
-         - Adds an item to the cart for the given context.
-         - Examples include: Hoodie, Cap. 
-        */
-        [Given(@"that the cart contains '(.*)'")]
-        public void GivenThatTheCartContains(string item)
-        {
-            // Navigate to the shop page via the navigation bar
-            NavPOM nav = new NavPOM(_driver, _specFlowOutputHelper);
-            nav.GoToShop();
-
-            // Find the specified item and add it to the cart
-            // (Assumes the item can be found directly on the shop page)
-            ShopPOM shop = new ShopPOM(_driver, _specFlowOutputHelper);
-
-            // Find the item and assert that item exists
-            bool itemExist = shop.FindAndAddItem(item);
-            Assert.That(itemExist, Is.True, "Item does not exist");
-
-            // Go to Cart Page
-            shop.GoToCart();
-        }
-
-        /*
          [When] "I proceed to checkout"
          - Redirects to the checkout page on button click.
         */
