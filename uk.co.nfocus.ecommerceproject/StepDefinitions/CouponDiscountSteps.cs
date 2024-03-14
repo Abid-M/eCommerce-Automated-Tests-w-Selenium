@@ -94,7 +94,7 @@ namespace uk.co.nfocus.ecommerceproject.StepDefinitions
             _specFlowOutputHelper.WriteLine($"Verified that the discount was correctly applied to the cart..");
             _specFlowOutputHelper.WriteLine($"Expected total value: £{grandTotalPrice}, Actual total value: £{calculatedTotal}");
 
-            new HelperLib(_specFlowOutputHelper).TakeScreenshot(_driver, "Coupon_Discount_Price", cart.CartTotal); // Screenshot report
+            new HelperLib(_specFlowOutputHelper).TakeScreenshot(_driver, "Total Price with Discount", cart.CartTotal); // Screenshot report
         }
     }
 }

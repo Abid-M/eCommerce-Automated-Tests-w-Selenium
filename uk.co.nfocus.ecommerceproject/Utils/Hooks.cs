@@ -85,9 +85,10 @@ namespace uk.co.nfocus.ecommerceproject.Utils
                 // Only gets Error Message before Assert word..
                 string firstLine = errorMessage.Substring(0, errorMessage.IndexOf("Assert"));
                 // Removes leading and trailing white space. 
-                string error = firstLine.Trim().Replace(" ", "-");
+                //string errorText = firstLine.Trim().Replace(" ", "-");
+                string errorText = firstLine.Trim();
 
-                new HelperLib(_specFlowOutputHelper).TakeScreenshot(_driver!, error); // Screenshot report
+                new HelperLib(_specFlowOutputHelper).TakeScreenshot(_driver!, errorText); // Screenshot report
             }
         }
 

@@ -79,7 +79,7 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
             SetFirstName(customer.FName);
             SetLastName(customer.LName);
             SetAddress(customer.Address);
-            SetCity(customer.City);
+            SetCity("shush city");
             SetPostcode(customer.Postcode);
             SetPhone(customer.Phone);
             SetEmail(customer.Email);
@@ -88,23 +88,39 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
         }
 
         /* Validates whether the billing details within the input fields match those provided in the Customer object. */
-        public bool ValidateDetails(Customer customer)
+        public string ValidateDetails(Customer customer)
         {
-            if (customer.FName == _fNameField.GetAttribute("value") &&
-                customer.LName == _lNameField.GetAttribute("value") &&
-                customer.Address == _streetAddressField.GetAttribute("value") &&
-                customer.City == _cityField.GetAttribute("value") &&
-                customer.Postcode == _postcodeField.GetAttribute("value") &&
-                customer.Phone == _phoneField.GetAttribute("value") &&
-                customer.Email == _emailField.GetAttribute("value")
-                )
-            {
-                return true;
-            }
+            List<string> mismatch = new List<string>();
 
+            if (customer.FName != _fNameField.GetAttribute("value"))
+                mismatch.Add($"FName field with {_fNameField.GetAttribute("value")}");
+
+            if (customer.LName != _lNameField.GetAttribute("value"))
+                mismatch.Add($"LName field with {_lNameField.GetAttribute("value")}");
+
+            if (customer.Address != _streetAddressField.GetAttribute("value"))
+                mismatch.Add($"Address field with {_streetAddressField.GetAttribute("value")}");
+
+            if (customer.City != _cityField.GetAttribute("value"))
+                mismatch.Add($"City field with {_cityField.GetAttribute("value")}");
+
+            if (customer.Postcode != _postcodeField.GetAttribute("value"))
+                mismatch.Add($"Postcode field with {_postcodeField.GetAttribute("value")}");
+
+            if (customer.Phone != _phoneField.GetAttribute("value"))
+                mismatch.Add($"Phone field with {_phoneField.GetAttribute("value")}");
+
+            if (customer.Email != _emailField.GetAttribute("value"))
+                mismatch.Add($"Email field with {_emailField.GetAttribute("value")}");
+
+            // Join all invalid inputs into a string, comma seperation
+            if (mismatch.Count > 0)
+            {
+                return string.Join(", ", mismatch);
+            }
             else
             {
-                return false; //Failed
+                return "Valid Inputs";
             }
         }
 

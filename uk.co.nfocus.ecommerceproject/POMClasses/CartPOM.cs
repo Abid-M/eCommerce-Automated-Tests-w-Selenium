@@ -48,13 +48,12 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
                 {
                     // Check if the cart empty dialog is displayed after clicking the remove button
                     // If empty dialog, break out of loop (cart is empty)
-                    if (_cartEmptyDialog.Displayed) break;
 
-                    //try { if (_cartEmptyDialog.Displayed) break; } 
-                    //catch { } // Need additional try catch so doesn't get stuck on finding element displayed
+                    try { if (_cartEmptyDialog.Displayed) break; }
+                    catch { } // Need additional try catch so doesn't get stuck on finding element displayed
 
-                    //try { _removeDiscountButton.Click(); }
-                    //catch { }
+                    try { _removeDiscountButton.Click(); }
+                    catch { }
 
                     _removeItemButton.Click();
                 }

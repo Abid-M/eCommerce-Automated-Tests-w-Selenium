@@ -53,8 +53,10 @@ namespace uk.co.nfocus.ecommerceproject.StepDefinitions
             // Fill in Billing Input Fields with customer object
             checkout.FillInBillingDetails(_customerDetails);
 
-            // Validate billing fields have been entered
-            Assert.That(checkout.ValidateDetails(_customerDetails), Is.True, "Billing input fields not entered!");
+            // Validate billing fields have been entered with customer details
+            string mismatch = checkout.ValidateDetails(_customerDetails);
+
+            Assert.That(mismatch, Is.EqualTo("Valid Inputs"), $"Billing input fields mismatch. Invalid fields- {mismatch}");
             _specFlowOutputHelper.WriteLine("Validated Billing Details have actually been populated");
         }
 
@@ -74,7 +76,7 @@ namespace uk.co.nfocus.ecommerceproject.StepDefinitions
 
             _scenarioContext["newOrderNumber"] = newOrderNumber; // Store new Order Number for use in next step
 
-            new HelperLib(_specFlowOutputHelper).TakeScreenshot(_driver, "New_Order_Number", orderInfo.SsOrderNumber); // Screenshot of newly placed order
+            new HelperLib(_specFlowOutputHelper).TakeScreenshot(_driver, "New Order Number", orderInfo.SsOrderNumber); // Screenshot of newly placed order
         }
 
         /*
@@ -97,7 +99,7 @@ namespace uk.co.nfocus.ecommerceproject.StepDefinitions
             _specFlowOutputHelper.WriteLine($"Verified that the order numbers match from checkout page..");
             _specFlowOutputHelper.WriteLine($"Expected order number: {orderNoCheck}, Actual order number: {newOrderNumber}");
 
-            new HelperLib(_specFlowOutputHelper).TakeScreenshot(_driver, "Orders", allOrders.OrdersTable); //Screenshot report
+            new HelperLib(_specFlowOutputHelper).TakeScreenshot(_driver, "All Orders", allOrders.OrdersTable); //Screenshot report
         }
     }
 }
