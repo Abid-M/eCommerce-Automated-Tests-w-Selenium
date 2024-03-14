@@ -67,7 +67,7 @@ namespace uk.co.nfocus.ecommerceproject.Utils
                     Screenshot failedScreenshot = ssDriver!.GetScreenshot();
 
                     // Create the file path for the screenshot and save
-                    string filePath = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..\Screenshots\", $"FAILED_{ssName}_{date}.png");
+                    string filePath = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..\Screenshots\", $"[FAILED] {ssName} {date}.png");
                     // Save the screenshot to the file
                     failedScreenshot.SaveAsFile(filePath);
 
@@ -86,7 +86,7 @@ namespace uk.co.nfocus.ecommerceproject.Utils
                     Screenshot screenshotElm = ssElm!.GetScreenshot();
 
                     // Create the file path for the screenshot
-                    string filePath = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..\Screenshots\", $"{ssName}_{date}.png");
+                    string filePath = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..\Screenshots\", $"{ssName} {date}.png");
                     // Save the screenshot to the file
                     screenshotElm.SaveAsFile(filePath);
 
