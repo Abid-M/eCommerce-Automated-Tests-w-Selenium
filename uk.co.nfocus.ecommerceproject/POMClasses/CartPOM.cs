@@ -23,7 +23,7 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
         IList<IWebElement> _cartItems => _driver.FindElements(By.CssSelector("td.product-name a")); //Collates all items in the cart (Tests for multiple items in cart)
         private IWebElement _couponCodeField => WaitForElement(_driver, By.Name("coupon_code"));
         private IWebElement _applyCouponButton => _driver.FindElement(By.Name("apply_coupon"));
-        private IWebElement _subtotalPrice => _driver.FindElement(By.CssSelector("td:nth-child(2) > .woocommerce-Price-amount > bdi"));
+        private IWebElement _subtotalPrice => _driver.FindElement(By.CssSelector("[class='cart-subtotal'] bdi"));
         private IWebElement _shippingPrice => _driver.FindElement(By.CssSelector("Label > span > bdi"));
         private IWebElement _grandTotalPrice => _driver.FindElement(By.CssSelector(".order-total > td"));
         private IWebElement _couponDiscount(string couponCode) => _driver.FindElement(By.CssSelector($"[data-title='Coupon: {couponCode}'] .amount"));
