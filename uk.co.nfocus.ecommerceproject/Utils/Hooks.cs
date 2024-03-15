@@ -31,7 +31,7 @@ namespace uk.co.nfocus.ecommerceproject.Utils
         - Supported browsers include Chrome, Firefox, and their respective headless versions.
         - This method runs once before each scenario feature. 
         */
-        [Before]
+        [BeforeScenario]
         public void SetUp()
         {
             string? browser = Environment.GetEnvironmentVariable("BROWSER");
@@ -96,7 +96,7 @@ namespace uk.co.nfocus.ecommerceproject.Utils
         - This method logs out of the application if the current URL contains "my-account".
         - If not, it navigates to the account page and then logs out.
         */
-        [After]
+        [AfterScenario]
         public void TearDown()
         {
             // Emptying cart after test to have fix state at the start of the next test

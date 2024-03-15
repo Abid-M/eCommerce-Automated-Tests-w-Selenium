@@ -172,12 +172,12 @@ this.FeatureBackground();
  testRunner.When("I proceed to checkout", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
                 TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
-                            "FName",
-                            "LName",
+                            "FirstName",
+                            "LastName",
                             "Address",
                             "City",
                             "Postcode",
-                            "Phone",
+                            "PhoneNumber",
                             "Email"});
                 table1.AddRow(new string[] {
                             "Abid",

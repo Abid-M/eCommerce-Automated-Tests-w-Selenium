@@ -74,12 +74,12 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
         */
         public void FillInBillingDetails(Customer customer)
         {
-            SetFirstName(customer.FName);
-            SetLastName(customer.LName);
+            SetFirstName(customer.FirstName);
+            SetLastName(customer.LastName);
             SetAddress(customer.Address);
             SetCity(customer.City);
             SetPostcode(customer.Postcode);
-            SetPhone(customer.Phone);
+            SetPhone(customer.PhoneNumber);
             SetEmail(customer.Email);
 
             _specFlowOutputHelper.WriteLine("Billing Details Populated..");
@@ -90,11 +90,11 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
         {
             List<string> mismatch = new List<string>();
 
-            if (customer.FName != _fNameField.GetAttribute("value"))
-                mismatch.Add($"FName field with {_fNameField.GetAttribute("value")}");
+            if (customer.FirstName != _fNameField.GetAttribute("value"))
+                mismatch.Add($"FirstName field with {_fNameField.GetAttribute("value")}");
 
-            if (customer.LName != _lNameField.GetAttribute("value"))
-                mismatch.Add($"LName field with {_lNameField.GetAttribute("value")}");
+            if (customer.LastName != _lNameField.GetAttribute("value"))
+                mismatch.Add($"LastName field with {_lNameField.GetAttribute("value")}");
 
             if (customer.Address != _streetAddressField.GetAttribute("value"))
                 mismatch.Add($"Address field with {_streetAddressField.GetAttribute("value")}");
@@ -105,7 +105,7 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
             if (customer.Postcode != _postcodeField.GetAttribute("value"))
                 mismatch.Add($"Postcode field with {_postcodeField.GetAttribute("value")}");
 
-            if (customer.Phone != _phoneField.GetAttribute("value"))
+            if (customer.PhoneNumber != _phoneField.GetAttribute("value"))
                 mismatch.Add($"Phone field with {_phoneField.GetAttribute("value")}");
 
             if (customer.Email != _emailField.GetAttribute("value"))
