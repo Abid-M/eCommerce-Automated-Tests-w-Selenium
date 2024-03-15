@@ -85,7 +85,6 @@ namespace uk.co.nfocus.ecommerceproject.Utils
                 // Only gets Error Message before Assert word..
                 string firstLine = errorMessage.Substring(0, errorMessage.IndexOf("Assert"));
                 // Removes leading and trailing white space. 
-                //string errorText = firstLine.Trim().Replace(" ", "-");
                 string errorText = firstLine.Trim();
 
                 new HelperLib(_specFlowOutputHelper).TakeScreenshot(_driver!, errorText); // Screenshot report
@@ -102,9 +101,7 @@ namespace uk.co.nfocus.ecommerceproject.Utils
         {
             // Emptying cart after test to have fix state at the start of the next test
             if (_driver!.Url.Contains("cart"))
-            {
                 new CartPOM(_driver!, _specFlowOutputHelper).EmptyCart();
-            }
 
             else
             {
@@ -112,13 +109,12 @@ namespace uk.co.nfocus.ecommerceproject.Utils
                 new CartPOM(_driver!, _specFlowOutputHelper).EmptyCart();
             }
 
-            //Logout
+            // Logout
             try
             {
                 if (_driver!.Url.Contains("my-account"))
-                {
                     new MyAccountPOM(_driver, _specFlowOutputHelper).Logout();
-                }
+
                 else
                 {
                     new NavPOM(_driver, _specFlowOutputHelper).GoToAccount();
@@ -126,7 +122,6 @@ namespace uk.co.nfocus.ecommerceproject.Utils
                 }
 
                 _specFlowOutputHelper.WriteLine("Successfully Logged Out");
-
             }
             catch (Exception e)
             {
