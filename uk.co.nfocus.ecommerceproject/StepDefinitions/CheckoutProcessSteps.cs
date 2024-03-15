@@ -37,24 +37,30 @@ namespace uk.co.nfocus.ecommerceproject.StepDefinitions
             new CartPOM(_driver, _specFlowOutputHelper).GoToCheckout();
         }
 
+        [StepArgumentTransformation]
+        public Customer TableToCustomer(Table table)
+        {
+            // Creates an instance of the 'Customer' class using the table 'customerInfo' from feature file
+            Customer customer = table.CreateInstance<Customer>();
+
+            return customer;
+        }
+
         /*
          [When] "I provide the billing details"
          - Uses the table passed from feature file.
          - Creates a customer object which is used to populate the billing fields.
         */
         [When(@"I provide the billing details:")]
-        public void WhenIProvideTheBillingDetails(Table customerInfo)
+        public void WhenIProvideTheBillingDetails(Customer customerInfo)
         {
             CheckoutPOM checkout = new CheckoutPOM(_driver, _specFlowOutputHelper);
 
-            // Creates an instance of the 'Customer' class using the table 'customerInfo' from feature file
-            _customerDetails = customerInfo.CreateInstance<Customer>();
-
             // Fill in Billing Input Fields with customer object
-            checkout.FillInBillingDetails(_customerDetails);
+            checkout.FillInBillingDetails(customerInfo);
 
             // Validate billing fields have been entered with customer details
-            string mismatch = checkout.ValidateDetails(_customerDetails);
+            string mismatch = checkout.ValidateDetails(customerInfo);
 
             Assert.That(mismatch, Is.EqualTo("Valid Inputs"), $"Billing input fields mismatch. Invalid fields- {mismatch}");
             _specFlowOutputHelper.WriteLine("Validated Billing Details have actually been populated");
