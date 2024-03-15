@@ -20,7 +20,7 @@ Examples:
 	| Beanie     | nfocus    | 25       |
 	| Polo       | edgewords | 15       |
   # | Sunglasses | invalid   | 10       | 
-  # Un-Comment the last example to demo a invalid coupon test fail
+  # Un-Comment the last example to demo an invalid coupon test fail
 
 @TestCase2_Checkout
 Scenario Outline: Order checkout process, and verify in order history

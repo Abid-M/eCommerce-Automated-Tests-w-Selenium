@@ -30,7 +30,7 @@ namespace uk.co.nfocus.ecommerceproject.StepDefinitions
         */
         [Given(@"that the cart contains '(.*)'")]
         [When(@"I add '(.*)' into my cart")]
-        public void WhenIAddAnIntoMyCart(string item)
+        public void GivenWhenIAddAnIntoMyCart(string item)
         {
             // Navigate to the shop page via the navigation bar
             NavPOM nav = new NavPOM(_driver, _specFlowOutputHelper);

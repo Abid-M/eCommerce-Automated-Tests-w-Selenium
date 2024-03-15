@@ -11,6 +11,7 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
     {
         private IWebDriver _driver; // Field that will hold a driver for Service Methods in this test to work with
         private readonly ISpecFlowOutputHelper _specFlowOutputHelper; // Shows Test Output in LivingDoc HTML Report, rather than CWs
+        private static CultureInfo s_provider = new CultureInfo("en-GB");
 
         public CartPOM(IWebDriver driver, ISpecFlowOutputHelper specFlowOutputHelper)
         {
@@ -19,7 +20,6 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
         }
 
         // Locators
-        private static CultureInfo s_provider = new CultureInfo("en-GB");
         IList<IWebElement> _cartItems => _driver.FindElements(By.CssSelector("td.product-name a")); //Collates all items in the cart (Tests for multiple items in cart)
         private IWebElement _couponCodeField => WaitForElement(_driver, By.Name("coupon_code"));
         private IWebElement _applyCouponButton => _driver.FindElement(By.Name("apply_coupon"));
