@@ -46,7 +46,7 @@ git clone https://github.com/Abid-M/uk.co.nfocus.ecommerceproject.git
    - `PASSWORD`
      - `USERNAME` and `PASSWORD` must be the registered login details
    - `BROWSER`
-     - Specify `BROWSER` as `edge`, `chrome`, or `firefox` (If none specified, default is `edge`)
+     - Specify `BROWSER` as `edge`, `chrome`, or `firefox` (If none specified or not recognised, default is `edge`)
        
 4. Create test run parameter:
    - `name="WebAppURL" value="https://www.edgewordstraining.co.uk/demo-site/my-account/"`
