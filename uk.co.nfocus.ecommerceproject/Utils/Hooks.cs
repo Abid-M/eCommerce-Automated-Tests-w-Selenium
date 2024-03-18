@@ -99,27 +99,25 @@ namespace uk.co.nfocus.ecommerceproject.Utils
         [AfterScenario]
         public void TearDown()
         {
+            CartPOM cart = new CartPOM(_driver!, _specFlowOutputHelper);
+            NavPOM nav = new NavPOM(_driver!, _specFlowOutputHelper);
+
             // Emptying cart after test to have fix state at the start of the next test
             if (_driver!.Url.Contains("cart"))
-                new CartPOM(_driver!, _specFlowOutputHelper).EmptyCart();
-
+            {
+                cart.EmptyCart();
+            }
             else
             {
-                new NavPOM(_driver!, _specFlowOutputHelper).GoToCart();
-                new CartPOM(_driver!, _specFlowOutputHelper).EmptyCart();
+                nav.GoToCart();
+                cart.EmptyCart();
             }
 
             // Logout
             try
             {
-                if (_driver!.Url.Contains("my-account"))
-                    new MyAccountPOM(_driver, _specFlowOutputHelper).Logout();
-
-                else
-                {
-                    new NavPOM(_driver, _specFlowOutputHelper).GoToAccount();
-                    new MyAccountPOM(_driver, _specFlowOutputHelper).Logout();
-                }
+                nav.GoToAccount(); // Go to account page
+                new MyAccountPOM(_driver, _specFlowOutputHelper).Logout();
 
                 _specFlowOutputHelper.WriteLine("Successfully Logged Out");
             }
