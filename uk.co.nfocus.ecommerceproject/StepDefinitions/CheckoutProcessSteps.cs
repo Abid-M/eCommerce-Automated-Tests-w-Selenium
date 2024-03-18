@@ -37,16 +37,6 @@ namespace uk.co.nfocus.ecommerceproject.StepDefinitions
             new CartPOM(_driver, _specFlowOutputHelper).GoToCheckout();
         }
 
-        /* Step Argument Transformation that converts a Table instance to .NET type, aka a customer POCO */
-        [StepArgumentTransformation]
-        public Customer TableToCustomer(Table table)
-        {
-            // Creates an instance of the 'Customer' class using the table 'customerInfo' from feature file
-            Customer customer = table.CreateInstance<Customer>();
-
-            return customer;
-        }
-
         /*
          [When] "I provide the billing details"
          - Uses the table passed from feature file.
