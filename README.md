@@ -1,5 +1,12 @@
-# 🛒 eCommerce Automated Tests
+# 🛒 eCommerce Automated Tests <img src="https://github.com/Abid-M/uk.co.nfocus.ecommerceproject/assets/77882906/81caab21-4843-409a-9a1f-51e934c39e1a" alt="nfocus_logo" align="right" width="125">
 User BDD end-to-end tests written in C#, with the use of .NET Core Framework, NUnit and SpecFlow WebDriver
+
+![Visual Studio Badge](https://img.shields.io/badge/Visual%20Studio-5C2D91?logo=visualstudio&logoColor=fff&style=for-the-badge)
+![C# Badge](https://img.shields.io/badge/C%23-512BD4?logo=csharp&logoColor=fff&style=for-the-badge)
+![.NET Badge](https://img.shields.io/badge/.NET-512BD4?logo=dotnet&logoColor=fff&style=for-the-badge)
+![Selenium Badge](https://img.shields.io/badge/Selenium-43B02A?logo=selenium&logoColor=fff&style=for-the-badge)
+![Specflow Badge](https://img.shields.io/badge/Cucumber-23D96C?logo=cucumber&logoColor=fff&style=for-the-badge)
+![Git Badge](https://img.shields.io/badge/Git-F05032?logo=git&logoColor=fff&style=for-the-badge)
 
 ## Overview
 This project develops end-to-end tests in a Behavior-Driven Development (BDD) style using SpecFlow for an e-commerce website. The tests simulate user interactions like purchasing items, applying discounts, and verifying order details.
