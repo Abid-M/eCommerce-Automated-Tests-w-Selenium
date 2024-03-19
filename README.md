@@ -1,5 +1,6 @@
-# 🛒 eCommerce Automated Tests <img src="https://github.com/Abid-M/uk.co.nfocus.ecommerceproject/assets/77882906/81caab21-4843-409a-9a1f-51e934c39e1a" alt="nfocus_logo" align="right" width="125">
-User BDD end-to-end tests written in C#, with the use of .NET Core Framework, NUnit and SpecFlow WebDriver
+# 🛒 eCommerce Automated Tests <img src="https://github.com/Abid-M/AbidMiah-Website/assets/77882906/22b9b0ad-3dd9-4822-8a31-36592704af68" alt="nfocus_logo" align="right" width="125">
+
+User BDD end-to-end tests written in C#, with the use of .NET Core Framework, NUnit and SpecFlow WebDriver.
 
 ![Visual Studio Badge](https://img.shields.io/badge/Visual%20Studio-5C2D91?logo=visualstudio&logoColor=fff&style=for-the-badge)
 ![C# Badge](https://img.shields.io/badge/C%23-512BD4?logo=csharp&logoColor=fff&style=for-the-badge)
@@ -51,11 +52,30 @@ git clone https://github.com/Abid-M/uk.co.nfocus.ecommerceproject.git
 3. Create 3 environment variables:
    - `USERNAME`
    - `PASSWORD`
-     - `USERNAME` and `PASSWORD` must be the registered login details
    - `BROWSER`
-     - Specify `BROWSER` as `edge`, `chrome`, or `firefox` (If none specified or not recognised, default is `edge`)
+     - `USERNAME` and `PASSWORD` must be the registered login details
+     - Specify `BROWSER` as `edge`, `chrome`, or `firefox` (If none specified, default is `edge`)
        
 4. Create test run parameter:
    - `name="WebAppURL" value="https://www.edgewordstraining.co.uk/demo-site/my-account/"`
+   		- For Example, can create a `settings.runsettings` file:
+   		- Configure the runsettings, so it is detected and selected for the project, or able to run by `dotnet test --settings "settings.runsettings"`
+```xml
+<?xml version="1.0" encoding="utf-8" ?>
+<RunSettings>
+	<!-- config elements -->
+	<RunConfiguration>
+		<EnvironmentVariables>
+			<BROWSER>edge</BROWSER>
+			<USERNAME>test.email@nfocus.co.uk</USERNAME>
+			<PASSWORD>Forgotmypass!</PASSWORD>
+		</EnvironmentVariables>
+	</RunConfiguration>
+	<TestRunParameters>
+		<!-- NUnit config params, only tests have access to, describes tests -->
+		<Parameter name="WebAppURL" value="https://www.edgewordstraining.co.uk/demo-site/my-account/" />
+	</TestRunParameters>
+</RunSettings>
+```
      
 5. Run the test with `dotnet test` or via the VS Test Explorer
