@@ -59,7 +59,7 @@ git clone https://github.com/Abid-M/uk.co.nfocus.ecommerceproject.git
 4. Create test run parameter:
    - `name="WebAppURL" value="https://www.edgewordstraining.co.uk/demo-site/my-account/"`
    		- For Example, can create a `settings.runsettings` file:
-   		- Configure the runsettings, so it is detected and selected for the project, or able to run by `dotnet test --settings "settings.runsettings"`
+   		- Configure the runsettings, so it is detected and selected for the project, or able to run the test with `dotnet test --settings "settings.runsettings"`
 ```xml
 <?xml version="1.0" encoding="utf-8" ?>
 <RunSettings>
