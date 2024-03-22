@@ -12,16 +12,13 @@ namespace uk.co.nfocus.ecommerceproject.StepDefinitions
     public class CheckoutProcessSteps
     {
         private IWebDriver _driver;
-        private Customer _customerDetails;
-
         private readonly ScenarioContext _scenarioContext;
         private readonly ISpecFlowOutputHelper _specFlowOutputHelper; // Shows Test Output in LivingDoc HTML Report, rather than CWs
 
-        public CheckoutProcessSteps(ScenarioContext scenarioContext, ISpecFlowOutputHelper specFlowOutputHelper, Customer customerDetails)
+        public CheckoutProcessSteps(ScenarioContext scenarioContext, ISpecFlowOutputHelper specFlowOutputHelper)
         {
             _scenarioContext = scenarioContext;
             _specFlowOutputHelper = specFlowOutputHelper;
-            _customerDetails = customerDetails;
 
             this._driver = (IWebDriver)_scenarioContext["myDriver"];
         }

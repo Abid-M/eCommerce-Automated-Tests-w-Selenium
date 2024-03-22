@@ -8,6 +8,7 @@ namespace uk.co.nfocus.ecommerceproject.Utils
     internal class HelperLib
     {
         private readonly ISpecFlowOutputHelper _specFlowOutputHelper; // Shows Test Output in LivingDoc HTML Report, rather than CWs
+
         public HelperLib(ISpecFlowOutputHelper specFlowOutputHelper)
         {
             _specFlowOutputHelper = specFlowOutputHelper;
