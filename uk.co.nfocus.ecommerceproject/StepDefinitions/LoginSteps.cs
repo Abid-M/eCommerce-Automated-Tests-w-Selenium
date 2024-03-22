@@ -32,6 +32,9 @@ namespace uk.co.nfocus.ecommerceproject.StepDefinitions
             // Direct to URL in test parameters, not env variable as not a secret
             _driver.Url = TestContext.Parameters["WebAppURL"] ?? throw new Exception("BASE_URL not set.");
 
+            // Assertion check to verify on the actual eCommerce Website
+            Assert.That(_driver.FindElement(By.LinkText("nFocus Shop")), Is.Not.Null, "Incorrect Web Application.");
+
             // Dismisses the notice banner (Not in feature file as its an implementation detail)
             NavPOM nav = new NavPOM(_driver, _specFlowOutputHelper);
             nav.DismissBanner();
