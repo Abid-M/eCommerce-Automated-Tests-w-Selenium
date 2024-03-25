@@ -60,8 +60,8 @@ namespace uk.co.nfocus.ecommerceproject.StepDefinitions
             // Validate billing fields have been entered with customer details
             string mismatch = checkout.ValidateDetails(customerInfo);
 
-            Assert.That(mismatch, Is.EqualTo("Valid Inputs"), $"Billing input fields mismatch. Invalid fields- {mismatch}");
-            _specFlowOutputHelper.WriteLine("Validated Billing Details have actually been populated");
+            Assert.That(mismatch, Is.Empty, $"Billing input fields mismatch. Invalid fields- {mismatch}");
+            _specFlowOutputHelper.WriteLine("Validated Billing Details have been populated correctly.");
         }
 
         /*

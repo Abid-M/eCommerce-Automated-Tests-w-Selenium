@@ -112,14 +112,7 @@ namespace uk.co.nfocus.ecommerceproject.POMClasses
                 mismatch.Add($"Email field with {_emailField.GetAttribute("value")}");
 
             // Join all invalid inputs into a string, comma seperation
-            if (mismatch.Count > 0)
-            {
-                return string.Join(", ", mismatch);
-            }
-            else
-            {
-                return "Valid Inputs";
-            }
+            return string.Join(", ", mismatch);
         }
 
         /* Selects the payment method for checkout (check or cash). */

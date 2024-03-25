@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?><html xmlns:tp="http://schemas.datacontract.org/2004/07/Microsoft.VisualStudio.TestPlatform.Extensions.HtmlLogger.ObjectModel" xmlns:a="http://schemas.microsoft.com/2003/10/Serialization/Arrays" xmlns:msxsl="urn:schemas-microsoft-com:xslt"><body><h1>Test run details</h1><div class="summary"><div class="block"><span>Total tests</span><div class="total-tests">4</div><br /></div><div class="block"><span>Passed  : </span><span class="passedTests">4</span><br /><span>Failed  : </span><span class="failedTests">0</span><br /><span>Skipped : </span><span class="skippedTests">0</span><br /></div><div class="block"><span>Pass percentage</span><div class="pass-percentage">100 %</div><br /></div><div class="block"><span>Run duration</span><div class="test-run-time">1m 14s</div><br /></div><br /></div><h2>All Results</h2><div class="list-row" onclick="ToggleClass('1135990244')">C:\Users\AbidMiah\source\repos\uk.co.nfocus.ecommerceproject\uk.co.nfocus.ecommerceproject\bin\Debug\net6.0\uk.co.nfocus.ecommerceproject.dll</div><div class="inner-row" Id="1135990244" style="display:none;"><div class="leaf-division"><div><span class="pass">✔</span><span> ApplyingADiscountToTheShoppingCart("Beanie","nfocus","25",null)​</span><div class="duration"><span>19s 510ms</span><br /></div></div><div class="error-info" /></div><div class="leaf-division"><div><span class="pass">✔</span><span> ApplyingADiscountToTheShoppingCart("Polo","edgewords","15",null)​</span><div class="duration"><span>19s 333ms</span><br /></div></div><div class="error-info" /></div><div class="leaf-division"><div><span class="pass">✔</span><span> OrderCheckoutProcessAndVerifyInOrderHistory("Check","Hoodie",null)​</span><div class="duration"><span>17s 688ms</span><br /></div></div><div class="error-info" /></div><div class="leaf-division"><div><span class="pass">✔</span><span> OrderCheckoutProcessAndVerifyInOrderHistory("Cash","Cap",null)​</span><div class="duration"><span>17s 82ms</span><br /></div></div><div class="error-info" /></div></div><div><h2>Informational messages</h2><span>NUnit Adapter 4.5.0.0: Test execution started</span><br /><span>Running all tests in C:\Users\AbidMiah\source\repos\uk.co.nfocus.ecommerceproject\uk.co.nfocus.ecommerceproject\bin\Debug\net6.0\uk.co.nfocus.ecommerceproject.dll</span><br /><span>   NUnit3TestExecutor discovered 4 of 4 NUnit test cases using Current Discovery mode, Non-Explicit run</span><br /><span>NUnit Adapter 4.5.0.0: Test execution complete</span><br /></div><div><h2>Error and Warning messages</h2><span>Given I am on the eCommerce Website
+﻿<?xml version="1.0" encoding="utf-8"?><html xmlns:tp="http://schemas.datacontract.org/2004/07/Microsoft.VisualStudio.TestPlatform.Extensions.HtmlLogger.ObjectModel" xmlns:a="http://schemas.microsoft.com/2003/10/Serialization/Arrays" xmlns:msxsl="urn:schemas-microsoft-com:xslt"><body><h1>Test run details</h1><div class="summary"><div class="block"><span>Total tests</span><div class="total-tests">4</div><br /></div><div class="block"><span>Passed  : </span><span class="passedTests">4</span><br /><span>Failed  : </span><span class="failedTests">0</span><br /><span>Skipped : </span><span class="skippedTests">0</span><br /></div><div class="block"><span>Pass percentage</span><div class="pass-percentage">100 %</div><br /></div><div class="block"><span>Run duration</span><div class="test-run-time">1m 14s</div><br /></div><br /></div><h2>All Results</h2><div class="list-row" onclick="ToggleClass('923590579')">C:\Users\AbidMiah\source\repos\uk.co.nfocus.ecommerceproject\uk.co.nfocus.ecommerceproject\bin\Debug\net6.0\uk.co.nfocus.ecommerceproject.dll</div><div class="inner-row" Id="923590579" style="display:none;"><div class="leaf-division"><div><span class="pass">✔</span><span> ApplyingADiscountToTheShoppingCart("Beanie","nfocus","25",null)​</span><div class="duration"><span>22s 200ms</span><br /></div></div><div class="error-info" /></div><div class="leaf-division"><div><span class="pass">✔</span><span> ApplyingADiscountToTheShoppingCart("Polo","edgewords","15",null)​</span><div class="duration"><span>18s 458ms</span><br /></div></div><div class="error-info" /></div><div class="leaf-division"><div><span class="pass">✔</span><span> OrderCheckoutProcessAndVerifyInOrderHistory("Check","Hoodie",null)​</span><div class="duration"><span>16s 83ms</span><br /></div></div><div class="error-info" /></div><div class="leaf-division"><div><span class="pass">✔</span><span> OrderCheckoutProcessAndVerifyInOrderHistory("Cash","Cap",null)​</span><div class="duration"><span>16s 400ms</span><br /></div></div><div class="error-info" /></div></div><div><h2>Informational messages</h2><span>NUnit Adapter 4.5.0.0: Test execution started</span><br /><span>Running all tests in C:\Users\AbidMiah\source\repos\uk.co.nfocus.ecommerceproject\uk.co.nfocus.ecommerceproject\bin\Debug\net6.0\uk.co.nfocus.ecommerceproject.dll</span><br /><span>   NUnit3TestExecutor discovered 4 of 4 NUnit test cases using Current Discovery mode, Non-Explicit run</span><br /><span>NUnit Adapter 4.5.0.0: Test execution complete</span><br /></div><div><h2>Error and Warning messages</h2><span>Given I am on the eCommerce Website
 -&gt; done: LoginSteps.GivenIAmOnTheECommerceWebsite() (1.1s)
 And I am logged in as a registered user
 -&gt; Successfully Logged In
@@ -7,7 +7,7 @@ When I add 'Beanie' into my cart
 -&gt; Navigated to the Shop Page
 -&gt; 'Beanie' exists on the shop page..
 -&gt; Added to Cart
--&gt; done: CouponDiscountSteps.WhenIAddAnIntoMyCart("Beanie") (2.0s)
+-&gt; done: CouponDiscountSteps.GivenWhenIAddAnIntoMyCart("Beanie") (1.9s)
 And I apply the coupon code 'nfocus' to the cart
 -&gt; Verified that the 'Beanie' item is in the cart
 -&gt; Valid Coupon Applied: 'nfocus'..
@@ -17,7 +17,7 @@ Then I recieve 25% discount off my total, excluding shipping
 -&gt; Verified that the discount was correctly applied to the cart..
 -&gt; Expected total value: £17.45, Actual total value: £17.45
 -&gt; Attaching 'Total Price with Discount' screenshot to report
--&gt; done: CouponDiscountSteps.ThenIRecieveDiscount(25) (0.2s)
+-&gt; done: CouponDiscountSteps.ThenIRecieveDiscount(25) (0.4s)
 -&gt; Check Cart Cleared
 -&gt; Navigated to Account page
 -&gt; Successfully Logged Out
@@ -31,52 +31,52 @@ When I add 'Polo' into my cart
 -&gt; Navigated to the Shop Page
 -&gt; 'Polo' exists on the shop page..
 -&gt; Added to Cart
--&gt; done: CouponDiscountSteps.WhenIAddAnIntoMyCart("Polo") (2.0s)
+-&gt; done: CouponDiscountSteps.GivenWhenIAddAnIntoMyCart("Polo") (2.1s)
 And I apply the coupon code 'edgewords' to the cart
 -&gt; Verified that the 'Polo' item is in the cart
 -&gt; Valid Coupon Applied: 'edgewords'..
--&gt; done: CouponDiscountSteps.WhenIApplyTheCouponCode("edgewords") (5.6s)
+-&gt; done: CouponDiscountSteps.WhenIApplyTheCouponCode("edgewords") (5.8s)
 Then I recieve 15% discount off my total, excluding shipping
 -&gt; Applied a 15% discount
 -&gt; Verified that the discount was correctly applied to the cart..
 -&gt; Expected total value: £20.95, Actual total value: £20.95
 -&gt; Attaching 'Total Price with Discount' screenshot to report
--&gt; done: CouponDiscountSteps.ThenIRecieveDiscount(15) (0.2s)
+-&gt; done: CouponDiscountSteps.ThenIRecieveDiscount(15) (0.4s)
 -&gt; Check Cart Cleared
 -&gt; Navigated to Account page
 -&gt; Successfully Logged Out
 -&gt; Test Passed &amp; Completed!
 </span><br /><span>Given I am on the eCommerce Website
--&gt; done: LoginSteps.GivenIAmOnTheECommerceWebsite() (0.9s)
+-&gt; done: LoginSteps.GivenIAmOnTheECommerceWebsite() (1.0s)
 And I am logged in as a registered user
 -&gt; Successfully Logged In
--&gt; done: LoginSteps.GivenIAmLoggedInAsAUser() (1.6s)
+-&gt; done: LoginSteps.GivenIAmLoggedInAsAUser() (1.5s)
 Given that the cart contains 'Hoodie'
 -&gt; Navigated to the Shop Page
 -&gt; 'Hoodie' exists on the shop page..
 -&gt; Added to Cart
--&gt; done: CouponDiscountSteps.WhenIAddAnIntoMyCart("Hoodie") (1.9s)
+-&gt; done: CouponDiscountSteps.GivenWhenIAddAnIntoMyCart("Hoodie") (2.0s)
 When I proceed to checkout
 -&gt; Navigated to Checkout page
--&gt; done: CheckoutProcessSteps.WhenIProceedToCheckout() (0.6s)
+-&gt; done: CheckoutProcessSteps.WhenIProceedToCheckout() (0.8s)
 And I provide the billing details:
   --- table step argument ---
-  | FName | LName | Address      | City   | Postcode | Phone       | Email                   |
-  | Abid  | Miah  | 17 Sewi Lane | London | SW19 2JY | 07365827365 | test.email@nfocus.co.uk |
+  | FirstName | LastName | Address      | City   | Postcode | PhoneNumber | Email                   |
+  | Abid      | Miah     | 17 Sewi Lane | London | SW19 2JY | 07365827365 | test.email@nfocus.co.uk |
 -&gt; Billing Details Populated..
--&gt; Validated Billing Details have actually been populated
--&gt; done: CheckoutProcessSteps.WhenIProvideTheBillingDetails(uk.co.nfocus.ecom...) (1.9s)
+-&gt; Validated Billing Details have been populated correctly.
+-&gt; done: CheckoutProcessSteps.WhenIProvideTheBillingDetails(uk.co.nfocus.ecom...) (1.5s)
 And I place the order with 'Check' payment
 -&gt; Cheque Payment Selected
 -&gt; Order Placed..
--&gt; New Order Number: 11558
+-&gt; New Order Number: 11965
 -&gt; Attaching 'New Order Number' screenshot to report
--&gt; done: CheckoutProcessSteps.WhenIPlaceTheOrder("Check") (1.9s)
+-&gt; done: CheckoutProcessSteps.WhenIPlaceTheOrder("Check") (1.8s)
 Then the order should appear in my accounts order history
 -&gt; Navigated to Account page
 -&gt; Navigated to All Orders on account page
 -&gt; Verified that the order numbers match from checkout page..
--&gt; Expected order number: 11558, Actual order number: 11558
+-&gt; Expected order number: 11965, Actual order number: 11965
 -&gt; Attaching 'All Orders' screenshot to report
 -&gt; done: CheckoutProcessSteps.ThenTheOrderShouldBeInHistory() (1.5s)
 -&gt; Navigated to the Cart Page
@@ -85,7 +85,7 @@ Then the order should appear in my accounts order history
 -&gt; Successfully Logged Out
 -&gt; Test Passed &amp; Completed!
 </span><br /><span>Given I am on the eCommerce Website
--&gt; done: LoginSteps.GivenIAmOnTheECommerceWebsite() (0.8s)
+-&gt; done: LoginSteps.GivenIAmOnTheECommerceWebsite() (1.0s)
 And I am logged in as a registered user
 -&gt; Successfully Logged In
 -&gt; done: LoginSteps.GivenIAmLoggedInAsAUser() (1.4s)
@@ -93,30 +93,30 @@ Given that the cart contains 'Cap'
 -&gt; Navigated to the Shop Page
 -&gt; 'Cap' exists on the shop page..
 -&gt; Added to Cart
--&gt; done: CouponDiscountSteps.WhenIAddAnIntoMyCart("Cap") (2.0s)
+-&gt; done: CouponDiscountSteps.GivenWhenIAddAnIntoMyCart("Cap") (1.9s)
 When I proceed to checkout
 -&gt; Navigated to Checkout page
 -&gt; done: CheckoutProcessSteps.WhenIProceedToCheckout() (0.6s)
 And I provide the billing details:
   --- table step argument ---
-  | FName | LName | Address      | City   | Postcode | Phone       | Email                   |
-  | Abid  | Miah  | 17 Sewi Lane | London | SW19 2JY | 07365827365 | test.email@nfocus.co.uk |
+  | FirstName | LastName | Address      | City   | Postcode | PhoneNumber | Email                   |
+  | Abid      | Miah     | 17 Sewi Lane | London | SW19 2JY | 07365827365 | test.email@nfocus.co.uk |
 -&gt; Billing Details Populated..
--&gt; Validated Billing Details have actually been populated
--&gt; done: CheckoutProcessSteps.WhenIProvideTheBillingDetails(uk.co.nfocus.ecom...) (1.9s)
+-&gt; Validated Billing Details have been populated correctly.
+-&gt; done: CheckoutProcessSteps.WhenIProvideTheBillingDetails(uk.co.nfocus.ecom...) (1.7s)
 And I place the order with 'Cash' payment
 -&gt; Cash Payment Selected
 -&gt; Order Placed..
--&gt; New Order Number: 11559
+-&gt; New Order Number: 11966
 -&gt; Attaching 'New Order Number' screenshot to report
--&gt; done: CheckoutProcessSteps.WhenIPlaceTheOrder("Cash") (1.7s)
+-&gt; done: CheckoutProcessSteps.WhenIPlaceTheOrder("Cash") (2.3s)
 Then the order should appear in my accounts order history
 -&gt; Navigated to Account page
 -&gt; Navigated to All Orders on account page
 -&gt; Verified that the order numbers match from checkout page..
--&gt; Expected order number: 11559, Actual order number: 11559
+-&gt; Expected order number: 11966, Actual order number: 11966
 -&gt; Attaching 'All Orders' screenshot to report
--&gt; done: CheckoutProcessSteps.ThenTheOrderShouldBeInHistory() (1.4s)
+-&gt; done: CheckoutProcessSteps.ThenTheOrderShouldBeInHistory() (2.0s)
 -&gt; Navigated to the Cart Page
 -&gt; Check Cart Cleared
 -&gt; Navigated to Account page
