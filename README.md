@@ -1,4 +1,4 @@
-# 🛒 eCommerce Automated Tests w/ Selenium <picture> <source media="(prefers-color-scheme: dark)" src="https://github.com/Abid-M/eCommerce-Automated-Tests-w-Selenium/assets/77882906/16e6064a-3cde-4ee3-8107-60aa59f5dc1f" alt="nfocus_logo" align="right"> <source media="(prefers-color-scheme: light)" src="https://github.com/Abid-M/eCommerce-Automated-Tests-w-Selenium/assets/77882906/a4f32659-49a5-4fbe-8c49-7b5e55c1212e" alt="nfocus_logo" align="right"><img alt="nFocus Logo" src="https://github.com/Abid-M/eCommerce-Automated-Tests-w-Selenium/assets/77882906/16e6064a-3cde-4ee3-8107-60aa59f5dc1f" height="25"></picture>
+# 🛒 eCommerce Automated Tests w/ Selenium <img alt="nFocus Logo" src="https://github.com/Abid-M/eCommerce-Automated-Tests-w-Selenium/assets/77882906/16e6064a-3cde-4ee3-8107-60aa59f5dc1f" alt="nfocus_logo" align="right" width="120">
 
 User BDD end-to-end tests written in C#, with the use of .NET Core Framework, NUnit and SpecFlow WebDriver.
 
